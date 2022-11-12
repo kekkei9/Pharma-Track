@@ -1,0 +1,5 @@
+.TestCardList {}
+
+.TestCard + .TestCard {
+    margin-left: 20px;
+}
