@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <Suspense fallback="loading">
-          <Header></Header>
+          <Header />
           <AppRouter />
           <Footer />
         </Suspense>
