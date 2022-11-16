@@ -19,11 +19,8 @@ const routeComponentPropsMock = {
     location: {
       pathname: '/HomePage'
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   location: {},
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   match: {},
 }
 

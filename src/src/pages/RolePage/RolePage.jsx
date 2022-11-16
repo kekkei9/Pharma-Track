@@ -10,6 +10,7 @@ const RolePage = (props) => {
 
   return (<div className="RolePage tw-mt-10 tw-ml-10">
     <TestCardList doctorList = {doctorList}/>
+    <TestCardList doctorList = {doctorList}/>
   </div>)  
 }
 
