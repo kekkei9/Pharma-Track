@@ -13,7 +13,9 @@ function App() {
       <Provider store={store}>
         <Suspense fallback="loading">
           <Header />
-          <AppRouter />
+          <div className='tw-mt-40'>
+            <AppRouter />
+          </div>
           <Footer />
         </Suspense>
       </Provider>
