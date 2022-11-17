@@ -1,3 +1,22 @@
 .LoginForm {
 
 }
+
+.primary-btn {
+    background-color:rgba(0, 103, 169, 0.7);
+    padding: 6px 30px;
+    color: white;
+    border-radius: 10px;
+}
+
+.default-btn {
+    background-color: white;
+    padding: 6px 30px;
+    border-radius: 10px;
+    color: #20A0D8 ;
+    border: 1px solid #20A0D8;
+    &:hover {
+        color: white;
+        background-color: #20A0D8;
+    }
+}
