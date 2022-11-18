@@ -1,2 +1,22 @@
+.fadeIn{
+    display:inline-block;
+}
+
+.fadeInLeft{
+    animation: fadeInLeft;
+    animation-duration: 1.5s;
+}
+
+
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
 .HomePage {
 }
