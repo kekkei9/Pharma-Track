@@ -12,7 +12,7 @@ const PasswordForm = ({ title, placeholder }) => {
         borderRadius: '10px',
         padding: '7px 12px',
         border: 'solid #D9D9D9',
-        display: 'block',
+        display: 'inline-flex',
         width: '400px'
       }}
     />

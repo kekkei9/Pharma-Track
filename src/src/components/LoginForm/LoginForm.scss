@@ -7,6 +7,10 @@
     padding: 6px 30px;
     color: white;
     border-radius: 10px;
+    height: auto;
+    &:hover {
+        color: white !important;
+    }
 }
 
 .default-btn {
@@ -15,8 +19,9 @@
     border-radius: 10px;
     color: #20A0D8 ;
     border: 1px solid #20A0D8;
+    height: auto;
     &:hover {
-        color: white;
+        color: white !important;
         background-color: #20A0D8;
     }
 }
