@@ -1,12 +1,26 @@
 import { Button } from 'antd'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import InputForm from '../InputForm/InputForm'
 import PasswordForm from '../PasswordForm/PasswordForm'
 import PickerForm from '../PickerForm/PickerForm'
 import './SignUpForm.scss'
 
+const components = {
+  'InputForm': InputForm,
+  'PasswordForm': PasswordForm,
+  'PickerForm': PickerForm
+}
+
+const FlexComponent = (props) => {
+    const Component = components[props.type]
+    return <div className='tw-mt-4'>
+      <Component {...props} />
+    </div>
+}
 
 const SignUpForm = (props) => {
+  const [provinces, setProvinces] = useState([])
+
   const formDatas = [
     {
       'title': 'Tài khoản',
@@ -32,35 +46,21 @@ const SignUpForm = (props) => {
       'title': 'Tỉnh/ thành phố',
       'placeholder': 'Tỉnh/ thành phố đang sinh sống',
       'type': 'PickerForm',
-      'items': [
-        {
-          label: '1st menu item',
-          value: 'ABCSXYZ',
-        },
-        {
-          label: '2nd menu item',
-          value: 'ABCSXYZ',
-        },
-        {
-          label: '3rd menu item',
-          value: 'ABCSXYZ',
-        },
-      ]
+      'items': provinces
     }
   ]
 
-  const components = {
-    'InputForm': InputForm,
-    'PasswordForm': PasswordForm,
-    'PickerForm': PickerForm
-  }
+  useEffect(() => {
+    fetch('data/vn.json')
+    .then((response) => response.json())
+    .then((data) => {
+      var provArray = data.map((d) => d.admin_name)
 
-  const FlexComponent = (props) => {
-    const Component = components[props.type]
-    return <div className='tw-mt-4'>
-      <Component {...props} />
-    </div>
-  }
+      provArray = provArray.filter((value, index, self) => self.indexOf(value) === index)
+
+      setProvinces(provArray.map((prov) => { return {'label': prov, 'value': prov}}))
+  })
+  }, [])
 
   return <div className="SignUpForm tw-flex tw-flex-col tw-items-center">
     <img src='assets/dogtor.png' alt='dogtor' width='140px' height='140px' className='tw-rounded-full'/>

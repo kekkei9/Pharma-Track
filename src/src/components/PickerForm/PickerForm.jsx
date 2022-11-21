@@ -14,13 +14,13 @@ const PickerForm = ({ title, placeholder, items }) => {
     showSearch
     style={{
       width: '400px',
-      marginTop: '12px'
+      marginTop: '6px'
     }}
     placeholder="Tên tỉnh/ thành phố"
     optionFilterProp="children"
-    filterOption={(input, option) => (option?.label ?? '').includes(input)}
+    filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
     filterSort={(optionA, optionB) =>
-      (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+        (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
     }
     options={items}
   />
