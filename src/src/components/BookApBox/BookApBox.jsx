@@ -2,6 +2,8 @@ import React from 'react'
 import './BookApBox.scss'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import BookApTab1 from '../BookApTab1/BookApTab1'
+import BookApTab2 from '../BookApTab2/BookApTab2';
+import BookApTab3 from '../BookApTab3/BookApTab3';
 
 const BookApBox = (props) => {
   const tempComponent = (props) => {
@@ -27,7 +29,7 @@ const BookApBox = (props) => {
   
   return <div className = "Box">
   <Tabs className = "Tabs">
-    <TabList className = "Boxes tw-flex tw-max-w-5xl tw-mx-auto tw-mt-12 ">
+    <TabList className = "Boxes tw-flex tw-mx-auto tw-max-w-5xl tw-mt-12 ">
       {DataSteps.map((DataStep) => tempComponent(DataStep))}
     </TabList>
 
@@ -35,10 +37,10 @@ const BookApBox = (props) => {
         <BookApTab1/>
       </TabPanel>
       <TabPanel>
-        <h2>Any content 2</h2>
+        <BookApTab2/>
       </TabPanel>
       <TabPanel>
-        <h3>Any content 3</h3>
+        <BookApTab3/>
       </TabPanel>
     </Tabs>
   </div>
