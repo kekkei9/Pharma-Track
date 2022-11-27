@@ -3,7 +3,7 @@ import './BookApTab1.scss'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PickerForm from '../PickerForm/PickerForm'
 import DoctorCard from '../DoctorCard/DoctorCard'
-import { Button, Space } from 'antd';
+import { Button } from 'antd';
 
 
 const BookApTab1 = (props) => {
@@ -146,19 +146,6 @@ const BookApTab1 = (props) => {
           {DoctorLists.map((DoctorList) => tempComponent(DoctorList))}  
         </div>
 
-        <div className = 'tw-flex tw-justify-center tw-mt-20 tw-mb-12'>
-          <div className = 'tw-px-9'>
-            <Button danger size = 'large'>Hủy bỏ</Button>
-          </div>
-          <div className = 'tw-px-9'>
-            <Button
-            style = {{ 
-              backgroundColor: 'rgba(0, 103, 169, 0.7)',
-              color: 'white',
-            }}
-            size = 'large'>Tiếp tục</Button>
-          </div>
-        </div>
       </TabPanel>
       <TabPanel>
         <div className = 'tw-max-w-4xl tw-mx-auto tw-pl-44 tw-pr-8 tw-py-12'>
@@ -180,19 +167,6 @@ const BookApTab1 = (props) => {
           </div>
           <div className = 'tw-flex tw-flex-wrap tw-justify-between'> 
             {FourDoctorLists.map((FourDoctorList) => tempComponent(FourDoctorList))}  
-          </div>
-        </div>
-        <div className = 'tw-flex tw-justify-center tw-mt-20 tw-mb-12'>
-          <div className = 'tw-px-9'>
-            <Button danger size = 'large'>Hủy bỏ</Button>
-          </div>
-          <div className = 'tw-px-9'>
-            <Button
-            style = {{ 
-              backgroundColor: 'rgba(0, 103, 169, 0.7)',
-              color: 'white',
-            }}
-            size = 'large'>Tiếp tục</Button>
           </div>
         </div>
       </TabPanel>
