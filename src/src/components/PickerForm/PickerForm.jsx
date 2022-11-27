@@ -3,7 +3,7 @@ import React from 'react'
 import './PickerForm.scss'
 
 
-const PickerForm = ({ title, placeholder, items }) => {
+const PickerForm = ({ title, placeholder, items, style }) => {
 
   const handleChange = (value) => {
   console.log(`selected ${value}`);
@@ -12,10 +12,10 @@ const PickerForm = ({ title, placeholder, items }) => {
     <div className='tw-text-base tw-ml-3'>{title}</div>
      <Select
     showSearch
-    style={{
+    style={Object.assign({
       width: '400px',
       marginTop: '6px'
-    }}
+    }, style)}
     placeholder="Tên tỉnh/ thành phố"
     optionFilterProp="children"
     filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
