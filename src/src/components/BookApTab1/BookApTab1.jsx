@@ -119,7 +119,7 @@ const BookApTab1 = (props) => {
 
   return <div className="Container">
     <Tabs className = "Tabs">
-      <TabList className = "Option tw-flex tw-max-w-3xl tw-mx-auto tw-mt-11 tw-text-lg">
+      <TabList className = "Option tw-flex tw-max-w-3xl tw-mx-auto tw-mt-11 tw-text-lg tw-cursor-pointer tw-select-none">
         <Tab className = "Option_1 tw-flex-1 tw-text-center tw-py-5 tw-rounded-none	">
           Chọn phòng khám theo bác sĩ
         </Tab>
@@ -128,7 +128,7 @@ const BookApTab1 = (props) => {
         </Tab>
       </TabList>
       <TabPanel> 
-        <div className = 'tw-max-w-4xl tw-mx-auto tw-pl-44 tw-pr-8 tw-py-12'>
+        <div className = 'tw-max-w-4xl tw-mx-auto tw-pl-44 tw-pr-8 tw-pt-12 tw-pb-6'>
           <div className = 'tw-flex tw-items-center tw-justify-between tw-mb-4 '>
             <div className = 'tw-text-lg'> Chọn tỉnh thành phố </div>
             <div className = ''>

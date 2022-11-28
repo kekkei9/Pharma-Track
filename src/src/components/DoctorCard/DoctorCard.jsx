@@ -3,8 +3,8 @@ import './DoctorCard.scss'
 
 
 const DoctorCard = ({ img, name, address, field, experience }) => {
-  return <div className = 'Card tw-max-w-xs'>
-    <div className = 'wrapper tw-border-2 tw-px-16 tw-mt-7'>
+  return <div className = 'Card tw-max-w-xs tw-mt-14 tw-select-none tw-cursor-pointer tw-transform tw-transition tw-duration-500 hover:tw-scale-110'>
+    <div className = 'wrapper tw-border-2 tw-px-16 '>
       <div className = 'tw-flex tw-justify-center tw-mt-11'>
         <img src = {img} alt = 'dogtor'></img>
       </div>
