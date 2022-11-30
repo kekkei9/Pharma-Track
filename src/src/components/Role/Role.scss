@@ -1,0 +1,44 @@
+.Role {
+    justify-content: center;
+   
+    .ant-card{
+        margin-top: 40px;
+        margin-left: 30px;
+        width : 180px;
+        height: 180px;
+        border-radius: 0.6rem;
+        border-width: 2px;
+        border-color: rgb(209, 213, 219);
+        box-shadow: rgba(0, 100, 255, 0.2);
+        .ant-card-cover{
+            margin-top: 20px;
+            width : 100px; 
+            height: 100px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+    }
+    .ant-card-meta-title{
+        color: #adadad;
+        font-family: 'Courier New'
+    }
+    .ant-card:hover{
+        border-color: rgba(0, 121, 255, 0.5);
+        transition-duration: 150ms;
+        width: 181px;
+        height: 181px;
+        margin-top: 36.5px;
+        .ant-card-meta-title{
+            color: black;
+        }
+        
+    }
+    .ant-card:focus +div{
+        display: block;
+        border-color:blue;
+    }
+    
+}
+
