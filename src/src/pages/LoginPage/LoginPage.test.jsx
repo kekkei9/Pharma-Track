@@ -2,31 +2,34 @@
 Author: Eli Elad Elrom
 Website: https://EliElrom.com
 License: MIT License
-Component: Component: src/pages/TemplateName/TemplateName.test.tsx
+Component: Component: src/pages/LoginPage/LoginPage.test.tsx
 
 Created with;
-$ npx generate-react-cli component TemplateName --type=page
+$ npx generate-react-cli component LoginPage --type=page
 
 */
 
 import React from 'react'
-import TemplateName from './TemplateName'
+import LoginPage from './LoginPage'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 const routeComponentPropsMock = {
   history: {
     location: {
-      pathname: '/TemplateName'
+      pathname: '/LoginPage'
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   location: {},
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   match: {},
 }
 
-describe('<TemplateName />', () => {
+describe('<LoginPage />', () => {
   it('renders a heading', () => {
-    render(<TemplateName {...routeComponentPropsMock}/>)
+    render(<LoginPage {...routeComponentPropsMock}/>)
 
     const heading = screen.getByRole('heading', {
       name: /welcome to next\.js!/i,
