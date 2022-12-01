@@ -10,15 +10,15 @@ const RoleCardList = (props) => {
   const RoleData = [
       {
         'title': 'Chủ phòng khám',
-        'imgsrc': 'assets/host.png'
+        'imgsrc': '/assets/host.png'
       },
       {
         'title': 'Nhân viên',
-        'imgsrc': 'assets/staff.png'
+        'imgsrc': '/assets/staff.png'
       },
       {
         'title': 'Người dùng',
-        'imgsrc': 'assets/user.png'
+        'imgsrc': '/assets/user.png'
       }
     ]
 

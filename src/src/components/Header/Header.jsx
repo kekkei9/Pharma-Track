@@ -24,7 +24,7 @@ const Header = (props) => {
   ]
   return (<div className="Header tw-px-24 tw-flex tw-flex-row tw-p-5 tw-fixed tw-w-screen tw-top-0 tw-justify-between">
     <div className='tw-flex tw-flex-row tw-items-center '>
-      <img src='assets/dogtor.png' alt='dogtor' width='60px' height='60px' className='tw-rounded-full'></img>
+      <img src='/assets/dogtor.png' alt='dogtor' width='60px' height='60px' className='tw-rounded-full'></img>
       <div className='tw-font-bold tw-text-4xl tw-text-white tw-ml-2'>Pharma Track</div>
     </div>
     <div className='tw-flex tw-flex-row tw-items-center'>

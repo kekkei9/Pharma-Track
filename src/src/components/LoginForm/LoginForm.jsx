@@ -20,7 +20,7 @@ const LoginForm = (props) => {
   const navigate = useNavigate()
 
   return <div className="LoginForm tw-flex tw-flex-col tw-items-center">
-    <img src='assets/dogtor.png' alt='dogtor' width='140px' height='140px' className='tw-rounded-full'/>
+    <img src='/assets/dogtor.png' alt='dogtor' width='140px' height='140px' className='tw-rounded-full'/>
     <div className='tw-mt-4'><InputForm {...formDatas[0]} /></div>
     <div>
       <div className='tw-mt-4'><PasswordForm {...formDatas[1]}/></div>

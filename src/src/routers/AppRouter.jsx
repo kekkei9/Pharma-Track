@@ -12,8 +12,8 @@ import Header from '../components/Header/Header'
 
 const AppRouter = () => (
   <Routes>
-    <Route path='/:page' element={<Header />}></Route>
-    <Route exact path='/' element={<Header />}></Route>
+    <Route path='/:page' element={<HomePage />}></Route>
+    <Route exact path='/' element={<HomePage />}></Route>
     
     <Route exact path="*" element={<ErrorPage code={404} />} />
     <Route exact path={PATH.HOME_PAGE_PATH} element={<HomePage />} />

@@ -43,42 +43,42 @@ const BookApTab1 = (props) => {
 
   const DoctorLists = [
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn A',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn A',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn A',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn A',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn A',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn A',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
@@ -88,28 +88,28 @@ const BookApTab1 = (props) => {
 
   const FourDoctorLists = [
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn B',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn B',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn B',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
     'experience' : '4'
     },
     {
-    'img' : 'assets/avatardoctor.png',
+    'img' : '/assets/avatardoctor.png',
     'name' : 'Nguyễn Văn B',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM',
     'field' : 'nội',
@@ -163,7 +163,7 @@ const BookApTab1 = (props) => {
         </div>
         <div className = 'container tw-mx-auto tw-max-w-6xl tw-flex'>
           <div className = 'tw-mr-14 tw-mt-32'>
-            <img src = 'assets/googlemap.png' alt = 'googlemap'></img>
+            <img src = '/assets/googlemap.png' alt = 'googlemap'></img>
           </div>
           <div className = 'tw-flex tw-flex-wrap tw-justify-between'> 
             {FourDoctorLists.map((FourDoctorList) => tempComponent(FourDoctorList))}  

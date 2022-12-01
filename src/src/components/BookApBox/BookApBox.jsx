@@ -36,7 +36,7 @@ const BookApBox = (props) => {
                                           } : {}}/>)}
     </div>
 
-    {current == 1 ? <BookApTab1 /> : current == 2 ? <BookApTab2 /> : <BookApTab3/>}
+    {current == 0 ? <BookApTab1 /> : current == 1 ? <BookApTab2 /> : <BookApTab3/>}
     <div className = 'tw-flex tw-justify-center tw-my-12'>
       {current >0 && (
         <div className = 'tw-px-9'>

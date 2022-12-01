@@ -24,21 +24,21 @@ const HomePageReason = (props) => {
   }
   const DataReasons = [
     {
-      'img' : 'assets/doctor1.png',
+      'img' : '/assets/doctor1.png',
       'title': 'Đa dạng phòng khám',
       'reason': 'Cho tới nay, Pharma Track đã hợp tác với 120 phòng khám trên toàn quốc, trong đó có 70 phòng khám ở TP.HCM',
       'animation': 'fade-right',
       'reverse' : false
     },
     {
-      'img' : 'assets/doctor2.png',
+      'img' : '/assets/doctor2.png',
       'title': 'Đặt lịch khám ngay lập tức',
       'reason': 'Không cần thủ tục xác minh hay đăng nhập, với Pharma Track bạn có thể đặt lịch khám chỉ với 3 bước',
       'animation': 'fade-left',
       'reverse': true
     },
     {
-      'img' : 'assets/doctor3.png',
+      'img' : '/assets/doctor3.png',
       'title': 'Tìm phòng khám gần nhất',
       'reason': 'Sử dụng google maps API cùng với dữ liệu được cung cấp từ phòng khám, Pharma Track sẽ giúp bạn tìm ra phòng khám gần nhất',
       'animation': 'fade-right',

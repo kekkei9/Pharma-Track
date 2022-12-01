@@ -1,5 +1,6 @@
 import { Button } from 'antd'
 import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import InputForm from '../InputForm/InputForm'
 import PasswordForm from '../PasswordForm/PasswordForm'
 import PickerForm from '../PickerForm/PickerForm'
@@ -20,6 +21,8 @@ const FlexComponent = (props) => {
 
 const SignUpForm = (props) => {
   const [provinces, setProvinces] = useState([])
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const formDatas = [
     {
@@ -63,15 +66,16 @@ const SignUpForm = (props) => {
   }, [])
 
   return <div className="SignUpForm tw-flex tw-flex-col tw-items-center">
-    <img src='assets/dogtor.png' alt='dogtor' width='140px' height='140px' className='tw-rounded-full'/>
+    <img src='/assets/dogtor.png' alt='dogtor' width='140px' height='140px' className='tw-rounded-full'/>
     {formDatas.map((formData) => FlexComponent(formData) )}
     <Button className='primary-btn tw-mt-4' 
             style={{
               width: '400px',
               backgroundColor: '#0067A9',
               fontWeight: 600
-            }}>
-        Đăng kí
+            }}
+            onClick={() => navigate(location.pathname + '/role')}>
+        Tiếp tục
     </Button>
     <div className='tw-mt-4'>Hoặc đăng nhập với</div>
     <div className='provider-container tw-flex tw-flex-row tw-m-4'>
