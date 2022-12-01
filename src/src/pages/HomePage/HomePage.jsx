@@ -1,14 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './HomePage.scss'
+import HomePageMain from '../../components/HomePageMain/HomePageMain'
+import HomePageReason from '../../components/HomePageReason/HomePageReason'
+
 
 const HomePage = (props) => {
-  const navigate = useNavigate()                                                                                                                                                                                                     
-  return (<div className="HomePage">
-    <div className='tw-text-3xl tw-text-red-400 tw-underline'>
-      This is HomePage
-    </div>
-  </div>)
+  return <div className="HomePage">
+    <HomePageMain/>
+    <HomePageReason/>
+  </div>
 }
 
 export default HomePage
