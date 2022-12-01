@@ -10,29 +10,35 @@ import { Button } from 'antd';
 
 const BookApBox = (props) => {
 
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(0);
+  const StepData = [
+    {
+      'step': 'Bước 1',
+      'content': 'Chọn phòng khám'
+    },
+    {
+      'step': 'Bước 2',
+      'content': 'Phiếu thông tin'
+    },
+    {
+      'step': 'Bước 3',
+      'content': 'Xác nhận & Thanh toán'
+    }
+  ]
 
   return <div className = "Box"> 
-  
-    {current == 1 ? <div className = "Boxes tw-flex tw-mx-auto tw-max-w-5xl tw-mt-12 ">
-      <StepComponent step = 'Bước 1' content = 'Chọn phòng khám' style ={{background: '#20A0D8', color: 'white'}} ></StepComponent>
-      <StepComponent step = 'Bước 2' content = 'Phiếu thông tin' ></StepComponent>
-      <StepComponent step = 'Bước 3' content = 'Xác nhận & Thanh Toán' ></StepComponent>
-    </div> : current == 2 ? 
+
     <div className = "Boxes tw-flex tw-mx-auto tw-max-w-5xl tw-mt-12 ">
-    <StepComponent step = 'Bước 1' content = 'Chọn phòng khám' ></StepComponent>
-    <StepComponent step = 'Bước 2' content = 'Phiếu thông tin' style ={{background: '#20A0D8', color: 'white'}} ></StepComponent>
-    <StepComponent step = 'Bước 3' content = 'Xác nhận & Thanh Toán' ></StepComponent>
-    </div> : 
-    <div className = "Boxes tw-flex tw-mx-auto tw-max-w-5xl tw-mt-12 ">
-    <StepComponent step = 'Bước 1' content = 'Chọn phòng khám' ></StepComponent>
-    <StepComponent step = 'Bước 2' content = 'Phiếu thông tin' ></StepComponent>
-    <StepComponent step = 'Bước 3' content = 'Xác nhận & Thanh Toán' style ={{background: '#20A0D8', color: 'white'}} ></StepComponent>
-    </div> }
+    {StepData.map((step, index) => <StepComponent {...step} 
+                                          style = {current === index ? {
+                                            background: '#20A0D8', 
+                                            color: 'white'
+                                          } : {}}/>)}
+    </div>
 
     {current == 1 ? <BookApTab1 /> : current == 2 ? <BookApTab2 /> : <BookApTab3/>}
     <div className = 'tw-flex tw-justify-center tw-my-12'>
-      {current >1 && (
+      {current >0 && (
         <div className = 'tw-px-9'>
           <Button danger size = 'large'
             onClick={() => {
@@ -44,7 +50,7 @@ const BookApBox = (props) => {
           </Button>
         </div>
       )}
-      {current < 3 && (
+      {current < 2 && (
         <div className = 'tw-px-9'>
           <Button size = 'large'
             style ={{

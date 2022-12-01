@@ -1,11 +1,12 @@
 import React from 'react'
 import './Header.scss'
 import HeaderLink from '../HeaderLink/HeaderLink'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 
 const Header = (props) => {
   const {page} = useParams() 
+  const navigate = useNavigate()
 
   const navNames = [
     {
@@ -14,7 +15,7 @@ const Header = (props) => {
     },
     {
       'title': 'Đăng kí khám bệnh',
-      'page': 'role'
+      'page': 'bookap'
     },
     {
       'title': 'Tra cứu',
@@ -32,7 +33,8 @@ const Header = (props) => {
           <HeaderLink {...navName} selected={page===navName.page}/>
         </div>
       ))}
-      <div className = 'RegBtn tw-px-4 tw-py-1.5 tw-bg-white tw-font-semibold tw-text-base tw-ml-7'>
+      <div className = 'RegBtn tw-px-4 tw-py-1.5 tw-bg-white tw-font-semibold tw-text-base tw-ml-7'
+        onClick={() => navigate('/login')}>
         Đăng nhập
       </div>
     </div>

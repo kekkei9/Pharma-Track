@@ -13,10 +13,10 @@ function App() {
       <Provider store={store}>
         <Suspense fallback="loading">
           <Header />
-          <div className='tw-mt-40'>
+          <div className='tw-mt-32'>
             <AppRouter />
           </div>
-          <Footer />
+          <Footer/>
         </Suspense>
       </Provider>
     </BrowserRouter>

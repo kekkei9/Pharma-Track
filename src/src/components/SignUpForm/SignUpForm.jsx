@@ -74,7 +74,7 @@ const SignUpForm = (props) => {
         Đăng kí
     </Button>
     <div className='tw-mt-4'>Hoặc đăng nhập với</div>
-    <div className='provider-container tw-flex tw-flex-row tw-mt-4'>
+    <div className='provider-container tw-flex tw-flex-row tw-m-4'>
             <img src='https://cdn-icons-png.flaticon.com/512/2991/2991148.png'
                 alt='google icon'
                 style={{

@@ -1,6 +1,7 @@
 import React from 'react'
 import InputForm from '../InputForm/InputForm'
 import PasswordForm from '../PasswordForm/PasswordForm'
+import { useNavigate } from 'react-router-dom'
 import { Button } from 'antd'
 import './LoginForm.scss'
 
@@ -16,7 +17,7 @@ const formDatas = [
 ]
 
 const LoginForm = (props) => {
-
+  const navigate = useNavigate()
 
   return <div className="LoginForm tw-flex tw-flex-col tw-items-center">
     <img src='assets/dogtor.png' alt='dogtor' width='140px' height='140px' className='tw-rounded-full'/>
@@ -34,9 +35,10 @@ const LoginForm = (props) => {
         Đăng nhập
     </Button>
     <div className='tw-mt-4'>Đăng kí tài khoản, nếu bạn chưa đăng kí!</div>
-    <Button className='default-btn tw-mt-4' style={{width: '400px'}}>Đăng kí tài khoản</Button>
+    <Button className='default-btn tw-mt-4' style={{width: '400px'}} 
+          onClick = {() => navigate('/signup')}>Đăng kí tài khoản</Button>
     <div className='tw-mt-4'>Hoặc đăng nhập với</div>
-    <div className='provider-container tw-flex tw-flex-row tw-mt-4'>
+    <div className='provider-container tw-flex tw-flex-row tw-m-4'>
             <img src='https://cdn-icons-png.flaticon.com/512/2991/2991148.png'
                 alt='google icon'
                 style={{
