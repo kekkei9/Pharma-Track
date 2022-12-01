@@ -2,22 +2,22 @@
 Author: Eli Elad Elrom
 Website: https://EliElrom.com
 License: MIT License
-Component: Component: src/pages/RolePage/RolePage.test.tsx
+Component: Component: src/pages/BookApPage/BookApPage.test.tsx
 
 Created with;
-$ npx generate-react-cli component RolePage --type=page
+$ npx generate-react-cli component BookApPage --type=page
 
 */
 
 import React from 'react'
-import RolePage from './RolePage'
+import BookApPage from './BookApPage'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 const routeComponentPropsMock = {
   history: {
     location: {
-      pathname: '/RolePage'
+      pathname: '/BookApPage'
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   },
@@ -27,9 +27,9 @@ const routeComponentPropsMock = {
   match: {},
 }
 
-describe('<RolePage />', () => {
+describe('<BookApPage />', () => {
   it('renders a heading', () => {
-    render(<RolePage {...routeComponentPropsMock}/>)
+    render(<BookApPage {...routeComponentPropsMock}/>)
 
     const heading = screen.getByRole('heading', {
       name: /welcome to next\.js!/i,
