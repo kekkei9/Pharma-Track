@@ -21,10 +21,13 @@
             }
     
         }
-    
+        .ant-card-meta{
+            justify-content: center;
+        }
         .ant-card-meta-title {
             color: #adadad;
-            font-family: 'Courier New'
+            font-family: 'Courier New';
+            font-size: 13px;
         }
     
         .ant-card:hover {
