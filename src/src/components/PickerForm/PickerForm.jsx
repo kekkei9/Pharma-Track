@@ -16,7 +16,7 @@ const PickerForm = ({ title, placeholder, items, style }) => {
       width: '400px',
       marginTop: '6px'
     }, style)}
-    placeholder="Tên tỉnh/ thành phố"
+    placeholder={placeholder}
     optionFilterProp="children"
     filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
     filterSort={(optionA, optionB) =>
