@@ -109,7 +109,7 @@ const BookApTab1 = (props) => {
         </Tab>
       </TabList>
       <TabPanel> 
-        <div className = 'tw-max-w-4xl tw-mx-auto tw-px-40 tw-pt-12 tw-pb-6'>
+        <div className = 'tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-12'>
           <div className = 'tw-flex tw-items-center tw-justify-between tw-mb-4 '>
             <div className = 'tw-text-lg'> Chọn tỉnh </div>
             <div className = ''>
