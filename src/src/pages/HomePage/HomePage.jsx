@@ -6,9 +6,15 @@ import HomePageReason from '../../components/HomePageReason/HomePageReason'
 
 
 const HomePage = (props) => {
-  return <div className="HomePage">
+  const navigate = useNavigate()
+
+  return <div className="HomePage tw-flex tw-flex-col tw-items-center">
     <HomePageMain/>
     <HomePageReason/>
+    <div className = 'RegBtn tw-px-12 tw-py-2.5 tw-bg-white tw-font-semibold tw-text-xl'
+        onClick={() => navigate('/bookap')}>
+        Đặt khám ngay!
+    </div>
   </div>
 }
 
