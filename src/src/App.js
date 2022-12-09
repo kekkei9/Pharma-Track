@@ -1,3 +1,6 @@
+import './styles/button.styles.scss'
+import './styles/table.styles.scss'
+
 import React, { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -13,7 +16,7 @@ function App() {
       <Provider store={store}>
         <Suspense fallback="loading">
           <Header />
-          <div className='tw-mt-32 tw-pb-40'>
+          <div className='tw-mt-32 tw-pb-32'>
             <AppRouter />
           </div>
           <Footer/>
