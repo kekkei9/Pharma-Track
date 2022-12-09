@@ -1,16 +1,16 @@
 .Header {
-    background-color: #97e2ff;
-    z-index: 99999;
-    .RegBtn {
-            color: #20A0D8;
-            border-top-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            &:hover {
-                cursor: pointer ;
-            }
-        }
-    .Dogtor:hover {
-        cursor: pointer;
+  background: linear-gradient(133deg, #383f75, #a636f7, #f1795c);
+  width: -webkit-fill-available;
+  z-index: 99999;
+  .RegBtn {
+    color: #0052d4;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    &:hover {
+      cursor: pointer;
     }
+  }
+  .Dogtor:hover {
+    cursor: pointer;
+  }
 }
-
