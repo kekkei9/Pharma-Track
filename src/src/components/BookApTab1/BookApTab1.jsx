@@ -73,11 +73,11 @@ const BookApTab1 = (props) => {
 
       </TabPanel>
       <TabPanel>
-        <div className = 'tw-max-w-4xl tw-mx-auto tw-pl-44 tw-pr-8 tw-pt-12'>
-          <div className = 'tw-flex tw-items-center tw-justify-between'>
-            <div className = 'tw-text-lg'> Chọn bệnh cần khám </div>
+        <div className = 'tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-12'>
+          <div className = 'tw-flex tw-items-center tw-justify-between tw-mb-4 '>
+            <div className = 'tw-text-lg'> Chọn Loại Bệnh </div>
             <PickerForm {...formDatas[2]}
-            />
+            style = {{ width: '300px'}}/>
           </div>
         </div>
       </TabPanel>
