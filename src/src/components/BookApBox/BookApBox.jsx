@@ -29,11 +29,11 @@ const BookApBox = (props) => {
   return <div className = "BookApBox"> 
 
     <div className = "Boxes tw-flex tw-mx-auto tw-max-w-5xl tw-mt-12 ">
-    {StepData.map((step, index) => <StepComponent {...step} 
-                                          style = {current === index ? {
-                                            background: '#20A0D8', 
-                                            color: 'white',
-                                          } : {}}/>)}
+      {StepData.map((step, index) => <StepComponent {...step} 
+                                            style = {current === index ? {
+                                              background: '#20A0D8', 
+                                              color: 'white',
+                                            } : {}}/>)}
     </div>
 
     {current === -1 ? navigate('/homepage') : current === 0 ? <BookApTab1 /> : current === 1 ? <BookApTab2 /> : <BookApTab3/>}

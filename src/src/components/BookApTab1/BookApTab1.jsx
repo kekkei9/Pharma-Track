@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PickerForm from '../PickerForm/PickerForm'
 import DoctorCard from '../DoctorCard/DoctorCard'
 import DoctorCardList from '../DoctorCardList/DoctorCardList';
+import GoogleMapContain from '../GoogleMapContain/GoogleMapContain';
 
 const BookApTab1 = (props) => {
   const [provinces, setProvinces] = useState([])
@@ -79,6 +80,9 @@ const BookApTab1 = (props) => {
             <PickerForm {...formDatas[2]}
             style = {{ width: '300px'}}/>
           </div>
+        </div>
+        <div>
+          <GoogleMapContain/>
         </div>
       </TabPanel>
     </Tabs>
