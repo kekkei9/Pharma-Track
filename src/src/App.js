@@ -1,5 +1,6 @@
 import './styles/button.styles.scss'
 import './styles/table.styles.scss'
+import './styles/img.styles.scss'
 
 import React, { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'

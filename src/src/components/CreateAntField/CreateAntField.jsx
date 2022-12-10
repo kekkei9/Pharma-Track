@@ -43,10 +43,7 @@ const CreateAntField =
             {...props}
             onBlur={onBlur}
             onChange={type ? onInputChange : onChange}
-          >
-            {selectOptions &&
-              selectOptions.map((name) => <Option key={name}>{name}</Option>)}
-          </AntComponent>
+          />
         </FormItem>
       </div>
     );

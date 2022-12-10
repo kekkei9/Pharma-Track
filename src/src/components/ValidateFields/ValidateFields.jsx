@@ -2,14 +2,35 @@ export const validateEmail = (value) => {
   let errors;
 
   if (!value) {
-    errors = "Required!";
+    errors = "Email đăng nhập không được bỏ trống";
   } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-    errors = "Invalid email address!";
+    errors = "Email không hợp lệ";
   }
 
   return errors;
 };
 
-export const isRequired = (value) => (!value ? "Required!" : "");
+export const isRequired = (value) => (!value ? "không được bỏ trống" : "");
 
-export const validatePassword = (value) => (!value ? "Required!" : "");
+export const validatePassword = (values) => {
+  let error = "";
+  const passwordRegex = /(?=.*[0-9])/;
+  if (!values) {
+    error = "Mật khẩu không được bỏ trống";
+  } else if (values.length < 8) {
+    error = "Mặt khẩu phải dài ít nhất 8 kí tự";
+  } else if (!passwordRegex.test(values)) {
+    error = "Mật khẩu phải bao gồm ít nhất 1 chữ số (1-9)";
+  }
+  return error;
+};
+
+export const validateConfirmPassword = (pass, value) => {
+  let error = "";
+  if (pass && value) {
+    if (pass !== value) {
+      error = "Mật khẩu nhập lại không đúng";
+    }
+  }
+  return error;
+};
