@@ -1,64 +1,60 @@
-import React from 'react'
-import InputForm from '../InputForm/InputForm'
-import PasswordForm from '../PasswordForm/PasswordForm'
-import { useNavigate } from 'react-router-dom'
-import { Button } from 'antd'
-import './LoginForm.scss'
+import React from "react";
+import "./LoginForm.scss";
+import { Form, Field } from "formik";
+import { Form as AntdForm, Button } from "antd";
+import { AntInput, AntPassword } from "../CreateAntField/CreateAntField";
+import {
+  validateEmail,
+  validatePassword,
+} from "../ValidateFields/ValidateFields";
 
-const formDatas = [
-  {
-    'title': 'Tài khoản',
-    'placeholder': 'Tên tài khoản, vd: NguyenVanA'
-  },
-  {
-    'title': 'Mật khẩu',
-    'placeholder': 'Mật khẩu, vd: 123456789'
-  }
-]
+const FormItem = AntdForm.Item;
 
-const LoginForm = (props) => {
-  const navigate = useNavigate()
-
-  return <div className="LoginForm tw-flex tw-flex-col tw-items-center">
-    <img src='/assets/dogtor.png' alt='dogtor' width='140px' height='140px' className='tw-rounded-full'/>
-    <div className='tw-mt-4'><InputForm {...formDatas[0]} /></div>
-    <div>
-      <div className='tw-mt-4'><PasswordForm {...formDatas[1]}/></div>
-      <div className='tw-mt-4 tw-text-red-500 tw-ml-3'>Quên mật khẩu</div>
+const LoginForm = ({ handleSubmit, values, submitCount }) => {
+  return (
+    <div className="LoginForm">
+      <Form
+        className="form-container  tw-flex tw-flex-col tw-items-center"
+        onSubmit={handleSubmit}
+      >
+        <Field
+          component={AntInput}
+          name="email"
+          type="email"
+          label="Email"
+          validate={validateEmail}
+          submitCount={submitCount}
+          hasFeedback
+          style={{
+            width: "400px",
+          }}
+        />
+        <Field
+          component={AntPassword}
+          name="password"
+          type="password"
+          label="Password"
+          validate={validatePassword}
+          submitCount={submitCount}
+          hasFeedback
+        />
+        <div className="submit-container">
+          <FormItem>
+            <Button
+              htmlType="submit"
+              type="primary"
+              style={{
+                width: "400px",
+                marginTop: "12px",
+              }}
+            >
+              Submit
+            </Button>
+          </FormItem>
+        </div>
+      </Form>
     </div>
-    <Button className='primary-btn tw-mt-4' 
-            style={{
-              width: '400px',
-              backgroundColor: '#0067A9',
-              fontWeight: 600
-            }}>
-        Đăng nhập
-    </Button>
-    <div className='tw-mt-4'>Đăng kí tài khoản, nếu bạn chưa đăng kí!</div>
-    <Button className='default-btn tw-mt-4' style={{width: '400px'}} 
-          onClick = {() => navigate('/signup')}>Đăng kí tài khoản</Button>
-    <div className='tw-mt-4'>Hoặc đăng nhập với</div>
-    <div className='provider-container tw-flex tw-flex-row tw-m-4'>
-            <img src='https://cdn-icons-png.flaticon.com/512/2991/2991148.png'
-                alt='google icon'
-                style={{
-                  width: '35px',
-                  height: '35px',
-                  border: '9999px',
-               }}
-            />
-            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/900px-Facebook_Logo_%282019%29.png'
-                alt='google icon'
-                style={{
-                  width: '35px',
-                  height: '35px',
-                  border: '9999px',
-                  marginLeft: '16px'
-               }}
-            />
-    </div>
-    
-  </div>
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

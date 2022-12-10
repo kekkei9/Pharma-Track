@@ -28,3 +28,34 @@
     border-color: none;
   }
 }
+
+.ant-select-selector {
+  border-radius: 10px !important;
+  padding: 3px 12px !important;
+  height: auto !important;
+}
+
+.ant-input.ant-input-status-success,
+.ant-input-affix-wrapper.ant-input-affix-wrapper-status-error,
+.ant-input-affix-wrapper.ant-input-affix-wrapper-status-success {
+  border-radius: 10px !important;
+  padding: 7px 12px !important;
+}
+
+.ant-input-password.ant-input-affix-wrapper {
+  border-radius: 10px !important;
+  padding: 7px 12px !important;
+  width: 400px;
+}
+
+.ant-input-suffix {
+  > span {
+    display: flex;
+  }
+}
+
+div:has(> .ant-form-item-explain) {
+  > * {
+    height: fit-content !important;
+  }
+}

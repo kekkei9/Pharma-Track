@@ -1,2 +1,12 @@
 .LoginForm {
+  button[type="submit"] {
+    background-color: #9cecfb;
+    padding: 6px 30px;
+    color: white;
+    border-radius: 10px;
+    height: auto;
+    &:hover {
+      color: white !important;
+    }
+  }
 }
