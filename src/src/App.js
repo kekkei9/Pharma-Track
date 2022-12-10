@@ -16,7 +16,9 @@ function App() {
       <Provider store={store}>
         <Suspense fallback="loading">
           <Header />
-          <div className='tw-mt-32 tw-pb-32'>
+          <div className='tw-pb-32'
+            style={{ backgroundColor: '#eff8fe',
+                  marginTop: '6.25rem'}}>
             <AppRouter />
           </div>
           <Footer/>
