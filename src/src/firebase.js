@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  FacebookAuthProvider,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -24,10 +25,12 @@ export const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 const firestore = getFirestore(app);
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 export const setUserInfo = async (userID, info) => {
 	const userRef = doc(firestore, `users/${userID}`);
+	console.log(info)
 	await setDoc(userRef, info);
 };
 
@@ -43,26 +46,31 @@ export const getUserRole = async (uid) => {
 	return snapshot.get('role');
 }
 
-export const popUpWithGoogle = async (role) => {
-	const { user } = await signInWithPopup(auth, provider);
+export const popUpWithGoogle = async () => {
+	const { user } = await signInWithPopup(auth, googleProvider);
 	const { uid } = user;
-	!(await checkUserInfoExist(uid)) && (await setUserInfo(uid, { uid, role }));
-	return user;
+	const isExist = await checkUserInfoExist(uid);
+	return { user, isExist };
 };
+
+export const popUpWithFacebook = async () => {
+	const { user } = await signInWithPopup(auth, facebookProvider);
+	const { uid } = user;
+	const isExist = await checkUserInfoExist(uid);
+	return { user, isExist };
+}
 
 export const createUserUsingEmailPassword = async ({ email, password, role, province, username }) => {
 	if (!email || !password || !role) return;
 	const { user } = await createUserWithEmailAndPassword(auth, email, password);
 	const { uid } = user;
-	await setUserInfo(uid, { uid, role });
+	await setUserInfo(uid, { uid, role, province, username });
 	return user;
 };
 
 export const signInUsingEmailPassword = async (email, password) => {
 	if (!email || !password) return;
 	const { user } = await signInWithEmailAndPassword(auth, email, password);
-	const { uid } = user;
-	await checkUserInfoExist(uid);
 	return user;
 };
 

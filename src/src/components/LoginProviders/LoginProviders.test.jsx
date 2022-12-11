@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import HeaderLink from './HeaderLink'
+import LoginProviders from './LoginProviders'
 import '@testing-library/jest-dom'
 
-describe('<HeaderLink />', () => {
+describe('<LoginProviders />', () => {
   it('renders a heading', () => {
-    render(<HeaderLink />)
+    render(<LoginProviders />)
 
     const heading = screen.getByRole('heading', {
       name: /welcome to next\.js!/i,

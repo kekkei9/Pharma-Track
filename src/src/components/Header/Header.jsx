@@ -1,16 +1,15 @@
 import React from "react";
 import "./Header.scss";
-import HeaderLink from "../HeaderLink/HeaderLink";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/authentication/authentication.slice";
 import { signOutUser } from "../../firebase";
 
 const Header = (props) => {
-  const { page } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const { user, isAuthUser } = useSelector((state) => state.authentication);
 
   const logOutHandler = async () => {
     await signOutUser();
@@ -21,22 +20,6 @@ const Header = (props) => {
     }
   };
 
-  const { isAuthUser } = useSelector((state) => state.authentication);
-
-  const navNames = [
-    {
-      title: "Trang chủ",
-      page: "home",
-    },
-    {
-      title: "Đăng kí khám bệnh",
-      page: "bookap",
-    },
-    {
-      title: "Tổng quan",
-      page: "home",
-    },
-  ];
   return (
     <div className="Header tw-px-24 tw-flex tw-flex-row tw-p-5 tw-fixed tw-top-0 tw-justify-between">
       <div
@@ -55,9 +38,22 @@ const Header = (props) => {
         </div>
       </div>
       <div className="tw-flex tw-flex-row tw-items-center">
-        {navNames.map((navName) => (
+        {[
+          {
+            title: "Trang chủ",
+            page: "home",
+          },
+          {
+            title: "Đăng kí khám bệnh",
+            page: "bookap",
+          },
+          {
+            title: "Tổng quan",
+            page: user.roleName,
+          },
+        ].map(({ page, title }) => (
           <div className="tw-ml-7 tw-text-white tw-font-semibold tw-text-base">
-            <HeaderLink {...navName} selected={page === navName.page} />
+            <Link to={`/${page || ""}`}>{title}</Link>
           </div>
         ))}
         {!isAuthUser && (

@@ -31,7 +31,6 @@ const LoginFormContainer = () => {
       dispatch(setUser(userData));
       localStorage.setItem("user", JSON.stringify(userData));
       navigate("/home");
-      logout();
     } catch (e) {
       console.error(e);
     }

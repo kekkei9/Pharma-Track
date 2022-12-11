@@ -4,7 +4,7 @@ import { Button } from "antd";
 import RoleHeader from "../../components/RoleHeader/RoleHeader";
 import RoleCardList from "../../components/RoleCardList/RoleCardList";
 import "./RolePage.scss";
-import { createUserUsingEmailPassword } from "../../firebase";
+import { createUserUsingEmailPassword, setUserInfo } from "../../firebase";
 
 const RolePage = (props) => {
   const navigate = useNavigate();
@@ -33,8 +33,12 @@ const RolePage = (props) => {
     if (tab >= 3 || tab < 0) {
       alert("Mời bạn chọn role");
     } else {
-      createUserUsingEmailPassword({ ...state, role: RoleData[tab].name });
-      navigate("/home");
+      if (!!state.password) {
+        createUserUsingEmailPassword({ ...state, role: RoleData[tab].name });
+      } else {
+        setUserInfo(state.uid, state);
+      }
+      navigate("/login");
     }
   };
 
