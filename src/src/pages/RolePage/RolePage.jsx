@@ -34,6 +34,7 @@ const RolePage = (props) => {
       alert("Mời bạn chọn role");
     } else {
       createUserUsingEmailPassword({ ...state, role: RoleData[tab].name });
+      navigate("/home");
     }
   };
 

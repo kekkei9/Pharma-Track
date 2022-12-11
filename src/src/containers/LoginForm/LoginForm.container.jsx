@@ -2,8 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { Formik } from "formik";
-import { signInUsingEmailPassword } from "../../firebase";
-import { setUser } from "../../redux/authentication/authentication.slice";
+import { signInUsingEmailPassword, getUserRole } from "../../firebase";
+import {
+  logout,
+  setUser,
+} from "../../redux/authentication/authentication.slice";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   email: "",
@@ -12,18 +16,22 @@ const initialValues = {
 
 const LoginFormContainer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (formProps) => {
     try {
       const { email, password } = formProps;
       const user = await signInUsingEmailPassword(email, password, "host");
       if (!user) {
-        console.log("unlog");
         return;
       }
       const { uid } = user;
-      dispatch(setUser({ uid }));
-      console.log("logged");
+      const roleName = await getUserRole(uid);
+      const userData = { uid, roleName };
+      dispatch(setUser(userData));
+      localStorage.setItem("user", JSON.stringify(userData));
+      navigate("/home");
+      logout();
     } catch (e) {
       console.error(e);
     }

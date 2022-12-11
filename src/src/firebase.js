@@ -27,15 +27,21 @@ const firestore = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 export const setUserInfo = async (userID, info) => {
-	const userRef = doc(firestore, `user/${userID}`);
+	const userRef = doc(firestore, `users/${userID}`);
 	await setDoc(userRef, info);
 };
 
 export const checkUserInfoExist = async (uid) => {
-	const userRef = doc(firestore, `user/${uid}`);
+	const userRef = doc(firestore, `users/${uid}`);
 	const snapshot = await getDoc(userRef);
 	return snapshot.exists();
 };
+
+export const getUserRole = async (uid) => {
+	const userRef = doc(firestore, `users/${uid}`);
+	const snapshot = await getDoc(userRef);
+	return snapshot.get('role');
+}
 
 export const popUpWithGoogle = async (role) => {
 	const { user } = await signInWithPopup(auth, provider);
@@ -52,11 +58,11 @@ export const createUserUsingEmailPassword = async ({ email, password, role, prov
 	return user;
 };
 
-export const signInUsingEmailPassword = async (email, password, role) => {
+export const signInUsingEmailPassword = async (email, password) => {
 	if (!email || !password) return;
 	const { user } = await signInWithEmailAndPassword(auth, email, password);
 	const { uid } = user;
-	!(await checkUserInfoExist(uid)) && (await setUserInfo(uid, { uid, role }));
+	await checkUserInfoExist(uid);
 	return user;
 };
 
