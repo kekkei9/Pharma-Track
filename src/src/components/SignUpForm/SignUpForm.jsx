@@ -1,6 +1,7 @@
 import React from "react";
 import "./SignUpForm.scss";
 import { Form, Field } from "formik";
+import { Form as AntdForm, Button } from "antd";
 import {
   AntInput,
   AntPassword,
@@ -13,6 +14,8 @@ import {
   isRequired,
 } from "../ValidateFields/ValidateFields";
 
+const FormItem = AntdForm.Item;
+
 const SignUpForm = ({ handleSubmit, values, submitCount }) => {
   return (
     <div className="SignUpForm">
@@ -20,6 +23,19 @@ const SignUpForm = ({ handleSubmit, values, submitCount }) => {
         className="form-container tw-flex tw-flex-col tw-items-center"
         onSubmit={handleSubmit}
       >
+        <Field
+          component={AntInput}
+          name="username"
+          type="textarea"
+          label="Tên người dùng"
+          validate={isRequired}
+          submitCount={submitCount}
+          hasFeedback
+          style={{
+            width: "400px",
+          }}
+          placeholder="Tên người dùng"
+        />
         <Field
           component={AntInput}
           name="email"
@@ -77,6 +93,19 @@ const SignUpForm = ({ handleSubmit, values, submitCount }) => {
             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
           }
         />
+        <div className="submit-container">
+          <FormItem>
+            <Button
+              type="primary"
+              style={{
+                width: "400px",
+              }}
+              htmlType="submit"
+            >
+              Tiếp tục
+            </Button>
+          </FormItem>
+        </div>
       </Form>
     </div>
   );

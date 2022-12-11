@@ -49,11 +49,11 @@ const LoginForm = ({ handleSubmit, values, submitCount }) => {
         <div className="submit-container">
           <FormItem>
             <Button
-              htmlType="submit"
               type="primary"
               style={{
                 width: "400px",
               }}
+              htmlType="submit"
             >
               Đăng nhập
             </Button>

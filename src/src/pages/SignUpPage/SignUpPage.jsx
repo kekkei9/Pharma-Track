@@ -1,14 +1,9 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import SignUpFormContainer from "../../containers/SignUpForm/SignUpForm.container";
 import "./SignUpPage.scss";
 import BackButton from "../../components/BackButton/BackButton";
-import { Button } from "antd";
 
 const SignUpPage = (props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   return (
     <div className="SignUpPage tw-flex tw-flex-col tw-items-center">
       <div style={{ width: "400px" }}>
@@ -22,17 +17,6 @@ const SignUpPage = (props) => {
         className="tw-rounded-full"
       />
       <SignUpFormContainer />
-      <Button
-        className="primary-btn tw-mt-4"
-        style={{
-          width: "400px",
-          backgroundColor: "#0067A9",
-          fontWeight: 600,
-        }}
-        onClick={() => navigate(location.pathname + "/role")}
-      >
-        Tiếp tục
-      </Button>
       <div className="tw-mt-4">Hoặc đăng nhập với</div>
       <div className="provider-container tw-flex tw-flex-row tw-m-4">
         <img

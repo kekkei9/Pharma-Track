@@ -50,5 +50,8 @@ code {
 
 #root {
   position: relative;
-  min-height: calc(100vh - 8rem);
+  min-height: calc(100vh - 6.25rem);
+  background-color: #eff8fe;
+  margin-top: 6.25rem;
+  padding-bottom: 6.25rem;
 }

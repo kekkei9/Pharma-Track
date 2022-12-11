@@ -17,8 +17,8 @@ const Header = (props) => {
       page: "bookap",
     },
     {
-      title: "Tra cứu",
-      page: "role",
+      title: "Tổng quan",
+      page: "home",
     },
   ];
   return (
