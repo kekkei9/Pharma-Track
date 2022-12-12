@@ -4,8 +4,6 @@ import './DoctorCardList.scss'
 import DoctorCard from '../DoctorCard/DoctorCard'
 import { List } from 'antd';
 
-import OpenDoctorCard from '../OpenDoctorCard/OpenDoctorCard'
-
 
 const DoctorCardList = (props) => {
   const DoctorData = [

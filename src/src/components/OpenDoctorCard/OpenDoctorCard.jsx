@@ -5,6 +5,7 @@ import { Card } from 'antd';
 import InputForm from '../InputForm/InputForm'
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom'
+import GoogleMapInstance from '../GoogleMapInstance/GoogleMapInstance';
 
 
 const OpenDoctorCard = (props) => {
@@ -102,13 +103,13 @@ const OpenDoctorCard = (props) => {
 
   var currentDoctor = DoctorData[doctorID]
 
-  console.log(currentDoctor)
-
   return <div className="OpenDoctorCard">
     <div className = 'tw-flex tw-justify-center'>
       <Card
         style={{
           width: 700,
+          'border-radius': '40px',
+          'box-shadow': '0px 4px 4px rgba(0, 0, 0, 0.25)'
         }}
       >
         <div className = 'tw-flex tw-items-center'>
@@ -133,8 +134,9 @@ const OpenDoctorCard = (props) => {
             </InputForm> 
           </div>
         </div>
-        <div className = 'tw-mt-10'>
-          <img src = '/assets/doctor3.png'></img>
+        <div className = 'tw-mt-10 tw-text-center'>
+          <div className = 'phone tw-text-3xl tw-font-bold'>Liên hệ tôi tại </div>
+         
         </div>
         <div className = 'tw-flex tw-justify-center tw-mt-10'>
           <Button size = 'large'
@@ -145,7 +147,7 @@ const OpenDoctorCard = (props) => {
                 height: '50px'
               }}
               onClick={() => {
-                navigate('/bookap')
+                navigate(-1)
               }}
             >
             Quay lại

@@ -3,10 +3,9 @@ import './GetAddress.scss'
 
 
 const GetAddress = () => {
-
   const [location, setLocation] = useState({
     loaded: false,
-    coordinates: { lat: "", lng: "" },
+    coordinates: { lat: "" , lng: "" },
 });
 
 const onSuccess = (location) => {

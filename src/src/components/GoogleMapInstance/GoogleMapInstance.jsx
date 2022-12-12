@@ -1,26 +1,56 @@
 import React from 'react'
 import './GoogleMapInstance.scss'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
+import DoctorCard from '../DoctorCard/DoctorCard';
 
+const DoctorData = [
+  {
+  'id' : '0',
+  'img' : '/assets/avatardoctor.png',
+  'name' : 'Nguyễn Văn A',
+  'address': '123456 Đường Võ Thị Sáu, TP.HCM', 
+  'field' : 'nội',
+  'lat' : 10.682789,
+  'lng' : 107.751334,
+  },
+  {
+  'id' : '1',
+  'img' : '/assets/avatardoctor.png', 
+  'name' : 'Nguyễn Văn B',
+  'address': '123456 Đường Võ Thị Sáu, TP.HCM',
+  'field' : 'nội',
+  'lat' : 10.684951,
+  'lng' : 107.748436,
+  },
+  {
+    'id' : '2',
+  'img' : '/assets/avatardoctor.png',
+  'name' : 'Nguyễn Văn C',
+  'address': '123456 Đường Võ Thị Sáu, TP.HCM',
+  'field' : 'nội',
+  'lat' : 10.682873,
+  'lng' : 107.750850,
+  },
+]
 
-
-const GoogleMapInstance = ({ center, mapContainerStyle, zoom}) => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCXyl8cV0kbV42iLv6qmXmSU5wZie9F2n4'
-  });
-  
+const GoogleMapInstance = ({ center, mapContainerStyle, zoom, setDoctorState }) => {
   return (
     <div>
-      {!isLoaded ? <div>Loading...</div> :
       <GoogleMap
         zoom = {zoom}
         center = { center } 
         mapContainerStyle= { mapContainerStyle }
         mapContainerClassName = 'map-container'
         >
-        <Marker position={center}/>
+          <MarkerF position = { center }/>
+          {DoctorData.map((doctor, index) => (<MarkerF 
+                                    position = {{ lat : doctor.lat , lng : doctor.lng}}
+                                    options = {{
+                                      icon : '/assets/cliniclogo.png'}}
+                                    onClick = {() => setDoctorState(index)}
+                                    />))}
+
       </GoogleMap>
-    }
     </div>
   );
 }
