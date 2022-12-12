@@ -30,7 +30,6 @@ const facebookProvider = new FacebookAuthProvider();
 
 export const setUserInfo = async (userID, info) => {
 	const userRef = doc(firestore, `users/${userID}`);
-	console.log(info)
 	await setDoc(userRef, info);
 };
 
@@ -43,7 +42,13 @@ export const checkUserInfoExist = async (uid) => {
 export const getUserRole = async (uid) => {
 	const userRef = doc(firestore, `users/${uid}`);
 	const snapshot = await getDoc(userRef);
-	return snapshot.get('role');
+	return snapshot.get('role')
+}
+
+export const getUserData = async (uid) => {
+	const userRef = doc(firestore, `users/${uid}`);
+	const snapshot = await getDoc(userRef);
+	return snapshot.data()
 }
 
 export const popUpWithGoogle = async () => {

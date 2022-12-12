@@ -36,7 +36,7 @@ const RolePage = (props) => {
       if (!!state.password) {
         createUserUsingEmailPassword({ ...state, role: RoleData[tab].name });
       } else {
-        setUserInfo(state.uid, state);
+        setUserInfo(state.uid, { ...state, role: RoleData[tab].name });
       }
       navigate("/login");
     }

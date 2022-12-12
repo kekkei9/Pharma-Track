@@ -6,22 +6,13 @@ import { RootState } from "../../redux/store";
 
 const DynamicRouter = ({ componentList, accessibleRoles, ...rest }) => {
   const { user, isAuthUser } = useSelector((state) => state.authentication);
-  console.log(user, isAuthUser);
   const ResultComponent = () => {
-    if (
-      isAuthUser &&
-      user?.roleName &&
-      accessibleRoles.includes(user?.roleName)
-    ) {
-      const Component = componentList[user?.roleName];
+    if (isAuthUser && user?.role && accessibleRoles.includes(user?.role)) {
+      const Component = componentList[user?.role];
       return Component();
     }
 
-    if (
-      isAuthUser &&
-      user?.roleName &&
-      !accessibleRoles.includes(user?.roleName)
-    ) {
+    if (isAuthUser && user?.role && !accessibleRoles.includes(user?.role)) {
       return <ErrorPage code={403} />;
     }
 

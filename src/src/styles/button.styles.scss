@@ -72,3 +72,7 @@ button[type="submit"] {
   }
   margin-top: 0.75rem;
 }
+
+.ant-dropdown.ant-dropdown-show-arrow.ant-dropdown-placement-bottomRight {
+  z-index: 10000 !important;
+}

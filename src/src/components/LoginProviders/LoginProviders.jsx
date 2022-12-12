@@ -2,12 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  getUserRole,
   popUpWithGoogle,
   popUpWithFacebook,
+  getUserData,
 } from "../../firebase";
 import { setUser } from "../../redux/authentication/authentication.slice";
 import "./LoginProviders.scss";
+import { notification } from "antd";
 
 const LoginProviders = (props) => {
   const navigate = useNavigate();
@@ -25,10 +26,13 @@ const LoginProviders = (props) => {
         navigate("/signup/role", { state: userProps });
       } else {
         const { uid } = user;
-        const roleName = await getUserRole(uid);
-        const userData = { uid, roleName };
+        const userData = await getUserData(uid);
         dispatch(setUser(userData));
         localStorage.setItem("user", JSON.stringify(userData));
+        notification.success({
+          message: "Đăng nhập!",
+          description: "Đăng nhập thành công",
+        });
         navigate("/home");
       }
     } catch (e) {

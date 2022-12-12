@@ -1,11 +1,17 @@
 .Header {
   background: linear-gradient(133deg, #383f75, #a636f7, #f1795c);
   width: -webkit-fill-available;
-  z-index: 99999;
-  .RegBtn {
+  z-index: 9999;
+  .header_primary-btn {
+    padding: 0.375rem 1rem;
+    font-weight: 600;
+    font-size: 1rem /* 16px */;
+    line-height: 1.5rem /* 24px */;
+    margin-left: 1.75rem;
+    background-color: white;
     color: #0052d4;
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 0.625rem;
+    border-bottom-left-radius: 0;
     &:hover {
       cursor: pointer;
     }

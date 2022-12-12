@@ -6,13 +6,12 @@ import { RootState } from "../../redux/store";
 
 const PrivateRouter = ({ component: Component, accessibleRoles, ...rest }) => {
   const { user, isAuthUser } = useSelector((state) => state.authentication);
-  console.log(user, isAuthUser);
   const ResultComponent = (props) => {
-    if (isAuthUser && accessibleRoles.includes(user.roleName)) {
+    if (isAuthUser && accessibleRoles.includes(user.role)) {
       return <Component {...props} />;
     }
 
-    if (isAuthUser && !accessibleRoles.includes(user.roleName)) {
+    if (isAuthUser && !accessibleRoles.includes(user.role)) {
       return <ErrorPage code={403} />;
     }
 

@@ -11,6 +11,8 @@ import {
 const FormItem = AntdForm.Item;
 
 const LoginForm = ({ handleSubmit, values, submitCount }) => {
+  const forgotPasswordHandler = async () => {};
+
   return (
     <div className="LoginForm">
       <Form

@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/authentication/authentication.slice";
 import { signOutUser } from "../../firebase";
+import { Descriptions, Dropdown, notification } from "antd";
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -11,14 +12,42 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const { user, isAuthUser } = useSelector((state) => state.authentication);
 
+  console.log(user, isAuthUser);
+
   const logOutHandler = async () => {
     await signOutUser();
     dispatch(logout());
     localStorage.removeItem("user");
+    notification.success({
+      message: "Đăng xuất",
+      description: "Đăng xuất thành công",
+    });
     if (["/host", "/staff", "user"].includes(location.pathname)) {
       navigate("/home");
     }
   };
+
+  const items = [
+    {
+      key: "1",
+      label: <Link to={"/info"}>Thông tin</Link>,
+    },
+    {
+      key: "2",
+      label: <Link to={"/setting"}>Trợ giúp</Link>,
+    },
+    {
+      key: "3",
+      label: <Link to={"/setting"}>Cài đặt</Link>,
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "4",
+      label: <div onClick={logOutHandler}>Đăng xuất</div>,
+    },
+  ];
 
   return (
     <div className="Header tw-px-24 tw-flex tw-flex-row tw-p-5 tw-fixed tw-top-0 tw-justify-between">
@@ -49,28 +78,32 @@ const Header = (props) => {
           },
           {
             title: "Tổng quan",
-            page: user.roleName,
+            page: user.role,
           },
         ].map(({ page, title }) => (
           <div className="tw-ml-7 tw-text-white tw-font-semibold tw-text-base">
-            <Link to={`/${page || ""}`}>{title}</Link>
+            <Link to={`/${page || "login"}`}>{title}</Link>
           </div>
         ))}
         {!isAuthUser && (
           <div
-            className="RegBtn tw-px-4 tw-py-1.5 tw-bg-white tw-font-semibold tw-text-base tw-ml-7"
+            className="header_primary-btn"
             onClick={() => navigate("/login")}
           >
             Đăng nhập
           </div>
         )}
         {isAuthUser && (
-          <div
-            className="RegBtn tw-px-4 tw-py-1.5 tw-bg-white tw-font-semibold tw-text-base tw-ml-7"
-            onClick={logOutHandler}
+          <Dropdown
+            menu={{
+              items,
+            }}
+            placement="bottomRight"
+            arrow
+            trigger={["click"]}
           >
-            Đăng xuất
-          </div>
+            <div className="header_primary-btn">Xin chào, {user.username}</div>
+          </Dropdown>
         )}
       </div>
     </div>
