@@ -1,1 +1,14 @@
-.OpenDoctorCard {}
+.OpenDoctorCard {
+    .card{ 
+        border-radius: 10px;
+        box-shadow: #3f404165 1px 1px 10px;
+        width: 1000px;
+        .wrap-img {
+            background-color: #ecdbdb;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+
+        }
+    }
+
+}

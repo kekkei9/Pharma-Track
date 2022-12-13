@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './OpenDoctorCard.scss'
-import { Navigate, useParams } from 'react-router-dom'
-import { Card } from 'antd';
-import InputForm from '../InputForm/InputForm'
-import { Button } from 'antd';
+import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import BackNextButton from '../BackNextButton/BackNextButton';
 
@@ -16,6 +13,7 @@ const OpenDoctorCard = (props) => {
     'name' : 'Nguyễn Văn A',
     'address': '123456 Đường Võ Thị Sáu, TP.HCM', 
     'field' : 'nội',
+    'phone' : '0812746060'
     },
     {
     'id' : '1',
@@ -113,40 +111,37 @@ const OpenDoctorCard = (props) => {
   var currentDoctor = DoctorData[doctorID]
 
   return <div className="OpenDoctorCard">
-    <div className = 'tw-flex tw-justify-center'>
-      <Card
-        style={{
-          width: 700,
-          'border-radius': '40px',
-          'box-shadow': '0px 4px 4px rgba(0, 0, 0, 0.25)'
-        }}
-      >
-        <div className = 'tw-flex tw-items-center'>
-          <div className = ''>
+      <div className = 'card tw-flex tw-mx-auto'>
+        <div className = 'wrap-img tw-flex tw-px-10 tw-py-10'>
+          <div className = 'img tw-flex tw-justify-center '>
             <img src = {currentDoctor.img} alt = 'dogtor' width = '300px' height = '300px'></img>
           </div>
-          <div className = 'tw-px-10 tw-flex tw-flex-col'>
-            <div className = 'Name tw-text-2xl tw-font-bold tw-pb-3 tw-text-center'>{currentDoctor.name}</div>
-            <div className = 'Địa chỉ tw-text-sm '>Địa chỉ phòng khám: {currentDoctor.address}</div>
-            <div className = 'field tw-text-sm'>Lĩnh vực: {currentDoctor.field}</div>
-            <div className = 'workat tw-text-sm'>Đang làm việc tại: </div>
-            <div className = 'position tw-text-sm'>Chức vụ: </div>
-            <div className = 'experiences tw-text-sm'>Kinh nghiệm: </div>
-            <div className = 'degree tw-text-sm'>Bằng cấp: </div>
+        </div>
+        <div className = 'content tw-flex-1 tw-px-10 tw-py-10 '>
+          <div className = 'Name tw-text-3xl tw-font-bold tw-pb-1'>{currentDoctor.name}</div>
+          <div className = 'line tw-h-2 tw-bg-gray-400 tw-rounded'></div>
+          <div className = 'information tw-px-4 tw-py-2 '>
+            Phòng khám thân thiện, dịch vụ toàn diện, chi phí tiết kiệm. Có đầy đủ các trang thiết bị cần thiết 
+            phục vụ cho nhu cầu khám chữa bệnh. Bác sĩ tay nghề cao, hoạt động trong lĩnh vực y tế lâu năm cùng đội ngũ 
+            nhân viên thân thiện nhiệt tình. 
+          </div>
+          <div className = 'information2 tw-flex tw-justify-center tw-pb-2'>
+            Hãy đặt lịch khám ngay để nhận được ưu đãi mới nhất.
+          </div>
+          <div className = 'line tw-flex tw-max-w-5xl tw-h-2 tw-bg-gray-400 tw-rounded'></div>
+          <div className = 'textcontainer tw-text-base '>
+            <div className = 'Địa chỉ tw-pb-1 tw-pt-2 '><strong>Địa chỉ phòng khám: </strong>{currentDoctor.address}</div>
+            <div className = 'field tw-pb-1'><strong>Lĩnh vực: </strong>{currentDoctor.field}</div>
+            <div className = 'workat tw-pb-1'><strong>Đang làm việc tại: </strong></div>
+            <div className = 'position tw-pb-1'><strong>Chức vụ: </strong></div>
+            <div className = 'experiences tw-pb-1'><strong>Kinh nghiệm: </strong></div>
+            <div className = 'degree tw-pb-1'><strong>Bằng cấp: </strong></div>
+          </div>
+          <div className = 'tw-mt-3 tw-text-center'>
+            <div className = 'contact tw-text-3xl tw-font-bold'>Liên hệ tôi tại </div>
+            <div className = 'phone tw-text-5xl tw-mt-3 tw-font-bold'>{currentDoctor.phone}</div>
           </div>
         </div>
-        <div>
-          <div className = 'description tw-text-2xl tw-font-bold tw-mt-10 tw-px-5'>Mô tả phòng khám</div>
-          <div className = 'inputform tw-px-2  '>
-            <InputForm placeholder = 'Mô tả về phòng khám' 
-              style ={{width : '500px'}}>
-            </InputForm> 
-          </div>
-        </div>
-        <div className = 'tw-mt-10 tw-text-center'>
-          <div className = 'phone tw-text-3xl tw-font-bold'>Liên hệ tôi tại </div>
-        </div>
-      </Card>
     </div> 
     
     <BackNextButton onClickBack={ onClickBack } onClickNext = { onClickNext } />

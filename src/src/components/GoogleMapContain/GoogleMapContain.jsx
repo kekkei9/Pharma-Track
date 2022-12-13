@@ -55,7 +55,6 @@ const GoogleMapContain = () => {
     navigate('/bookap/doctor' + props.id)
   }
 
-  
   const onClickBack = () => {
     navigate('/homepage')
   }

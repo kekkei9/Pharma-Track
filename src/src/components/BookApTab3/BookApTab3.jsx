@@ -29,7 +29,6 @@ const BookApTab3 = (props) => {
 
     <BackNextButton onClickBack={ onClickBack } onClickNext = { onClickNext }/>
   
-
   </div>
 }
 
