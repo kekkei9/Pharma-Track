@@ -28,30 +28,21 @@ const AppRouter = () => (
     <Route exact path={PATH.BOOK_AP_PATH} element={<BookApPage />} />
 
     <Route
-      exact
       path={PATH.HOST_DASHBOARD}
       element={
         <PrivateRouter component={HostPage} accessibleRoles={["host"]} />
       }
     />
     <Route
-      exact
       path={PATH.STAFF_DASHBOARD}
       element={
-        <PrivateRouter
-          component={StaffPage}
-          accessibleRoles={["host", "staff"]}
-        />
+        <PrivateRouter component={StaffPage} accessibleRoles={["staff"]} />
       }
     />
     <Route
-      exact
       path={PATH.USER_DASHBOARD}
       element={
-        <PrivateRouter
-          component={UserPage}
-          accessibleRoles={["host", "staff", "user"]}
-        />
+        <PrivateRouter component={UserPage} accessibleRoles={["user"]} />
       }
     />
     {/* for production deployment */}
