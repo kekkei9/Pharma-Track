@@ -5,7 +5,7 @@ import { Card } from 'antd';
 import InputForm from '../InputForm/InputForm'
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom'
-import GoogleMapInstance from '../GoogleMapInstance/GoogleMapInstance';
+import BackNextButton from '../BackNextButton/BackNextButton';
 
 
 const OpenDoctorCard = (props) => {
@@ -99,6 +99,15 @@ const OpenDoctorCard = (props) => {
 
   const navigate = useNavigate()
 
+  const onClickBack = () => {
+    navigate('/bookap')
+  }
+
+  const onClickNext = () => {
+    navigate('/bookap2')
+  }
+
+
   const { doctorID } = useParams()   
 
   var currentDoctor = DoctorData[doctorID]
@@ -136,26 +145,11 @@ const OpenDoctorCard = (props) => {
         </div>
         <div className = 'tw-mt-10 tw-text-center'>
           <div className = 'phone tw-text-3xl tw-font-bold'>Liên hệ tôi tại </div>
-         
         </div>
-        <div className = 'tw-flex tw-justify-center tw-mt-10'>
-          <Button size = 'large'
-              style ={{
-                backgroundColor: 'rgba(0, 103, 169, 0.7)',
-                color: 'white',
-                width: '120px',
-                height: '50px'
-              }}
-              onClick={() => {
-                navigate(-1)
-              }}
-            >
-            Quay lại
-            </Button>
-        </div>
-
       </Card>
-    </div>
+    </div> 
+    
+    <BackNextButton onClickBack={ onClickBack } onClickNext = { onClickNext } />
   </div>
 }
 

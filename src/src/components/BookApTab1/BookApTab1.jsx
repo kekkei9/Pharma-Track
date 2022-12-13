@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import './BookApTab1.scss'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PickerForm from '../PickerForm/PickerForm'
-import DoctorCard from '../DoctorCard/DoctorCard'
 import DoctorCardList from '../DoctorCardList/DoctorCardList';
 import GoogleMapContain from '../GoogleMapContain/GoogleMapContain';
 
@@ -40,7 +39,7 @@ const BookApTab1 = (props) => {
 
   return <div className="BookApTab1">
     <Tabs className = "Tabs">
-      <TabList className = "Option tw-flex tw-max-w-3xl tw-mx-auto tw-mt-11 tw-text-lg tw-cursor-pointer tw-select-none">
+      <TabList className = "Option tw-flex tw-max-w-3xl tw-mx-auto tw-mt-10 tw-text-lg tw-cursor-pointer tw-select-none">
         <Tab className = "Option_1 tw-flex-1 tw-text-center tw-py-5 tw-rounded-none	">
           Chọn phòng khám theo bác sĩ
         </Tab>
@@ -49,7 +48,7 @@ const BookApTab1 = (props) => {
         </Tab>
       </TabList>
       <TabPanel> 
-        <div className = 'tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-12'>
+        <div className = 'tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-10'>
           <div className = 'tw-flex tw-items-center tw-justify-between tw-mb-4 '>
             <div className = 'tw-text-lg'> Chọn tỉnh </div>
             <div className = ''>
@@ -74,18 +73,19 @@ const BookApTab1 = (props) => {
 
       </TabPanel>
       <TabPanel>
-        <div className = 'tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-12'>
-          <div className = 'tw-flex tw-items-center tw-justify-between tw-mb-4 '>
+        <div className = 'tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-10'>
+          <div className = 'tw-flex tw-items-center tw-justify-between '>
             <div className = 'tw-text-lg'> Chọn Loại Bệnh </div>
             <PickerForm {...formDatas[2]}
             style = {{ width: '300px'}}/>
           </div>
         </div>
-        <div>
+        <div className = 'tw-mt-10'>
           <GoogleMapContain/>
         </div>
       </TabPanel>
     </Tabs>
+    
   </div>
 }
 

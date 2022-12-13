@@ -3,10 +3,21 @@ import CustomDatePicker from '../CustomDatePicker/CustomDatePicker'
 import InputForm from '../InputForm/InputForm'
 import PickerForm from '../PickerForm/PickerForm'
 import './BookApTab2.scss'
-import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom'
+import BackNextButton from '../BackNextButton/BackNextButton'
 
 
 const BookApTab2 = (props) => {
+  const navigate = useNavigate()
+
+  const onClickBack = () => {
+    navigate('/bookap')
+  }
+
+  const onClickNext = () => {
+    navigate('/bookap3')
+  }
+
   return <div className="Container tw-mx-auto tw-pt-14 tw-max-w-7xl">
     <div className = 'tw-text-xl tw-font-bold tw-pb-5'>1.Thông tin người đăng ký</div>
     <div className = 'tw-flex tw-justify-between tw-pb-5'>
@@ -74,6 +85,9 @@ const BookApTab2 = (props) => {
         <li>Bằng việc nhấn nút "Xác nhận", bạn hoàn toàn hiểu và đồng ý chịu trách nhiệm với các thông tin đã cung cấp.</li>
       </ul>
     </div>
+
+    <BackNextButton onClickBack={ onClickBack } onClickNext = { onClickNext }/>
+    
   </div>
 }
 

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import './DoctorCardList.scss'
 import DoctorCard from '../DoctorCard/DoctorCard'
 import { List } from 'antd';
+import BackNextButton from '../BackNextButton/BackNextButton';
+import { Button, notification, Space } from 'antd';
 
 
 const DoctorCardList = (props) => {
@@ -95,36 +97,61 @@ const DoctorCardList = (props) => {
 
   const [changeStyle, setStyle] = useState(-1)
 
+  const [id, setID] = useState(-1)
+
+
+  const openNotificationWithIcon = () => {
+    notification.error({
+      message: 'Lỗi',
+      description:
+        'Bạn vẫn chưa chọn bác sĩ',
+    });
+    notification.config({
+      placement: 'topRight',
+      top: 100,
+    })
+  };
+
   const navigate = useNavigate()
 
-  const handleDoubleClick = (props) => {
-    navigate('/bookap/doctor' + props.id)
+  const handleDoubleClick = () => {
+    navigate('/bookap/doctor' + id)
   }
 
-  return <div className="DoctorCardList tw-mx-auto tw-flex tw-flex-wrap tw-justify-between tw-max-w-4xl">
-    <List
-      grid={{
-        gutter: 16,
-        column: 3,
-      }}
-      dataSource={DoctorData}
-      pagination={{
-        pageSize: 6,
-      }}
-      renderItem={(item,index) => (
-        <List.Item>
-           <DoctorCard {...item} 
-                      style = {changeStyle === index ? {'border-color': 'rgba(0, 121, 255, 0.5)'}
-                      : {}}
-                      changeStyle = {changeStyle}
-                      setStyle = {setStyle}
-                      index = {index}
-                      handleDoubleClick = {() => handleDoubleClick(item)}
-                      />
-        </List.Item>
-      )}
-    />
+  const onClickBack = () => {
+    navigate('/homepage')
+  }
 
+  const onClickNext = () => {
+    {id === -1 ? openNotificationWithIcon() : navigate('/bookap/doctor' + id)}
+  }
+
+  return <div className="DoctorCardList">
+    <div className = 'List tw-mx-auto tw-flex-wrap tw-max-w-4xl'>
+      <List
+        grid={{
+          column: 3,  
+        }}
+        dataSource={DoctorData}
+        pagination={{
+          pageSize: 6,
+        }}
+        renderItem={(item) => (
+          <List.Item>
+            <DoctorCard {...item} 
+                        style = {changeStyle === item.id ? {'border-color': 'rgba(0, 121, 255, 0.5)'}
+                        : {}}
+                        changeStyle = {changeStyle}
+                        setStyle = {setStyle}
+                        setID = {setID}
+                        handleDoubleClick = {() => handleDoubleClick()}
+                        />
+          </List.Item>
+        )}
+      />
+    </div>
+
+    <BackNextButton onClickBack={ onClickBack } onClickNext = { onClickNext }/>      
 </div>
 }
 

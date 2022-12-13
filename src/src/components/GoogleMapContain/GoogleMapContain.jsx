@@ -5,6 +5,8 @@ import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import GoogleMapInstance from '../GoogleMapInstance/GoogleMapInstance';
 import GetAddress from '../GetAddress/GetAddress';
 import DoctorCard from '../DoctorCard/DoctorCard';
+import { Button } from 'antd';
+import BackNextButton from '../BackNextButton/BackNextButton';
 
 const DoctorData = [
   {
@@ -53,6 +55,15 @@ const GoogleMapContain = () => {
     navigate('/bookap/doctor' + props.id)
   }
 
+  
+  const onClickBack = () => {
+    navigate('/homepage')
+  }
+
+  const onClickNext = () => {
+    navigate('/bookap/doctor' + doctorState)
+  }
+
   const location = GetAddress()
 
   const { isLoaded } = useLoadScript({
@@ -61,17 +72,21 @@ const GoogleMapContain = () => {
   
   if (!isLoaded) return <div>Loading...</div>
 
-  return <div className = 'GoogleMapContain tw-flex tw-justify-center tw-items-center'>
-    <GoogleMapInstance
-      mapContainerStyle = { containerStyle }
-      center = { location.coordinates }
-      zoom = {15} 
-      setDoctorState = {setDoctorState}/>
-    <div className = 'tw-ml-20'>
-      <DoctorCard {...DoctorData[doctorState]} 
-                    handleDoubleClick = {() => handleDoubleClick(DoctorData[doctorState])}/> 
+  return <div className='GoogleMapContain'>
+    <div className = 'container tw-flex tw-justify-center tw-items-center'>
+      <GoogleMapInstance
+        mapContainerStyle = { containerStyle }
+        center = { location.coordinates }
+        zoom = {15} 
+        setDoctorState = {setDoctorState}/>
+      <div className = 'tw-ml-20'>
+        <DoctorCard {...DoctorData[doctorState]} 
+                      handleDoubleClick = {() => handleDoubleClick(DoctorData[doctorState])}/> 
+      </div>
     </div>
 
+    <BackNextButton onClickBack={ onClickBack } onClickNext = { onClickNext }/>
+  
   </div>
 }
 

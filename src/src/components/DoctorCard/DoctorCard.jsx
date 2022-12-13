@@ -2,11 +2,13 @@ import React, {useState} from 'react'
 import './DoctorCard.scss'
 
 
-const DoctorCard = ({ id, img, name, address, field, style, changeStyle, setStyle, handleDoubleClick, index}) => {
+const DoctorCard = ({ id, img, name, address, field, style, changeStyle, setStyle, handleDoubleClick, setID}) => {
 
   return <div className = 'DoctorCard tw-border-2 tw-px-8 tw-pt-10 tw-select-none tw-cursor-pointer tw-transform tw-transition tw-duration-500 hover:tw-scale-110'
     style = {style}
-    onClick = {()=> setStyle(index)}
+    onClick = {()=> {
+      setStyle(id)
+      setID(id)}}
     onDoubleClick = {()=> handleDoubleClick()}
     >
     <div className = 'tw-flex tw-justify-center'>

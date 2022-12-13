@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import BookApBox from './BookApBox'
+import BackNextButton from './BackNextButton'
 import '@testing-library/jest-dom'
 
-describe('<BookApBox />', () => {
+describe('<BackNextButton />', () => {
   it('renders a heading', () => {
-    render(<BookApBox />)
+    render(<BackNextButton />)
 
     const heading = screen.getByRole('heading', {
       name: /welcome to next\.js!/i,
