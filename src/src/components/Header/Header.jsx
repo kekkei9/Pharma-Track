@@ -4,12 +4,14 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/authentication/authentication.slice";
 import { signOutUser } from "../../firebase";
-import { Descriptions, Dropdown, notification } from "antd";
+import { Dropdown, notification } from "antd";
+import { useState } from "react";
 
 const Header = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const [nav, setNav] = useState("Trang chủ");
   const { user, isAuthUser } = useSelector((state) => state.authentication);
 
   const logOutHandler = async () => {
@@ -20,15 +22,46 @@ const Header = (props) => {
       message: "Đăng xuất",
       description: "Đăng xuất thành công",
     });
-    if (["/host", "/staff", "user"].includes(location.pathname)) {
+    if (
+      ["/host", "/staff", "/user"].some((p) => p.indexOf(location.pathname))
+    ) {
       navigate("/home");
     }
   };
 
-  const items = [
+  const roleDropdownItems = {
+    host: [
+      {
+        key: "1",
+        label: <Link to={"/host/clinic"}>Thông tin phòng khám</Link>,
+      },
+      {
+        key: "2",
+        label: <Link to={"/host/staffTable"}>Quản lí nhân viên</Link>,
+      },
+    ],
+    staff: [
+      {
+        key: "1",
+        label: <Link to={"/staff/appointments"}>Quản lí lịch hẹn</Link>,
+      },
+      {
+        key: "2",
+        label: <Link to={"/staff/QRscan"}>Quét mã QR</Link>,
+      },
+    ],
+    user: [
+      {
+        key: "1",
+        label: <Link to={"user/appointments"}>Lịch hẹn của tôi</Link>,
+      },
+    ],
+  };
+
+  const userDropdownItems = [
     {
       key: "1",
-      label: <Link to={"/info"}>Thông tin</Link>,
+      label: <Link to={"/info"}>Thông tin người dùng</Link>,
     },
     {
       key: "2",
@@ -74,27 +107,42 @@ const Header = (props) => {
             title: "Đăng kí khám bệnh",
             page: "bookap",
           },
-          {
-            title: "Tổng quan",
-            page: user.role,
-          },
         ].map(({ page, title }) => (
-          <div className="tw-ml-7 tw-text-white tw-font-semibold tw-text-base">
+          <div
+            className={`tw-ml-7 tw-text-white tw-font-semibold tw-text-base ${
+              nav === title ? "nav-chosen" : ""
+            }`}
+            key={title}
+            onClick={() => setNav(title)}
+          >
             <Link to={`/${page || "login"}`}>{title}</Link>
           </div>
         ))}
-        {!isAuthUser && (
-          <div
-            className="header_primary-btn"
-            onClick={() => navigate("/login")}
-          >
-            Đăng nhập
-          </div>
-        )}
+
         {isAuthUser && (
           <Dropdown
             menu={{
-              items,
+              items: roleDropdownItems[user.role],
+            }}
+            placement="bottomRight"
+            arrow
+            trigger={["click"]}
+          >
+            <div
+              className={`tw-ml-7 tw-text-white tw-font-semibold tw-text-base ${
+                nav === "Tổng quan" ? "nav-chosen" : ""
+              }`}
+              onClick={() => setNav("Tổng quan")}
+            >
+              Tổng quan
+            </div>
+          </Dropdown>
+        )}
+
+        {isAuthUser && (
+          <Dropdown
+            menu={{
+              items: userDropdownItems,
             }}
             placement="bottomRight"
             arrow
@@ -102,6 +150,15 @@ const Header = (props) => {
           >
             <div className="header_primary-btn">Xin chào, {user.username}</div>
           </Dropdown>
+        )}
+
+        {!isAuthUser && (
+          <div
+            className="header_primary-btn"
+            onClick={() => navigate("/login")}
+          >
+            Đăng nhập
+          </div>
         )}
       </div>
     </div>

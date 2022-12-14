@@ -19,4 +19,16 @@
   .Dogtor:hover {
     cursor: pointer;
   }
+  .nav-chosen {
+    border-radius: 1.5rem;
+    background-color: white;
+    padding: 0.5rem 0.75rem;
+    color: #0052d4 !important;
+    a {
+      color: #0052d4;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

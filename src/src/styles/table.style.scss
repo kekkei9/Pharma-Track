@@ -1,0 +1,23 @@
+.table-row-light {
+  background-color: #ffffff;
+}
+
+.table-row-dark {
+  background-color: #dfdfdf;
+}
+
+.ant-table-thead .ant-table-cell {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.ant-table-tbody {
+  padding: "12px" !important;
+  > tr > td {
+    padding: "12px" !important;
+  }
+}
+
+.ant-table-row {
+  pointer-events: none;
+}

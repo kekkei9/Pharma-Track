@@ -6,9 +6,10 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import RolePage from "../pages/RolePage/RolePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import BookApPage from "../pages/BookApPage/BookApPage";
-import HostPage from "../pages/HostPage/HostPage";
-import StaffPage from "../pages/StaffPage/StaffPage";
-import UserPage from "../pages/UserPage/UserPage";
+import StaffTable from "../components/StaffTable/StaffTable";
+import ClinicProfile from "../components/ClinicProfile/ClinicProfile";
+import StaffAppointmentTable from "../components/StaffAppointmentTable/StaffAppointmentTable";
+import UserAppointmentTable from "../components/UserAppointmentTable/UserAppointmentTable";
 import App from "../App";
 import PATH from "./routerPath/publicPath";
 import Header from "../components/Header/Header";
@@ -28,23 +29,50 @@ const AppRouter = () => (
     <Route exact path={PATH.BOOK_AP_PATH} element={<BookApPage />} />
 
     <Route
-      path={PATH.HOST_DASHBOARD}
+      exact
+      path={PATH.STAFF_TABLE_PATH}
       element={
-        <PrivateRouter component={HostPage} accessibleRoles={["host"]} />
+        <PrivateRouter component={StaffTable} accessibleRoles={["host"]} />
       }
     />
     <Route
-      path={PATH.STAFF_DASHBOARD}
+      exact
+      path={PATH.CLINIC_PROFILE_PATH}
       element={
-        <PrivateRouter component={StaffPage} accessibleRoles={["staff"]} />
+        <PrivateRouter component={ClinicProfile} accessibleRoles={["host"]} />
       }
     />
+
     <Route
-      path={PATH.USER_DASHBOARD}
+      exact
+      path={PATH.STAFF_APPOINTMENTS_PATH}
       element={
-        <PrivateRouter component={UserPage} accessibleRoles={["user"]} />
+        <PrivateRouter
+          component={StaffAppointmentTable}
+          accessibleRoles={["staff"]}
+        />
       }
     />
+
+    <Route
+      exact
+      path={PATH.STAFF_QRSCAN_PATH}
+      element={
+        <PrivateRouter component={ClinicProfile} accessibleRoles={["staff"]} />
+      }
+    />
+
+    <Route
+      exact
+      path={PATH.USER_APPOINTMENTS_PATH}
+      element={
+        <PrivateRouter
+          component={UserAppointmentTable}
+          accessibleRoles={["user"]}
+        />
+      }
+    />
+
     {/* for production deployment */}
     <Route path="/index.html" element={<Navigate to={PATH.HOME_PAGE_PATH} />} />
   </Routes>
