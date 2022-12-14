@@ -34,3 +34,75 @@ export const validateConfirmPassword = (pass, value) => {
   }
   return error;
 };
+
+
+///
+export const validateFullName = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Họ và tên không được bỏ trống";
+  }
+  return errors;
+  
+}
+
+//export const isRequired = (value) => (!value ? "không được bỏ trống" : "");
+
+export const validateBirthDay = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Ngày sinh không được bỏ trống";
+  }
+  return errors;
+}
+
+
+export const validateGioiTinh = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Vui lòng chọn giới tính";
+  }
+  return errors;
+}
+
+export const validateDate = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Vui lòng chọn ngày khám";
+  }
+  return errors;
+}
+
+export const validateTime = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Vui lòng chọn giờ khám";
+  }
+  return errors;
+}
+
+export const validateDiaChi = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Địa chỉ không được bỏ trống";
+  }
+  return errors;
+}
+
+export const validateEmailBooking = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Email không được bỏ trống";
+  } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+    errors = "Email không hợp lệ";
+  }
+
+  return errors;
+};

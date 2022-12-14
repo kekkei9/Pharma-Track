@@ -6,6 +6,13 @@ import BookApTab3 from "../BookApTab3/BookApTab3";
 import StepComponent from "../StepComponent/StepComponent";
 
 import { Button } from "antd";
+import BookPage2 from "../BookPage2/BookPage2";
+import BookingFormContainer from "../../containers/BookingForm/BookingForm.container";
+
+
+import { Form, Field } from "formik";
+import { Form as AntdForm } from "antd";
+
 
 const BookApBox = (props) => {
   const [current, setCurrent] = useState(0);
@@ -45,7 +52,8 @@ const BookApBox = (props) => {
       {current === 0 ? (
         <BookApTab1 />
       ) : current === 1 ? (
-        <BookApTab2 />
+        <BookPage2 /> 
+        // <BookingFormContainer/>
       ) : (
         <BookApTab3 />
       )}
