@@ -50,7 +50,9 @@ export const getUserRole = async (uid) => {
 export const getUserData = async (uid) => {
 	const userRef = doc(firestore, `users/${uid}`);
 	const snapshot = await getDoc(userRef);
-	return snapshot.data()
+	const fullData = snapshot.data()
+	delete fullData.uid
+	return fullData
 }
 
 export const popUpWithGoogle = async () => {

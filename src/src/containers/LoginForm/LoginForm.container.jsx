@@ -30,7 +30,7 @@ const LoginFormContainer = () => {
       const { email, password } = formProps;
       const user = await signInUsingEmailPassword(email, password, "host");
       if (!user) {
-        notification.success({
+        notification.error({
           message: "Đăng nhập",
           description: "Lỗi đăng nhập",
         });

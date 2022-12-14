@@ -12,8 +12,6 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const { user, isAuthUser } = useSelector((state) => state.authentication);
 
-  console.log(user, isAuthUser);
-
   const logOutHandler = async () => {
     await signOutUser();
     dispatch(logout());

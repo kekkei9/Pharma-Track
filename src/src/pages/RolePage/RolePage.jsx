@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button } from "antd";
+import { Button, notification } from "antd";
 import RoleHeader from "../../components/RoleHeader/RoleHeader";
 import RoleCardList from "../../components/RoleCardList/RoleCardList";
 import "./RolePage.scss";
-import { createUserUsingEmailPassword, setUserInfo } from "../../firebase";
+import {
+  createUserUsingEmailPassword,
+  setUserInfo,
+  getUserData,
+} from "../../firebase";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/authentication/authentication.slice";
 
 const RolePage = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
 
@@ -29,16 +36,50 @@ const RolePage = (props) => {
     },
   ];
 
-  const handleSubmit = (tab) => {
+  const handleSubmit = async (tab) => {
     if (tab >= 3 || tab < 0) {
       alert("Mời bạn chọn role");
     } else {
-      if (!!state.password) {
-        createUserUsingEmailPassword({ ...state, role: RoleData[tab].name });
-      } else {
-        setUserInfo(state.uid, { ...state, role: RoleData[tab].name });
+      const role = RoleData[tab].name;
+      try {
+        if (!!state.password) {
+          const user = await createUserUsingEmailPassword({ ...state, role });
+          if (!user) {
+            notification.error({
+              message: "Đăng kí",
+              description: "Lỗi đăng kí",
+            });
+            return;
+          }
+          const { uid } = user;
+          await setUserInfo(uid, { ...state, role, uid });
+          notification.success({
+            message: "Đăng kí",
+            description: "Đăng kí thành công",
+          });
+          const userData = await getUserData(uid);
+          dispatch(setUser(userData));
+          localStorage.setItem("user", JSON.stringify(userData));
+          notification.success({
+            message: "Đăng nhập",
+            description: "Đăng nhập thành công",
+          });
+          navigate("/home");
+        } else {
+          setUserInfo(state.uid, { ...state, role });
+          navigate("/login");
+          notification.success({
+            message: "Đăng kí",
+            description: "Đăng kí thành công",
+          });
+        }
+      } catch (e) {
+        notification.error({
+          message: "Đăng kí",
+          description:
+            e.code === "auth/email-already-in-use" ? "Email đã được dùng" : "",
+        });
       }
-      navigate("/login");
     }
   };
 
