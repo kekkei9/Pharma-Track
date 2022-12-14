@@ -6,6 +6,7 @@ import { logout } from "../../redux/authentication/authentication.slice";
 import { signOutUser } from "../../firebase";
 import { Dropdown, notification } from "antd";
 import { useState } from "react";
+import NavHeader from "../NavHeader/NavHeader";
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ const Header = (props) => {
   ];
 
   return (
-    <div className="Header tw-px-24 tw-flex tw-flex-row tw-p-5 tw-fixed tw-top-0 tw-justify-between">
+    <div className="Header tw-px-24 tw-flex tw-flex-row tw-p-5 tw-fixed tw-top-0 tw-justify-between tw-items-center">
       <div
         className="Dogtor tw-flex tw-flex-row tw-items-center"
         onClick={() => navigate("/home")}
@@ -98,26 +99,16 @@ const Header = (props) => {
         </div>
       </div>
       <div className="tw-flex tw-flex-row tw-items-center">
-        {[
-          {
-            title: "Trang chủ",
-            page: "home",
-          },
-          {
-            title: "Đăng kí khám bệnh",
-            page: "bookap",
-          },
-        ].map(({ page, title }) => (
-          <div
-            className={`tw-ml-7 tw-text-white tw-font-semibold tw-text-base ${
-              nav === title ? "nav-chosen" : ""
-            }`}
-            key={title}
-            onClick={() => setNav(title)}
-          >
-            <Link to={`/${page || "login"}`}>{title}</Link>
-          </div>
-        ))}
+        <NavHeader page="home" title="Trang chủ" nav={nav} setNav={setNav} />
+
+        {(!isAuthUser || user.role === "user") && (
+          <NavHeader
+            page="bookap"
+            title="Đăng kí khám bệnh"
+            nav={nav}
+            setNav={setNav}
+          />
+        )}
 
         {isAuthUser && (
           <Dropdown
@@ -129,7 +120,7 @@ const Header = (props) => {
             trigger={["click"]}
           >
             <div
-              className={`tw-ml-7 tw-text-white tw-font-semibold tw-text-base ${
+              className={`RoleDropdown tw-ml-7 tw-text-white tw-font-semibold tw-text-base ${
                 nav === "Tổng quan" ? "nav-chosen" : ""
               }`}
               onClick={() => setNav("Tổng quan")}
@@ -138,7 +129,6 @@ const Header = (props) => {
             </div>
           </Dropdown>
         )}
-
         {isAuthUser && (
           <Dropdown
             menu={{
