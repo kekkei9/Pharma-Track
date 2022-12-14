@@ -8,10 +8,19 @@ const PATH = {
   BOOK_AP_PATH: '/bookap',
 
   STAFF_TABLE_PATH: '/host/staffTable',
-  CLINIC_PROFILE_PATH: 'host/clinic',
-  STAFF_APPOINTMENTS_PATH: 'staff/appointments',
-  STAFF_QRSCAN_PATH: 'staff/QRscan',
-  USER_APPOINTMENTS_PATH: 'user/appointments'
+  STAFF_DYNAMIC_PATH: 'host/staffs/:staffId',
+
+  CLINIC_PROFILE_PATH: '/host/clinic',
+
+  STAFF_APPOINTMENTS_PATH: '/staff/appointments',
+  STAFF_APPOINTMENT_DYNAMIC_PATH: '/staff/appointment/:appointmentId',
+
+  STAFF_QRSCAN_PATH: '/staff/QRscan',
+
+  USER_APPOINTMENTS_PATH: '/user/appointments',
+  USER_APPOINTMENT_DYNAMIC_PATH: '/user/appointment/:appointmentId',
+
+  USER_PROFILE_PATH: '/profile'
 }
 
 export default PATH

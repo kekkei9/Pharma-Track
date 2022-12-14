@@ -1,33 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./StaffTable.scss";
 import { Table } from "antd";
+import Fetch from "../../fetch";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   {
     title: "ID",
-    dataIndex: "id",
-    key: "id",
+    dataIndex: "id_staff",
+    key: "if_staff",
     width: "auto",
   },
   {
-    title: "Name",
-    dataIndex: "fullName",
-    key: "fullName",
-    render: (_, record) => <a>{record.firstName + " " + record.lastName}</a>,
-    width: "40%",
+    title: "Tên",
+    dataIndex: "name",
+    key: "name",
+    width: "20%",
   },
   {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
-    width: "40%",
+    title: "Số điện thoại",
+    dataIndex: "number",
+    key: "number",
+    width: "20%",
+  },
+  {
+    title: "Chức vụ",
+    dataIndex: "type",
+    key: "type",
+    width: "10%",
+  },
+  {
+    title: "Khoa",
+    dataIndex: "department",
+    key: "department",
+    width: "10%",
   },
   {
     title: "Action",
     key: "Action",
     render: (_, record) => (
-      <div className="flex flex-row gap-5">
-        <a style={{ color: "#1890FF" }}>Invite {record.lastName}</a>
+      <div
+        className="flex flex-row gap-5"
+        onClick={(e) => console.log(record.staff_id)}
+      >
+        <a style={{ color: "#1890FF" }}>Invite {record.name}</a>
         <a style={{ color: "#1890FF" }}>Delete</a>
       </div>
     ),
@@ -35,107 +52,41 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    id: 123,
-    firstName: "Le Thi",
-    lastName: "Van",
-    email: "lethivan@gmail.com",
-    phone: "0942347343",
-    role: "CS",
-  },
-  {
-    id: 1245,
-    firstName: "Nguyen Van",
-    lastName: "A",
-    email: "nguyenvana@gmail.com",
-    phone: "0942478458",
-    role: "CS",
-  },
-  {
-    id: 1245,
-    firstName: "Nguyen Van",
-    lastName: "A",
-    email: "nguyenvana@gmail.com",
-    phone: "0942478458",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-];
-
 const StaffTable = (props) => {
+  const navigate = useNavigate();
+  const [staffData, setStaffData] = useState([]);
+  const { user } = useSelector((state) => state.authentication);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const fetchStaff = async () => {
+      try {
+        const response = await Fetch(
+          "GET",
+          "https://pharma-track.onrender.com/api/v1/staff"
+        );
+        setStaffData(response);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchStaff();
+
+    return () => abortController.abort();
+  }, [user.uid]);
+
   return (
     <div className="StaffTable tw-w-2/3 center-screen tw-mt-5">
       <Table
+        onRow={(record) => ({
+          onDoubleClick: () => navigate("/host/staffs/" + record.id_staff),
+        })}
         className="staff-table"
         rowClassName={(record, index) =>
           index % 2 === 0 ? "table-row-light" : "table-row-dark"
         }
         columns={columns}
-        dataSource={data}
+        dataSource={staffData}
         pagination={{ pageSize: 6 }}
       />
     </div>

@@ -6,6 +6,9 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import RolePage from "../pages/RolePage/RolePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import BookApPage from "../pages/BookApPage/BookApPage";
+import UserProfilePage from "../pages/UserProfilePage/UserProfilePage";
+import StaffProfilePage from "../pages/StaffProfilePage/StaffProfilePage";
+
 import StaffTable from "../components/StaffTable/StaffTable";
 import ClinicProfile from "../components/ClinicProfile/ClinicProfile";
 import StaffAppointmentTable from "../components/StaffAppointmentTable/StaffAppointmentTable";
@@ -13,7 +16,6 @@ import UserAppointmentTable from "../components/UserAppointmentTable/UserAppoint
 import App from "../App";
 import PATH from "./routerPath/publicPath";
 import Header from "../components/Header/Header";
-import { useSelector } from "react-redux";
 import PrivateRouter from "./customRouter/PrivateRouter";
 
 const AppRouter = () => (
@@ -33,6 +35,16 @@ const AppRouter = () => (
       path={PATH.STAFF_TABLE_PATH}
       element={
         <PrivateRouter component={StaffTable} accessibleRoles={["host"]} />
+      }
+    />
+
+    <Route
+      path={PATH.STAFF_DYNAMIC_PATH}
+      element={
+        <PrivateRouter
+          component={StaffProfilePage}
+          accessibleRoles={["host"]}
+        />
       }
     />
     <Route
@@ -69,6 +81,17 @@ const AppRouter = () => (
         <PrivateRouter
           component={UserAppointmentTable}
           accessibleRoles={["user"]}
+        />
+      }
+    />
+
+    <Route
+      exact
+      path={PATH.USER_PROFILE_PATH}
+      element={
+        <PrivateRouter
+          component={UserProfilePage}
+          accessibleRoles={["host", "staff", "user"]}
         />
       }
     />

@@ -52,7 +52,12 @@ const RolePage = (props) => {
             return;
           }
           const { uid } = user;
-          await setUserInfo(uid, { ...state, role, uid });
+          const stateSlice = (({ email, province, username }) => ({
+            email,
+            province,
+            username,
+          }))(state);
+          await setUserInfo(uid, { ...stateSlice, role, uid });
           notification.success({
             message: "Đăng kí",
             description: "Đăng kí thành công",
