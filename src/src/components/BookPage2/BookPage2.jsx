@@ -21,12 +21,12 @@ import {
  } from '../ValidateFields/ValidateFields';
 
 //{ handleSubmit, values, submitCount }
-const BookPage2 = (props) => {
+const BookPage2 = ({ handleSubmit, values, submitCount }) => {
   return <div className="BookPage2"> 
 
-  <div className = 'tw-text-xl tw-font-bold tw-pb-5'>1.Thông tin người đăng ký khám</div>
+  {/* <div className = 'tw-text-xl tw-font-bold tw-pb-5'>1.Thông tin người đăng ký khám</div> */}
   <Form className="form-container tw-flex tw-flex-col tw-items-center"
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       >
          <Field
           component={AntInput}
@@ -129,7 +129,7 @@ const BookPage2 = (props) => {
           }}
           placeholder="Triệu chứng"
         />
-        <div className = 'tw-text-xl tw-font-bold tw-pb-5'>2.Thông tin đăng ký khám</div>
+        {/* <div className = 'tw-text-xl tw-font-bold tw-pb-5'>2.Thông tin đăng ký khám</div> */}
             
         <Field
           component={AntDatePicker}
@@ -159,7 +159,7 @@ const BookPage2 = (props) => {
           placeholder="Thời gian hẹn khám "
         />
   </Form>
-
+{/* 
   <div className = ' tw-text-red-600 tw-pl-4 tw-list-disc'>
       <div className=' tw-font-bold'>Lưu ý:</div>
       <ul className = 'tw-list-disc tw-pl-5'>
@@ -168,7 +168,7 @@ const BookPage2 = (props) => {
         CCCD/Mã định danh công dân/HC ...)</li>
         <li>Bằng việc nhấn nút "Xác nhận", bạn hoàn toàn hiểu và đồng ý chịu trách nhiệm với các thông tin đã cung cấp.</li>
       </ul>
-    </div>
+    </div> */}
 </div>
 
 }
