@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { notification } from "antd";
 import { checkUserInfoExist, getUserData } from "../../firebase";
 import "./StaffProfilePage.scss";
+import BackButton from "../../components/BackButton/BackButton";
+import Fetch from "../../fetch";
 
 const StaffProfilePage = (props) => {
   const navigate = useNavigate();
@@ -27,6 +29,9 @@ const StaffProfilePage = (props) => {
         }
         const response = await getUserData(params.staffId);
         setStaffInfo(response);
+
+        //Lay data tu staff
+        await Fetch("GET");
       } catch (e) {
         console.error(e);
       }
@@ -34,10 +39,11 @@ const StaffProfilePage = (props) => {
     fetchStaff();
 
     return () => abortController.abort();
-  }, [params.staffId]);
+  }, [params.staffId, navigate]);
 
   return (
     <div className="StaffProfilePage">
+      <BackButton />
       {!!staffInfo && (
         <div>
           <div>Email: {staffInfo.email}</div>

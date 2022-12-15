@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./StaffTable.scss";
-import { Table } from "antd";
+import { Table, notification, Popconfirm } from "antd";
 import Fetch from "../../fetch";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useHref, useNavigate } from "react-router-dom";
+import { async } from "@firebase/util";
 
 const columns = [
   {
@@ -16,7 +17,7 @@ const columns = [
     title: "Tên",
     dataIndex: "name",
     key: "name",
-    width: "20%",
+    width: "15%",
   },
   {
     title: "Số điện thoại",
@@ -28,7 +29,7 @@ const columns = [
     title: "Chức vụ",
     dataIndex: "type",
     key: "type",
-    width: "10%",
+    width: "15%",
   },
   {
     title: "Khoa",
@@ -40,21 +41,54 @@ const columns = [
     title: "Action",
     key: "Action",
     render: (_, record) => (
-      <div
-        className="flex flex-row gap-5"
-        onClick={(e) => console.log(record.staff_id)}
+      <Popconfirm
+        title="Bạn có muốn xóa người này khỏi phòng khám?"
+        onConfirm={async () => {
+          try {
+            const response = Fetch(
+              "DELETE",
+              "https://pharma-track.onrender.com/api/v1/staff",
+              {
+                id_staff: record.id_staff,
+              }
+            );
+            if (response.result === "success") {
+              notification.success({
+                message: "Bảng nhân viên",
+                description: `Xóa nhân viên ${record.id_staff} thành công`,
+              });
+              return;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+          notification.error({
+            message: "Bảng nhân viên",
+            description: `Xóa nhân viên ${record.id_staff} thất bại`,
+          });
+        }}
+        okText="Có"
+        cancelText="Không"
       >
-        <a style={{ color: "#1890FF" }}>Invite {record.name}</a>
-        <a style={{ color: "#1890FF" }}>Delete</a>
-      </div>
+        <a
+          style={{ color: "#1890FF" }}
+          onClick={() => {
+            console.log("ehe");
+          }}
+          href="#"
+        >
+          Xoá
+        </a>
+      </Popconfirm>
     ),
-    width: "30%",
+    width: "10%",
   },
 ];
 
 const StaffTable = (props) => {
   const navigate = useNavigate();
   const [staffData, setStaffData] = useState([]);
+  const [requestData, setRequestData] = useState(new Date());
   const { user } = useSelector((state) => state.authentication);
 
   useEffect(() => {
@@ -73,7 +107,7 @@ const StaffTable = (props) => {
     fetchStaff();
 
     return () => abortController.abort();
-  }, [user.uid]);
+  }, [requestData]);
 
   return (
     <div className="StaffTable tw-w-2/3 center-screen tw-mt-5">

@@ -11,12 +11,17 @@ import {
 } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/authentication/authentication.slice";
+import { Field } from "formik";
+import InputForm from "../../components/InputForm/InputForm";
+import BackButton from "../../components/BackButton/BackButton";
+import Fetch from "../../fetch";
 
 const RolePage = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
+  const [IDInput, setIDInput] = useState("");
 
   const RoleData = [
     {
@@ -35,6 +40,30 @@ const RolePage = (props) => {
       imgsrc: "/assets/user.png",
     },
   ];
+
+  const handleSubmitStaff = async () => {
+    try {
+      const response = await Fetch(
+        "GET",
+        "https://pharma-track.onrender.com/api/v1/clinic/id_clinic",
+        {
+          id_clinic: IDInput,
+        }
+      );
+      if (!response.length) {
+        notification.error({
+          message: "Đăng kí",
+          description: "Mã phòng khám không tồn tại",
+        });
+        return false;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return true;
+  };
+
+  const handleSubmitHost = async () => {};
 
   const handleSubmit = async (tab) => {
     if (tab >= 3 || tab < 0) {
@@ -89,11 +118,20 @@ const RolePage = (props) => {
   };
 
   return (
-    <div className="RolePage">
+    <div className="RolePage tw-flex tw-flex-col tw-items-center">
       <div>
+        <BackButton />
         <RoleHeader />
+        <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
       </div>
-      <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
+      {tab === 0 && <div>Tạo phòng khám</div>}
+      {tab === 1 && (
+        <InputForm
+          title="Nhập ID phòng khám"
+          placeholder="ID phòng khám"
+          setInput={setIDInput}
+        />
+      )}
       <div className="RoleButton tw-flex tw-flex-row tw-justify-center tw-space-x-40 ">
         <div>
           <Button
@@ -113,7 +151,14 @@ const RolePage = (props) => {
             type="primary"
             shape="round"
             style={{ backgroundColor: "blue", width: "150px", height: "40px" }}
-            onClick={() => handleSubmit(tab)}
+            onClick={async () => {
+              if (tab === 0) {
+                if (!(await handleSubmitHost())) return;
+              } else if (tab === 1) {
+                if (!(await handleSubmitStaff())) return;
+              }
+              handleSubmit(tab);
+            }}
           >
             TIẾP TỤC
           </Button>
