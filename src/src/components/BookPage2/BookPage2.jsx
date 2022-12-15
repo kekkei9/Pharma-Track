@@ -175,8 +175,8 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
   </div>
   </Form>
 
-  <div className = ' tw-text-red-600 tw-pl-4 tw-list-disc tw-items-center'>
-      <div className=' tw-font-bold'>Lưu ý:</div>
+  <div className = 'Note tw-text-red-600 tw-pl-4 tw-list-disc tw-items-center tw-w-2/5'>
+      <div className=' tw-font-bold tw-text-xl'>Lưu ý:</div>
       <ul className = 'tw-list-disc tw-pl-5 tw-align-center'>
         <li>Việc đăng ký thông tin hoàn toàn bảo mật và phục vụ cho dịch vụ khám bệnh</li>
         <li>Xin vui lòng kiểm tra kỹ các thông tin bắt buộc (VD: Họ và tên, Ngày tháng năm sinh, Số điện thoại,
