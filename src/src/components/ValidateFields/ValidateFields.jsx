@@ -106,3 +106,15 @@ export const validateEmailBooking = (value) => {
 
   return errors;
 };
+
+export const validatePhoneNumber = (value) => {
+  let errors;
+
+  if (!value) {
+    errors = "Số điện thoại không được bỏ trống";
+  }
+  else if(!/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(value)){
+    errors="Số điện thoại không hợp lệ";
+  }
+  return errors;
+}
