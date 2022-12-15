@@ -52,8 +52,7 @@ const BookApBox = (props) => {
       {current === 0 ? (
         <BookApTab1 />
       ) : current === 1 ? (
-        <BookPage2 /> 
-        // <BookingFormContainer/>
+        <BookingFormContainer/>
       ) : (
         <BookApTab3 />
       )}
