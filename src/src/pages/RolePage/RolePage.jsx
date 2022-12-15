@@ -63,7 +63,9 @@ const RolePage = (props) => {
     return true;
   };
 
-  const handleSubmitHost = async () => {};
+  const handleSubmitHost = async () => {
+    return true;
+  };
 
   const handleSubmit = async (tab) => {
     if (tab >= 3 || tab < 0) {
@@ -152,11 +154,13 @@ const RolePage = (props) => {
             shape="round"
             style={{ backgroundColor: "blue", width: "150px", height: "40px" }}
             onClick={async () => {
+              console.log("submit");
               if (tab === 0) {
                 if (!(await handleSubmitHost())) return;
               } else if (tab === 1) {
                 if (!(await handleSubmitStaff())) return;
               }
+              console.log("rin");
               handleSubmit(tab);
             }}
           >
