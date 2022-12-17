@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import BookApBox from './BookApBox'
+import DoctorCardList from './DoctorCardList'
 import '@testing-library/jest-dom'
 
-describe('<BookApBox />', () => {
+describe('<DoctorCardList />', () => {
   it('renders a heading', () => {
-    render(<BookApBox />)
+    render(<DoctorCardList />)
 
     const heading = screen.getByRole('heading', {
       name: /welcome to next\.js!/i,
