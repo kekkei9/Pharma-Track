@@ -115,7 +115,7 @@ const DoctorCardList = (props) => {
   const navigate = useNavigate()
 
   const handleDoubleClick = () => {
-    navigate('/bookap/doctor' + id)
+    navigate('/bookap/doctor/' + id)
   }
 
   const onClickBack = () => {
@@ -123,7 +123,7 @@ const DoctorCardList = (props) => {
   }
 
   const onClickNext = () => {
-    {id === -1 ? openNotificationWithIcon() : navigate('/bookap/doctor' + id)}
+    {id === -1 ? openNotificationWithIcon() : navigate('/bookap/doctor/' + id)}
   }
 
   return <div className="DoctorCardList">

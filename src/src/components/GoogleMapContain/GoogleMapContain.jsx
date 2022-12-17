@@ -59,7 +59,7 @@ const GoogleMapContain = () => {
   const location = GetAddress();
 
   const handleDoubleClick = (props) => {
-    navigate('/bookap/doctor' + props.id)
+    navigate('/bookap/doctor/' + props.id)
   }
 
   const onClickBack = () => {
@@ -68,7 +68,7 @@ const GoogleMapContain = () => {
 
 
   const onClickNext = () => {
-    navigate('/bookap/doctor' + doctorState)
+    navigate('/bookap/doctor/' + doctorState)
   }
 
   const { isLoaded, loadError } = useLoadScript({
