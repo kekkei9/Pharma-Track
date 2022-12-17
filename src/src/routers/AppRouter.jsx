@@ -96,7 +96,7 @@ const AppRouter = () => (
 
     <Route
       exact
-      path={PATH.USER_PROFILE_PATH}
+      path={PATH.USER_DYNAMIC_PATH}
       element={
         <PrivateRouter
           component={UserProfilePage}

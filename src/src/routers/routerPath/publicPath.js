@@ -12,7 +12,7 @@ const PATH = {
   OPEN_DOCTOR_PATH : '/bookap/doctor:doctorID',
 
   STAFF_TABLE_PATH: '/host/staffTable',
-  STAFF_DYNAMIC_PATH: 'host/staffs/:staffId',
+  STAFF_DYNAMIC_PATH: 'host/staff/:staffId',
 
   CLINIC_PROFILE_PATH: '/host/clinic',
 
@@ -24,7 +24,7 @@ const PATH = {
   USER_APPOINTMENTS_PATH: '/user/appointments',
   USER_APPOINTMENT_DYNAMIC_PATH: '/user/appointment/:appointmentId',
 
-  USER_PROFILE_PATH: '/profile'
+  USER_DYNAMIC_PATH: '/user/:userId'
 }
 
 export default PATH

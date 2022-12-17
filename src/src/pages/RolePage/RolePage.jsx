@@ -42,23 +42,19 @@ const RolePage = (props) => {
   ];
 
   const handleSubmitStaff = async () => {
-    try {
-      const response = await Fetch(
-        "GET",
-        "https://pharma-track.onrender.com/api/v1/clinic/id_clinic",
-        {
-          id_clinic: IDInput,
-        }
-      );
-      if (!response.length) {
-        notification.error({
-          message: "Đăng kí",
-          description: "Mã phòng khám không tồn tại",
-        });
-        return false;
+    const response = await Fetch(
+      "POST",
+      "https://pharma-track.onrender.com/api/v1/clinic/id_clinic",
+      {
+        id_clinic: IDInput,
       }
-    } catch (e) {
-      console.error(e);
+    );
+    if (!Array.isArray(response)) {
+      notification.error({
+        message: "Đăng kí",
+        description: response.reason,
+      });
+      return false;
     }
     return true;
   };
@@ -154,13 +150,11 @@ const RolePage = (props) => {
             shape="round"
             style={{ backgroundColor: "blue", width: "150px", height: "40px" }}
             onClick={async () => {
-              console.log("submit");
               if (tab === 0) {
                 if (!(await handleSubmitHost())) return;
               } else if (tab === 1) {
                 if (!(await handleSubmitStaff())) return;
               }
-              console.log("rin");
               handleSubmit(tab);
             }}
           >

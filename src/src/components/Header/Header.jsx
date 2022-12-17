@@ -62,7 +62,11 @@ const Header = (props) => {
   const userDropdownItems = [
     {
       key: "1",
-      label: <Link to={"/profile"}>Thông tin người dùng</Link>,
+      label: (
+        <Link to={`/user/${user.uid}`} activeClassName="current">
+          Thông tin người dùng
+        </Link>
+      ),
     },
     {
       key: "2",

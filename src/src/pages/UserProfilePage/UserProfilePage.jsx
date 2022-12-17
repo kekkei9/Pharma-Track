@@ -1,11 +1,24 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getUserData } from "../../firebase";
 import "./UserProfilePage.scss";
 
 const UserProfilePage = (props) => {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.authentication);
+  const params = useParams();
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    const fetchUser = async () => {
+      setUserData(await getUserData(params.userId));
+    };
+    fetchUser();
+
+    return () => abortController.abort();
+  });
 
   const RoleName = {
     host: "Chủ phòng khám",
@@ -15,11 +28,11 @@ const UserProfilePage = (props) => {
 
   return (
     <div className="UserProfilePage">
-      <div>Tên: {user.username}</div>
-      <div>Tỉnh thành: {user?.province}</div>
-      <div>Email: {user.email}</div>
-      <div>Chức vụ : {RoleName[user.role]}</div>
-      {user.role !== "user" && <div>Tại phòng khám</div>}
+      <div>Tên: {userData.username}</div>
+      <div>Tỉnh thành: {userData?.province}</div>
+      <div>Email: {userData.email}</div>
+      <div>Chức vụ : {RoleName[userData.role]}</div>
+      {userData.role !== "user" && <div>Tại phòng khám</div>}
       <div>Số điện thoại</div>
     </div>
   );

@@ -31,7 +31,11 @@ const StaffProfilePage = (props) => {
         setStaffInfo(response);
 
         //Lay data tu staff
-        await Fetch("GET");
+        await Fetch(
+          "Post",
+          "https://pharma-track.onrender.com/api/v1/staff",
+          {}
+        );
       } catch (e) {
         console.error(e);
       }

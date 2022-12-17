@@ -113,7 +113,7 @@ const StaffTable = (props) => {
     <div className="StaffTable tw-w-2/3 center-screen tw-mt-5">
       <Table
         onRow={(record) => ({
-          onDoubleClick: () => navigate("/host/staffs/" + record.id_staff),
+          onDoubleClick: () => navigate("/host/staff/" + record.id_staff),
         })}
         className="staff-table"
         rowClassName={(record, index) =>

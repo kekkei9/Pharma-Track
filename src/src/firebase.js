@@ -51,7 +51,6 @@ export const getUserData = async (uid) => {
 	const userRef = doc(firestore, `users/${uid}`);
 	const snapshot = await getDoc(userRef);
 	const fullData = snapshot.data()
-	delete fullData.uid
 	return fullData
 }
 
