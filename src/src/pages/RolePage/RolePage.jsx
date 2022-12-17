@@ -25,18 +25,15 @@ const RolePage = (props) => {
 
   const RoleData = [
     {
-      name: "host",
-      title: "Chủ phòng khám",
+      title: "Chủ Phòng Khám",
       imgsrc: "/assets/host.png",
     },
     {
-      name: "staff",
-      title: "Nhân viên",
+      title: "Nhân Viên",
       imgsrc: "/assets/staff.png",
     },
     {
-      name: "user",
-      title: "Người dùng",
+      title: "Người Dùng",
       imgsrc: "/assets/user.png",
     },
   ];
@@ -122,15 +119,17 @@ const RolePage = (props) => {
         <RoleHeader />
         <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
       </div>
-      {tab === 0 && <div>Tạo phòng khám</div>}
-      {tab === 1 && (
-        <InputForm
-          title="Nhập ID phòng khám"
-          placeholder="ID phòng khám"
-          setInput={setIDInput}
-        />
-      )}
-      <div className="RoleButton tw-flex tw-flex-row tw-justify-center tw-space-x-40 ">
+      <div className="bonus-role-container tw-mt-5">
+        {tab === 0 && <div>Tạo phòng khám</div>}
+        {tab === 1 && (
+          <InputForm
+            title="Nhập ID phòng khám"
+            placeholder="ID phòng khám"
+            setInput={setIDInput}
+          />
+        )}
+      </div>
+      <div className="RoleButton tw-flex tw-flex-row tw-justify-center tw-space-x-40 tw-mt-5">
         <div>
           <Button
             className="button1"
