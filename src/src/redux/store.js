@@ -1,4 +1,4 @@
-// src/redux/store.ts
+// src/redux/store.js
 import { configureStore, Action } from '@reduxjs/toolkit'
 // import { ThunkAction } from 'redux-thunk'
 import authenticationReducer from './authentication/authentication.slice'
