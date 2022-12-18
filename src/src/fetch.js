@@ -26,7 +26,11 @@ const Fetch = async (
     //   // ...opts.headers,
     //   "content-Type": "application/json",
     // }
-    opts.body = JSON.stringify(data)
+    if(method === 'GET') {
+      url += '?' + new URLSearchParams(data).toString()
+    } else {
+      opts.body = JSON.stringify(data)
+    }
   }
 
   //  for no-cors 

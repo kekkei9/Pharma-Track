@@ -24,7 +24,9 @@ const Header = (props) => {
       description: "Đăng xuất thành công",
     });
     if (
-      ["/host", "/staff", "/user"].some((p) => p.indexOf(location.pathname))
+      ["/host", "/staff", "/user", "/bookap"].some((p) =>
+        p.indexOf(location.pathname)
+      )
     ) {
       navigate("/home");
     }
