@@ -25,14 +25,17 @@ const RolePage = (props) => {
 
   const RoleData = [
     {
+      name: "host",
       title: "Chủ Phòng Khám",
       imgsrc: "/assets/host.png",
     },
     {
+      name: "staff",
       title: "Nhân Viên",
       imgsrc: "/assets/staff.png",
     },
     {
+      name: "user",
       title: "Người Dùng",
       imgsrc: "/assets/user.png",
     },
