@@ -4,6 +4,8 @@ import { Button, notification } from "antd";
 import RoleHeader from "../../components/RoleHeader/RoleHeader";
 import RoleCardList from "../../components/RoleCardList/RoleCardList";
 import CreateClinicFormContainer from "../../containers/CreateClinicForm/CreateClinicForm.container";
+import StaffSignUpFormContainer from "../../containers/StaffSignUpForm/StaffSignUpForm.container";
+
 import "./RolePage.scss";
 import {
   createUserUsingEmailPassword,
@@ -12,7 +14,6 @@ import {
 } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/authentication/authentication.slice";
-import { Field } from "formik";
 import InputForm from "../../components/InputForm/InputForm";
 import BackButton from "../../components/BackButton/BackButton";
 import Fetch from "../../fetch";
@@ -22,9 +23,9 @@ const RolePage = (props) => {
   const dispatch = useDispatch();
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
-  const [IDInput, setIDInput] = useState("");
   const [warnText, setWarnText] = useState();
   const hostFormRef = useRef(null);
+  const staffFormRef = useRef(null);
   let bonusClinic = {};
 
   const RoleData = [
@@ -44,28 +45,6 @@ const RolePage = (props) => {
       imgsrc: "/assets/user.png",
     },
   ];
-
-  const handleSubmitStaff = async () => {
-    const response = await Fetch(
-      "POST",
-      "https://pharma-track.onrender.com/api/v1/clinic/id_clinic",
-      {
-        id_clinic: IDInput,
-      }
-    );
-    if (!Array.isArray(response)) {
-      notification.error({
-        message: "Đăng kí",
-        description: response.reason,
-      });
-      return false;
-    }
-
-    bonusClinic = {
-      id_clinic: IDInput,
-    };
-    return true;
-  };
 
   const handleSubmitHost = async () => {
     if (hostFormRef.current) {
@@ -98,12 +77,43 @@ const RolePage = (props) => {
         console.error(e);
       }
     }
-    bonusClinic = (({ id_clinic, province, city, ward }) => ({
-      id_clinic,
-      province,
-      city,
-      ward,
-    }))(hostFormRef.current.values);
+    bonusClinic.id_clinic = hostFormRef.current.values.id_clinic;
+    return true;
+  };
+
+  const handleSubmitStaff = async () => {
+    if (staffFormRef.current) {
+      staffFormRef.current.handleSubmit();
+      if (
+        !(
+          staffFormRef.current.isValid &&
+          Object.keys(staffFormRef.current.touched).length > 0
+        )
+      ) {
+        return false;
+      }
+      try {
+        const response = await Fetch(
+          "POST",
+          "https://pharma-track.onrender.com/api/v1/staff",
+          {
+            ...staffFormRef.current.values,
+          }
+        );
+
+        if (response.results === "that bai") {
+          notification.error({
+            message: "Tạo tài khoản nhân viên",
+            description: `Không tìm thấy phòng khám với ID ${staffFormRef.current.values.id_clinic}`,
+          });
+          return false;
+        }
+        bonusClinic.id_staff = response.data.id_staff;
+        bonusClinic.id_clinic = response.data.id_clinic;
+      } catch (e) {
+        console.error(e);
+      }
+    }
     return true;
   };
 
@@ -174,11 +184,7 @@ const RolePage = (props) => {
           <CreateClinicFormContainer {...state} formRef={hostFormRef} />
         )}
         {tab === 1 && (
-          <InputForm
-            title="Nhập ID phòng khám"
-            placeholder="ID phòng khám"
-            setInput={setIDInput}
-          />
+          <StaffSignUpFormContainer {...state} formRef={staffFormRef} />
         )}
       </div>
       <div className="RoleButton tw-flex tw-flex-row tw-justify-center tw-space-x-40 tw-mt-5">

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const CreateClinicFormContainer = ({ username, province, formRef }) => {
   const initialValues = {
+    OTP: "",
     id_clinic: "",
     name_clinic: "",
     name_doctor: username || "",

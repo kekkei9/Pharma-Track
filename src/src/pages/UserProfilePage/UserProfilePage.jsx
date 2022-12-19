@@ -9,6 +9,7 @@ const UserProfilePage = (props) => {
   const navigate = useNavigate();
   const params = useParams();
   const [userData, setUserData] = useState({});
+
   useEffect(() => {
     const abortController = new AbortController();
 

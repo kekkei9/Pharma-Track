@@ -11,7 +11,7 @@ import {
   signOut,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, query, where, getDocs, collection } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD6xItNw9KLS2Ve-Khshlql1yRPKfmGvdY",
@@ -29,6 +29,15 @@ export const auth = getAuth(app);
 const firestore = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
+
+export const getUidByStaffId = async (staffId) => {
+	const usersRef = collection(firestore, 'users')
+	const q = query(usersRef, where("id_staff", "==", staffId));
+	const snapshot = await getDocs(q);
+	const tempData = []
+	snapshot.forEach((doc) => tempData.push(doc.data()))
+	return tempData[0];
+} 
 
 export const setUserInfo = async (userID, info) => {
 	const userRef = doc(firestore, `users/${userID}`);
@@ -50,8 +59,7 @@ export const getUserRole = async (uid) => {
 export const getUserData = async (uid) => {
 	const userRef = doc(firestore, `users/${uid}`);
 	const snapshot = await getDoc(userRef);
-	const fullData = snapshot.data()
-	return fullData
+	return snapshot.data()
 }
 
 export const popUpWithGoogle = async () => {

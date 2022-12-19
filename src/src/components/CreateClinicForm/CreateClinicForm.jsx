@@ -10,7 +10,6 @@ import {
 import { useState } from "react";
 import { useEffect } from "react";
 import Fetch from "../../fetch";
-import { async } from "@firebase/util";
 
 const CreateClinicForm = ({
   values,
@@ -96,6 +95,19 @@ const CreateClinicForm = ({
       >
         <Field
           component={AntInput}
+          name="OTP"
+          type="textarea"
+          label="Nhập OTP đã được cấp"
+          validate={isRequired("OTP")}
+          submitCount={submitCount}
+          hasFeedback
+          style={{
+            width: "400px",
+          }}
+          placeholder="Mã OTP"
+        />
+        <Field
+          component={AntInput}
           name="id_clinic"
           type="textarea"
           label="Nhập ID phòng khám đã được cấp"
@@ -157,7 +169,7 @@ const CreateClinicForm = ({
           filterOption={(input, option) =>
             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
           }
-          disabled={!initialValues.provinces}
+          disabled={!initialValues.provinces === ""}
         />
         <Field
           component={AntSelect}
