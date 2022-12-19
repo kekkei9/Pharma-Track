@@ -4,6 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PickerForm from '../PickerForm/PickerForm'
 import DoctorCardList from '../DoctorCardList/DoctorCardList';
 import GoogleMapContain from '../GoogleMapContain/GoogleMapContain';
+import Fetch from "../../fetch";
+
 
 const BookApTab1 = (props) => {
   const [provinces, setProvinces] = useState([])
@@ -25,6 +27,25 @@ const BookApTab1 = (props) => {
       'items' : provinces
     }
   ]
+
+  var myProvince
+
+  const handleProvince = async () => {
+    try {
+      const response = Fetch(
+        "POST",
+        "https://pharma-track.onrender.com/api/v1/clinic/tinh_thanhpho",
+        {
+          province: myProvince,
+        }
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  console.log(handleProvince())
+
 
   useEffect(() => {
     fetch('data/vn.json')

@@ -1,104 +1,37 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import './DoctorCardList.scss'
 import DoctorCard from '../DoctorCard/DoctorCard'
 import { List } from 'antd';
 import BackNextButton from '../BackNextButton/BackNextButton';
 import { Button, notification, Space } from 'antd';
-
+import Fetch from "../../fetch";
 
 const DoctorCardList = (props) => {
-  const DoctorData = [
-    {
-    'id' : '0',
-    'img' : '/assets/avatardoctor.png',
-    'name' : 'Nguyễn Văn A',
-    'address': '123456 Đường Võ Thị Sáu, TP.HCM', 
-    'field' : 'nội',
-    },
-    {
-    'id' : '1',
-    'img' : '/assets/avatardoctor.png', 
-    'name' : 'Nguyễn Văn B',
-    'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-    'field' : 'nội',
-    },
-    {
-      'id' : '2',
-    'img' : '/assets/avatardoctor.png',
-    'name' : 'Nguyễn Văn C',
-    'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-    'field' : 'nội',
-    },
-    {
-      'id' : '3',
-    'img' : '/assets/avatardoctor.png',
-    'name' : 'Nguyễn Văn D',
-    'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-    'field' : 'nội',
-    },
-    {
-      'id' : '4',
-    'img' : '/assets/avatardoctor.png',
-    'name' : 'Nguyễn Văn E',
-    'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-    'field' : 'nội',
-    },
-    {
-      'id' : '5',
-    'img' : '/assets/avatardoctor.png',
-    'name' : 'Nguyễn Văn F',
-    'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-    'field' : 'nội',
-    },
-    {
-      'id' : '6',
-      'img' : '/assets/avatardoctor.png',
-      'name' : 'Nguyễn Văn 1',
-      'address': '123456 Đường Võ Thị Sáu, TP.HCM', 
-      'field' : 'nội',
-      },
-      {
-        'id' : '7',
-      'img' : '/assets/avatardoctor.png', 
-      'name' : 'Nguyễn Văn 2',
-      'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-      'field' : 'nội',
-      },
-      {
-        'id' : '8',
-      'img' : '/assets/avatardoctor.png',
-      'name' : 'Nguyễn Văn 3',
-      'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-      'field' : 'nội',
-      },
-      {
-        'id' : '9',
-      'img' : '/assets/avatardoctor.png',
-      'name' : 'Nguyễn Văn 4',
-      'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-      'field' : 'nội',
-      },
-      {
-        'id' : '10',
-      'img' : '/assets/avatardoctor.png',
-      'name' : 'Nguyễn Văn 5',
-      'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-      'field' : 'nội',
-      },
-      {
-        'id' : '11',
-      'img' : '/assets/avatardoctor.png',
-      'name' : 'Nguyễn Văn 6',
-      'address': '123456 Đường Võ Thị Sáu, TP.HCM',
-      'field' : 'nội',
-      },
-  ]
+  const [DoctorData, setDoctorData] = useState([]);
+  const [requestData, setRequestData] = useState(new Date());
 
+  useEffect(() => {
+    const abortController = new AbortController();
+    const fetchDoctor = async () => {
+      try {
+        const response = await Fetch(
+          "GET",
+          "https://pharma-track.onrender.com/api/v1/clinic/",
+        );
+        setDoctorData(response);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchDoctor();
+
+    return () => abortController.abort();
+  }, [requestData]);
+  
   const [changeStyle, setStyle] = useState(-1)
 
-  const [id, setID] = useState(-1)
-
+  const [id_clinic, setID] = useState(-1)
 
   const openNotificationWithIcon = () => {
     notification.error({
@@ -115,7 +48,7 @@ const DoctorCardList = (props) => {
   const navigate = useNavigate()
 
   const handleDoubleClick = () => {
-    navigate('/bookap/doctor/' + id)
+    navigate('/bookap/doctor/' + id_clinic)
   }
 
   const onClickBack = () => {
@@ -123,8 +56,9 @@ const DoctorCardList = (props) => {
   }
 
   const onClickNext = () => {
-    {id === -1 ? openNotificationWithIcon() : navigate('/bookap/doctor/' + id)}
+    {id_clinic === -1 ? openNotificationWithIcon() : navigate('/bookap/doctor/' + id_clinic)}
   }
+
 
   return <div className="DoctorCardList">
     <div className = 'List tw-mx-auto tw-flex-wrap tw-max-w-4xl'>
@@ -139,11 +73,11 @@ const DoctorCardList = (props) => {
         renderItem={(item) => (
           <List.Item>
             <DoctorCard {...item} 
-                        style = {changeStyle === item.id ? {'border-color': 'rgba(0, 121, 255, 0.5)'}
+                        style = {changeStyle === item.id_clinic ? {'border-color': 'rgba(0, 121, 255, 0.5)'}
                         : {}}
                         changeStyle = {changeStyle}
-                        setStyle = {setStyle}
                         setID = {setID}
+                        setStyle = {setStyle}
                         handleDoubleClick = {() => handleDoubleClick()}
                         />
           </List.Item>
