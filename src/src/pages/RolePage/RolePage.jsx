@@ -23,6 +23,7 @@ const RolePage = (props) => {
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
   const [IDInput, setIDInput] = useState("");
+  const [warnText, setWarnText] = useState();
   const hostFormRef = useRef(null);
   let bonusClinic = {};
 
@@ -59,6 +60,7 @@ const RolePage = (props) => {
       });
       return false;
     }
+
     bonusClinic = {
       id_clinic: IDInput,
     };
@@ -107,7 +109,7 @@ const RolePage = (props) => {
 
   const handleSubmit = async (tab) => {
     if (tab >= 3 || tab < 0) {
-      alert("Mời bạn chọn role");
+      setWarnText("Bạn chưa chọn loại tài khoản !");
     } else {
       const role = RoleData[tab].name;
       try {
@@ -162,6 +164,11 @@ const RolePage = (props) => {
         <RoleHeader />
         <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
       </div>
+      {tab === -1 && warnText && (
+        <div className="warn-container tw-text-red-500 tw-text-base">
+          {warnText}
+        </div>
+      )}
       <div className="bonus-role-container tw-mt-5">
         {tab === 0 && (
           <CreateClinicFormContainer {...state} formRef={hostFormRef} />
