@@ -68,11 +68,11 @@ export const popUpWithFacebook = async () => {
 	return { user, isExist };
 }
 
-export const createUserUsingEmailPassword = async ({ email, password, role, province, username }) => {
+export const createUserUsingEmailPassword = async ({ email, password, role, ...rest }) => {
 	if (!email || !password || !role) return;
 	const { user } = await createUserWithEmailAndPassword(auth, email, password);
 	const { uid } = user;
-	await setUserInfo(uid, { uid, role, province, username });
+	await setUserInfo(uid, { uid, role, ...rest });
 	return user;
 };
 

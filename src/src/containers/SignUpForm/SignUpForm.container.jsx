@@ -15,7 +15,6 @@ const SignUpFormContainer = () => {
     password: "",
     retypePassword: "",
     province: "Hà Nội",
-    provinceOptions: provinces,
   };
 
   const handleSubmit = (formProps) => {
@@ -29,18 +28,6 @@ const SignUpFormContainer = () => {
       state: userProps,
     });
   };
-
-  useEffect(() => {
-    fetch("data/vn.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setProvinces(
-          data
-            .map((d) => d.admin_name)
-            .filter((value, index, self) => self.indexOf(value) === index)
-        );
-      });
-  }, []);
 
   return (
     <div className="LoginFormContainer">

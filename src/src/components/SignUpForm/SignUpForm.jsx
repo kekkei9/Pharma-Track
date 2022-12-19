@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./SignUpForm.scss";
 import { Form, Field } from "formik";
 import { Form as AntdForm, Button } from "antd";
+import Fetch from "../../fetch";
 import {
   AntInput,
   AntPassword,
@@ -17,6 +18,27 @@ import {
 const FormItem = AntdForm.Item;
 
 const SignUpForm = ({ handleSubmit, values, submitCount }) => {
+  const [provinces, setProvinces] = useState([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    const fetchProvinces = async () => {
+      try {
+        const response = await Fetch(
+          "GET",
+          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
+        );
+        setProvinces(response.data.data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchProvinces();
+
+    return () => abortController.abort();
+  }, []);
+
   return (
     <div className="SignUpForm">
       <Form
@@ -28,7 +50,7 @@ const SignUpForm = ({ handleSubmit, values, submitCount }) => {
           name="username"
           type="textarea"
           label="Tên người dùng"
-          validate={isRequired}
+          validate={isRequired("Tên người dùng")}
           submitCount={submitCount}
           hasFeedback
           style={{
@@ -74,8 +96,7 @@ const SignUpForm = ({ handleSubmit, values, submitCount }) => {
           name="province"
           label="Chọn tỉnh/thành phố"
           defaultValue={values.province}
-          selectOptions={values.provinceOptions}
-          validate={isRequired}
+          validate={isRequired("Tỉnh/thành phố")}
           submitCount={submitCount}
           tokenSeparators={[","]}
           style={{ width: "400px" }}
@@ -86,9 +107,10 @@ const SignUpForm = ({ handleSubmit, values, submitCount }) => {
               .toLowerCase()
               .localeCompare((optionB?.label ?? "").toLowerCase())
           }
-          options={values.provinceOptions.map((province) => {
-            return { value: province, label: province };
-          })}
+          options={provinces.map((province) => ({
+            value: province.name,
+            label: province.name,
+          }))}
           filterOption={(input, option) =>
             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
           }

@@ -10,7 +10,8 @@ export const validateEmail = (value) => {
   return errors;
 };
 
-export const isRequired = (value) => (!value ? "không được bỏ trống" : "");
+export const isRequired = (labelName) => (value) =>
+  !value ? `${labelName} không được bỏ trống` : "";
 
 export const validatePassword = (values) => {
   let error = "";
@@ -34,3 +35,11 @@ export const validateConfirmPassword = (pass, value) => {
   }
   return error;
 };
+
+export const validateLat = (value) =>
+  value && isFinite(value) && Math.abs(value) <= 90 ? "" : "Vĩ độ không đúng";
+
+export const validateLng = (value) =>
+  value && isFinite(value) && Math.abs(value) <= 180
+    ? ""
+    : "Kinh độ không đúng";

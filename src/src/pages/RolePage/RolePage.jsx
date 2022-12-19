@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, notification } from "antd";
 import RoleHeader from "../../components/RoleHeader/RoleHeader";
 import RoleCardList from "../../components/RoleCardList/RoleCardList";
+import CreateClinicFormContainer from "../../containers/CreateClinicForm/CreateClinicForm.container";
 import "./RolePage.scss";
 import {
   createUserUsingEmailPassword,
@@ -22,6 +23,8 @@ const RolePage = (props) => {
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
   const [IDInput, setIDInput] = useState("");
+  const hostFormRef = useRef(null);
+  let bonusClinic = {};
 
   const RoleData = [
     {
@@ -56,10 +59,49 @@ const RolePage = (props) => {
       });
       return false;
     }
+    bonusClinic = {
+      id_clinic: IDInput,
+    };
     return true;
   };
 
   const handleSubmitHost = async () => {
+    if (hostFormRef.current) {
+      hostFormRef.current.handleSubmit();
+      if (
+        !(
+          hostFormRef.current.isValid &&
+          Object.keys(hostFormRef.current.touched).length > 0
+        )
+      ) {
+        return false;
+      }
+      try {
+        const response = await Fetch(
+          "POST",
+          "https://pharma-track.onrender.com/api/v1/clinic",
+          {
+            ...hostFormRef.current.values,
+            status_clinic: true,
+          }
+        );
+        if (response.results === "that bai") {
+          notification.error({
+            message: "Tạo phòng khám",
+            description: `Phòng khám với ID ${hostFormRef.current.values.id_clinic} đã tồn tại`,
+          });
+          return false;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    bonusClinic = (({ id_clinic, province, city, ward }) => ({
+      id_clinic,
+      province,
+      city,
+      ward,
+    }))(hostFormRef.current.values);
     return true;
   };
 
@@ -70,7 +112,11 @@ const RolePage = (props) => {
       const role = RoleData[tab].name;
       try {
         if (!!state.password) {
-          const user = await createUserUsingEmailPassword({ ...state, role });
+          const user = await createUserUsingEmailPassword({
+            ...state,
+            role,
+            ...bonusClinic,
+          });
           if (!user) {
             notification.error({
               message: "Đăng kí",
@@ -79,12 +125,6 @@ const RolePage = (props) => {
             return;
           }
           const { uid } = user;
-          const stateSlice = (({ email, province, username }) => ({
-            email,
-            province,
-            username,
-          }))(state);
-          await setUserInfo(uid, { ...stateSlice, role, uid });
           notification.success({
             message: "Đăng kí",
             description: "Đăng kí thành công",
@@ -123,7 +163,9 @@ const RolePage = (props) => {
         <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
       </div>
       <div className="bonus-role-container tw-mt-5">
-        {tab === 0 && <div>Tạo phòng khám</div>}
+        {tab === 0 && (
+          <CreateClinicFormContainer {...state} formRef={hostFormRef} />
+        )}
         {tab === 1 && (
           <InputForm
             title="Nhập ID phòng khám"
