@@ -191,7 +191,7 @@ const RolePage = (props) => {
                   : {}
               }
               setTab={setTab}
-              setDes={setDesText}
+              setDesText={setDesText}
               index={index}
             />
           ))}

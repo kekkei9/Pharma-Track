@@ -42,6 +42,9 @@ const StaffSignUpFormContainer = ({
         {
           ...values,
           name: userData.username,
+          ...{
+            department: values.type === "Bác sĩ" ? values.department : null,
+          },
         }
       );
 
@@ -79,6 +82,9 @@ const StaffSignUpFormContainer = ({
         "https://pharma-track.onrender.com/api/v1/staff",
         {
           ...values,
+          ...{
+            department: values.type === "Bác sĩ" ? values.department : null,
+          },
         }
       );
 
@@ -94,7 +100,6 @@ const StaffSignUpFormContainer = ({
     } catch (e) {
       console.error(e);
     }
-    console.log(bonusClinic);
     return bonusClinic;
   };
 

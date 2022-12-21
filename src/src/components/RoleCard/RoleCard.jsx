@@ -10,7 +10,7 @@ const RoleCard = ({
   description,
   style,
   setTab,
-  setDes,
+  setDesText,
   index,
 }) => {
   return (
@@ -22,7 +22,7 @@ const RoleCard = ({
           style={style}
           onClick={() => {
             setTab(index);
-            setDes(description);
+            setDesText(description);
           }}
         >
           <Meta title={title} />

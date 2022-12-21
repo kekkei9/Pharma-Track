@@ -105,13 +105,7 @@ const StaffTable = ({ className, requestData, setRequestData }) => {
           okText="Có"
           cancelText="Không"
         >
-          <a
-            style={{ color: "#1890FF" }}
-            onClick={() => {
-              console.log("clicked");
-            }}
-            href="#"
-          >
+          <a style={{ color: "#1890FF" }} href="#">
             Xoá
           </a>
         </Popconfirm>

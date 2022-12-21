@@ -120,10 +120,12 @@ const ClinicProfile = (props) => {
               }}
             >
               <div
-                style={{ width: "100%", height: "70px" }}
-                className="tw-shadow tw-shadow-slate-400"
+                style={{ width: "100%", height: "80px", maxWidth: "700px" }}
+                className="tw-shadow tw-shadow-slate-400 tw-p-5 tw-bg-slate-50"
               >
-                ciao
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
               </div>
               <img
                 width={"700px"}
