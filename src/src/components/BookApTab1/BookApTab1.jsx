@@ -33,27 +33,25 @@ const BookApTab1 = (props) => {
     return () => abortController.abort();
   }, []);
 
-  const [provinces, setProvinces] = useState([]);
-  useEffect(() => {
-    const abortController = new AbortController();
-    const fetchProvinces = async () => {
-      try {
-        const response = await Fetch(
-          "GET",
-          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1",
-        );
-        setProvinces(response);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchProvinces();
+  // const [provinces, setProvinces] = useState([]);
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+  //   const fetchProvinces = async () => {
+  //     try {
+  //       const response = await Fetch(
+  //         "GET",
+  //         "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1",
+  //       );
+  //       setProvinces(response);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   };
+  //   fetchProvinces();
 
-    return () => abortController.abort();
-  }, []);
+  //   return () => abortController.abort();
+  // }, []);
   
-
-
   // useEffect(() => {
   //   fetch('data/vn.json')
   //   .then((response) => response.json())
@@ -64,8 +62,6 @@ const BookApTab1 = (props) => {
   //     )
   // })
   // }, [])
-
-  setProvinces( provinces.filter(item => (item.data)))
 
   const formDatas = [
     {
