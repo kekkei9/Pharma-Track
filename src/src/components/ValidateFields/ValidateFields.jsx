@@ -1,3 +1,5 @@
+//import moment from 'moment';
+
 export const validateEmail = (value) => {
   let errors;
 
@@ -49,12 +51,19 @@ export const validateFullName = (value) => {
 
 //export const isRequired = (value) => (!value ? "không được bỏ trống" : "");
 
+export const dateFormat = "MM-DD-YYYY";
 export const validateBirthDay = (value) => {
   let errors;
 
   if (!value) {
     errors = "Ngày sinh không được bỏ trống";
-  }
+  }//
+  // }else if (
+  //   moment(value).format(dateFormat) < moment(Date.now()).format(dateFormat)
+  // )
+  // {
+  //   errors="Ngày sinh không hợp lệ";
+  // }
   return errors;
 }
 
@@ -118,3 +127,4 @@ export const validatePhoneNumber = (value) => {
   }
   return errors;
 }
+

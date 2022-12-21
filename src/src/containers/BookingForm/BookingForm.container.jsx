@@ -11,15 +11,17 @@ const BookingFormContainer = () => {
     const initialValues = {
         username: "",
         birthday: "",
-        //gender:"",
+        gender:"",
         email: "",
         address: "",
-        phonenumber: "",
+        number: "",
         symptom: "",
+        date:"",
+        time:""
       };
-//chưa biết xử lí cái handle submit, với cái file province t tìk cái đó để sau 
-      const handleSubmit = async (formProps) => {
-
+// birthday, , date, time 
+      const handleSubmit =(formProps) => {
+          console.log(formProps)
       }
 
   return (
@@ -29,6 +31,7 @@ const BookingFormContainer = () => {
       </Formik>
     </div>
   );
+
 };
 
 export default BookingFormContainer;

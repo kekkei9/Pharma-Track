@@ -8,11 +8,25 @@
         }
     }
    }
-
+   .imageDoctor{
+    margin-left:20% ;
+   }
+   .doctorProfile
+   {
+    padding: 0 25px 25px 25px;
+    margin-left:5% ;
+    background-color: white;
+    border-color:rgb(162, 152, 152) ;
+    border-width:1px ;
+    border-radius: 10%;
+   }
    .header{
     margin: 40px 0px 10px 60px;
    }
    .Note{
-    margin: 0 30%;
+    margin: 0 20% 0 20%;
+   }
+   .checkbox{
+    margin: 2% 40% 5% 40%;
    }
 }
