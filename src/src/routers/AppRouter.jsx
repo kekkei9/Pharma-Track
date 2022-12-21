@@ -11,6 +11,7 @@ import BookApPage3 from "../pages/BookApPage3/BookApPage3";
 
 import UserProfilePage from "../pages/UserProfilePage/UserProfilePage";
 import StaffProfilePage from "../pages/StaffProfilePage/StaffProfilePage";
+import QRScanPage from "../pages/QRScanPage/QRScanPage";
 
 import StaffTablePage from "../pages/StaffTablePage/StaffTablePage";
 import ClinicProfile from "../components/ClinicProfile/ClinicProfile";
@@ -97,7 +98,7 @@ const AppRouter = () => (
       exact
       path={PATH.STAFF_QRSCAN_PATH}
       element={
-        <PrivateRouter component={ClinicProfile} accessibleRoles={["staff"]} />
+        <PrivateRouter component={QRScanPage} accessibleRoles={["staff"]} />
       }
     />
 
