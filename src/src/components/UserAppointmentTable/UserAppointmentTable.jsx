@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./UserAppointmentTable.scss";
 import { Table } from "antd";
 import Fetch from "../../fetch";
+import { getUserData } from "../../firebase";
+import { useNavigate, useParams } from "react-router-dom";
 
 const columns = [
   {
@@ -30,7 +33,14 @@ const columns = [
   },
 ];
 
+
+
 const UserAppointmentTable = (props) => {
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state)=> state.authentication)
+  const {uid} = user
+
   const [userAppointment, setUserAppointment] = useState([]);
   useEffect(() => {
     const abortController = new AbortController();
@@ -38,7 +48,7 @@ const UserAppointmentTable = (props) => {
       try {
         const response = await Fetch(
           "GET",
-          "https://pharma-track.onrender.com/api/v1/appointment/id_user?id_user=Test2"
+          `https://pharma-track.onrender.com/api/v1/appointment/id_user?id_user=${uid}`,
         );
         setUserAppointment(response);
       } catch (e) {
