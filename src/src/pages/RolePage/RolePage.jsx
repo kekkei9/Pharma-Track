@@ -136,7 +136,7 @@ const RolePage = (props) => {
     <div className="RolePage tw-flex tw-flex-col tw-items-center">
       <Modal
         open={modal}
-        title="Thông tin nhân viên"
+        title={tab === 0 ? "Thông tin phòng khám" : "Thông tin nhân viên"}
         onCancel={() => setModal(false)}
         footer={[
           <Button key="back" onClick={() => setModal(false)}>
@@ -156,7 +156,7 @@ const RolePage = (props) => {
               return true;
             }}
           >
-            Thêm nhân viên
+            {tab === 0 ? "Tạo phòng khám" : "Tạo tài khoản"}
           </Button>,
         ]}
         width={448}

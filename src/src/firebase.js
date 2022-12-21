@@ -91,7 +91,7 @@ export const createUserUsingEmailPassword = async ({ email, password, role, ...r
 	if (!email || !password || !role) return;
 	const { user } = await createUserWithEmailAndPassword(auth, email, password);
 	const { uid } = user;
-	await setUserInfo(uid, { uid, role, ...rest });
+	await setUserInfo(uid, { uid, role, email, ...rest });
 	return user;
 };
 

@@ -105,3 +105,14 @@ button.ant-btn-background-ghost.ant-btn-dangerous {
 .ant-popover-content .ant-popconfirm-buttons {
   display: flex;
 }
+
+.ant-modal-content .ant-modal-footer {
+  display: flex;
+  justify-content: center;
+  button.ant-btn {
+    padding: 1.25rem 1rem !important;
+    &.ant-btn-primary {
+      background: black !important;
+    }
+  }
+}
