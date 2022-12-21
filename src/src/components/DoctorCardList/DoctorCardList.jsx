@@ -1,64 +1,28 @@
-import React, {useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, {useState} from 'react'
 import './DoctorCardList.scss'
 import DoctorCard from '../DoctorCard/DoctorCard'
 import { List } from 'antd';
-import BackNextButton from '../BackNextButton/BackNextButton';
-import { Button, notification, Space } from 'antd';
-import Fetch from "../../fetch";
+import { Modal } from 'antd';
+import OpenDoctorCard from '../OpenDoctorCard/OpenDoctorCard';
 
-const DoctorCardList = (props) => {
-  const [DoctorData, setDoctorData] = useState([]);
-  const [requestData, setRequestData] = useState(new Date());
+const DoctorCardList = ({ DoctorData, id_clinic, setID }) => {
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    const fetchDoctor = async () => {
-      try {
-        const response = await Fetch(
-          "GET",
-          "https://pharma-track.onrender.com/api/v1/clinic/",
-        );
-        setDoctorData(response);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchDoctor();
-
-    return () => abortController.abort();
-  }, [requestData]);
-  
   const [changeStyle, setStyle] = useState(-1)
 
-  const [id_clinic, setID] = useState(-1)
-
-  const openNotificationWithIcon = () => {
-    notification.error({
-      message: 'Lỗi',
-      description:
-        'Bạn vẫn chưa chọn bác sĩ',
-    });
-    notification.config({
-      placement: 'topRight',
-      top: 100,
-    })
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
-  const navigate = useNavigate()
-
-  const handleDoubleClick = () => {
-    navigate('/bookap/doctor/' + id_clinic)
-  }
-
-  const onClickBack = () => {
-    navigate('/homepage')
-  }
-
-  const onClickNext = () => {
-    {id_clinic === -1 ? openNotificationWithIcon() : navigate('/bookap/doctor/' + id_clinic)}
-  }
-
+  const currentDoctor = DoctorData.find(item => {
+    return item.id_clinic === id_clinic
+  })
 
   return <div className="DoctorCardList">
     <div className = 'List tw-mx-auto tw-flex-wrap tw-max-w-4xl'>
@@ -78,14 +42,15 @@ const DoctorCardList = (props) => {
                         changeStyle = {changeStyle}
                         setID = {setID}
                         setStyle = {setStyle}
-                        handleDoubleClick = {() => handleDoubleClick()}
+                        handleDoubleClick = {showModal}
                         />
+          <Modal title="CHI TIẾT BÁC SĨ" open={isModalOpen} okType = {'primary'} onOk={handleOk} onCancel={handleCancel} width = {1000} footer = {null}>
+            <OpenDoctorCard currentDoctor={currentDoctor}/>
+          </Modal>
           </List.Item>
         )}
       />
     </div>
-
-    <BackNextButton onClickBack={ onClickBack } onClickNext = { onClickNext }/>      
 </div>
 }
 

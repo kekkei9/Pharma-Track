@@ -9,7 +9,9 @@ const DoctorCard = ({ id_clinic, name_doctor, address, field, style, changeStyle
     onClick = {()=> {
       setID(id_clinic)
       setStyle(id_clinic)}}
-    onDoubleClick = {()=> handleDoubleClick()}
+    onDoubleClick = {()=> {
+      handleDoubleClick()
+      setID(id_clinic)}}
     >
     <div className = 'tw-flex tw-justify-center'>
       <img src = '/assets/avatardoctor.png' alt = 'dogtor'></img>
