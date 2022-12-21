@@ -52,5 +52,6 @@ const CreateAntField =
 export const AntSelect = CreateAntField(Select);
 export const AntDatePicker = CreateAntField(DatePicker);
 export const AntInput = CreateAntField(Input);
+export const AntTextArea = CreateAntField(Input.TextArea);
 export const AntPassword = CreateAntField(Input.Password);
 export const AntTimePicker = CreateAntField(TimePicker);

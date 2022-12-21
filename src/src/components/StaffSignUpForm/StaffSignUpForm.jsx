@@ -2,14 +2,7 @@ import React from "react";
 import "./StaffSignUpForm.scss";
 import { Form, Field } from "formik";
 import { AntInput, AntSelect } from "../CreateAntField/CreateAntField";
-import {
-  validateLat,
-  validateLng,
-  isRequired,
-} from "../ValidateFields/ValidateFields";
-import { useState } from "react";
-import { useEffect } from "react";
-import Fetch from "../../fetch";
+import { isRequired } from "../ValidateFields/ValidateFields";
 
 const StaffSignUpForm = ({ values, handleSubmit, submitCount }) => {
   return (

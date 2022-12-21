@@ -4,9 +4,9 @@ import { Table, notification, Popconfirm, Spin } from "antd";
 import Fetch from "../../fetch";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { deleteUserProp, getUidByStaffId } from "../../firebase";
 
-const StaffTable = (props) => {
+const StaffTable = ({ className }) => {
   const navigate = useNavigate();
   const [staffData, setStaffData] = useState([]);
   const [requestData, setRequestData] = useState(new Date());
@@ -74,19 +74,23 @@ const StaffTable = (props) => {
           title="Bạn có muốn xóa người này khỏi phòng khám?"
           onConfirm={async () => {
             try {
-              const response = Fetch(
+              const response = await Fetch(
                 "DELETE",
                 "https://pharma-track.onrender.com/api/v1/staff",
                 {
                   id_staff: record.id_staff,
                 }
               );
-              if (response.results === "success") {
+              if (response.results === "thanh cong") {
                 notification.success({
                   message: "Bảng nhân viên",
                   description: `Xóa nhân viên ${record.id_staff} thành công`,
                 });
                 setRequestData(new Date());
+                await deleteUserProp(
+                  getUidByStaffId(record.id_staff),
+                  "id_staff"
+                );
                 return;
               }
             } catch (e) {
@@ -116,7 +120,7 @@ const StaffTable = (props) => {
   ];
 
   return (
-    <div className="StaffTable tw-w-2/3 center-screen tw-mt-5">
+    <div className={`StaffTable tw-w-2/3 ${className}`}>
       <Spin tip="Loading..." spinning={isSpinning}>
         <Table
           onRow={(record) => ({

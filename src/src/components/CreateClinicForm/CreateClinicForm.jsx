@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { useEffect } from "react";
 import Fetch from "../../fetch";
+import AddressPickForm from "../AddressPickForm/AddressPickForm";
 
 const CreateClinicForm = ({
   values,
@@ -17,76 +18,6 @@ const CreateClinicForm = ({
   submitCount,
   initialValues,
 }) => {
-  const [provinces, setProvinces] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [wards, setWards] = useState([]);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    const fetchProvinces = async () => {
-      try {
-        const response = await Fetch(
-          "GET",
-          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
-        );
-        setProvinces(response.data.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchProvinces();
-
-    return () => abortController.abort();
-  }, []);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    const fetchCities = async () => {
-      try {
-        const response = await Fetch(
-          "GET",
-          "https://vn-public-apis.fpo.vn/districts/getByProvince",
-          {
-            provinceCode: provinces.find((x) => x.name === values.province)
-              .code,
-            limit: -1,
-          }
-        );
-        setCities(response.data.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchCities();
-
-    return () => abortController.abort();
-  }, [provinces, values.province]);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    const fetchWards = async () => {
-      try {
-        const response = await Fetch(
-          "GET",
-          "https://vn-public-apis.fpo.vn/wards/getByDistrict",
-          {
-            districtCode: cities.find((x) => x.name === values.city).code,
-            limit: -1,
-          }
-        );
-        setWards(response.data.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchWards();
-
-    return () => abortController.abort();
-  }, [cities, values.city, provinces, values.province]);
-
   return (
     <div className="CreateClinicForm">
       <Form
@@ -146,78 +77,11 @@ const CreateClinicForm = ({
           disabled
           placeholder="Tên chủ phòng khám"
         />
-        <Field
-          component={AntSelect}
-          name="province"
-          label="Chọn tỉnh/thành phố"
-          defaultValue={values.province}
-          validate={isRequired("Tỉnh/thành phố")}
+        <AddressPickForm
+          values={values}
           submitCount={submitCount}
-          tokenSeparators={[","]}
-          style={{ width: "400px" }}
-          hasFeedback
-          showSearch
-          filterSort={(optionA, optionB) =>
-            (optionA?.label ?? "")
-              .toLowerCase()
-              .localeCompare((optionB?.label ?? "").toLowerCase())
-          }
-          options={provinces.map((province) => ({
-            value: province.name,
-            label: province.name,
-          }))}
-          filterOption={(input, option) =>
-            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-          }
-          disabled={!initialValues.provinces === ""}
-        />
-        <Field
-          component={AntSelect}
-          name="city"
-          label="Chọn thành phố/quận/huyện"
-          defaultValue={values.city}
-          validate={isRequired("Thành phố/quận/huyện")}
-          submitCount={submitCount}
-          tokenSeparators={[","]}
-          style={{ width: "400px" }}
-          hasFeedback
-          showSearch
-          filterSort={(optionA, optionB) =>
-            (optionA?.label ?? "")
-              .toLowerCase()
-              .localeCompare((optionB?.label ?? "").toLowerCase())
-          }
-          options={cities.map((province) => ({
-            value: province.name,
-            label: province.name,
-          }))}
-          filterOption={(input, option) =>
-            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-          }
-        />
-        <Field
-          component={AntSelect}
-          name="ward"
-          label="Chọn phường/xã"
-          defaultValue={values.ward}
-          validate={isRequired("Phường/xã")}
-          submitCount={submitCount}
-          tokenSeparators={[","]}
-          style={{ width: "400px" }}
-          hasFeedback
-          showSearch
-          filterSort={(optionA, optionB) =>
-            (optionA?.label ?? "")
-              .toLowerCase()
-              .localeCompare((optionB?.label ?? "").toLowerCase())
-          }
-          options={wards.map((province) => ({
-            value: province.name,
-            label: province.name,
-          }))}
-          filterOption={(input, option) =>
-            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-          }
+          initialValues={initialValues}
+          disabledByInit={true}
         />
         <Field
           component={AntInput}

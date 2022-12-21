@@ -12,7 +12,7 @@ import BookApPage3 from "../pages/BookApPage3/BookApPage3";
 import UserProfilePage from "../pages/UserProfilePage/UserProfilePage";
 import StaffProfilePage from "../pages/StaffProfilePage/StaffProfilePage";
 
-import StaffTable from "../components/StaffTable/StaffTable";
+import StaffTablePage from "../pages/StaffTablePage/StaffTablePage";
 import ClinicProfile from "../components/ClinicProfile/ClinicProfile";
 import StaffAppointmentTable from "../components/StaffAppointmentTable/StaffAppointmentTable";
 import UserAppointmentTable from "../components/UserAppointmentTable/UserAppointmentTable";
@@ -43,7 +43,7 @@ const AppRouter = () => (
       exact
       path={PATH.STAFF_TABLE_PATH}
       element={
-        <PrivateRouter component={StaffTable} accessibleRoles={["host"]} />
+        <PrivateRouter component={StaffTablePage} accessibleRoles={["host"]} />
       }
     />
 

@@ -62,6 +62,14 @@ export const getUserData = async (uid) => {
 	return snapshot.data()
 }
 
+export const deleteUserProp = async (uid, propName) => {
+	const userRef = doc(firestore, `users/${uid}`);
+	const snapshot = await getDoc(userRef);
+	delete snapshot[propName]
+	await setDoc(userRef, snapshot);
+	return
+}
+
 export const popUpWithGoogle = async () => {
 	const { user } = await signInWithPopup(auth, googleProvider);
 	const { uid } = user;
