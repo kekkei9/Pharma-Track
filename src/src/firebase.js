@@ -11,7 +11,7 @@ import {
   signOut,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, query, where, getDocs, collection } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, query, where, getDocs, collection, deleteField, updateDoc, FieldValue } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD6xItNw9KLS2Ve-Khshlql1yRPKfmGvdY",
@@ -39,6 +39,12 @@ export const getUidByStaffId = async (staffId) => {
 	return tempData[0];
 } 
 
+export const updateUserInfo = async(userID, info) =>{
+	const userRef = doc(firestore, `users/${userID}`);
+	const snapshot = await getDoc(userRef);
+	await setDoc(userRef, {...snapshot.data(), ...info});
+}
+
 export const setUserInfo = async (userID, info) => {
 	const userRef = doc(firestore, `users/${userID}`);
 	await setDoc(userRef, info);
@@ -64,10 +70,7 @@ export const getUserData = async (uid) => {
 
 export const deleteUserProp = async (uid, propName) => {
 	const userRef = doc(firestore, `users/${uid}`);
-	const snapshot = await getDoc(userRef);
-	delete snapshot[propName]
-	await setDoc(userRef, snapshot);
-	return
+	await updateDoc(userRef, {[propName]: deleteField()})
 }
 
 export const popUpWithGoogle = async () => {

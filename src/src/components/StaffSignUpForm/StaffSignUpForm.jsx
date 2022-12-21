@@ -4,12 +4,13 @@ import { Form, Field } from "formik";
 import { AntInput, AntSelect } from "../CreateAntField/CreateAntField";
 import { isRequired } from "../ValidateFields/ValidateFields";
 
-const StaffSignUpForm = ({ values, handleSubmit, submitCount }) => {
+const StaffSignUpForm = ({ values, handleSubmit, submitCount, hostSide }) => {
   return (
     <div className="StaffSignUpForm">
       <Form
         className="form-container tw-flex tw-flex-col tw-items-center"
         onSubmit={handleSubmit}
+        id="staffSignUpForm"
       >
         <Field
           component={AntInput}
@@ -24,33 +25,51 @@ const StaffSignUpForm = ({ values, handleSubmit, submitCount }) => {
           }}
           placeholder="Mã OTP"
         />
-        <Field
-          component={AntInput}
-          name="id_clinic"
-          type="textarea"
-          label="Nhập ID phòng khám"
-          validate={isRequired("ID phòng khám")}
-          submitCount={submitCount}
-          hasFeedback
-          style={{
-            width: "400px",
-          }}
-          placeholder="ID phòng khám"
-        />
-        <Field
-          component={AntInput}
-          name="name"
-          type="textarea"
-          label="Nhập tên nhân viên"
-          validate={isRequired("Tên nhân viên")}
-          submitCount={submitCount}
-          hasFeedback
-          style={{
-            width: "400px",
-          }}
-          disabled
-          placeholder="Tên nhân viên"
-        />
+        {hostSide ? (
+          <Field
+            component={AntInput}
+            name="uid"
+            type="textarea"
+            label="Nhập UID nhân viên"
+            validate={isRequired("UID nhân viên")}
+            submitCount={submitCount}
+            hasFeedback
+            style={{
+              width: "400px",
+            }}
+            placeholder="UID nhân viên"
+          />
+        ) : (
+          <div>
+            <Field
+              component={AntInput}
+              name="id_clinic"
+              type="textarea"
+              label="Nhập ID phòng khám"
+              validate={isRequired("ID phòng khám")}
+              submitCount={submitCount}
+              hasFeedback
+              style={{
+                width: "400px",
+              }}
+              placeholder="ID phòng khám"
+            />
+            <Field
+              component={AntInput}
+              name="name"
+              type="textarea"
+              label="Nhập tên nhân viên"
+              validate={isRequired("Tên nhân viên")}
+              submitCount={submitCount}
+              hasFeedback
+              style={{
+                width: "400px",
+              }}
+              disabled
+              placeholder="Tên nhân viên"
+            />
+          </div>
+        )}
         <Field
           component={AntInput}
           name="number"

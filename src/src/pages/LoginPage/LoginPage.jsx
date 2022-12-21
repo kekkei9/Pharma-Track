@@ -26,7 +26,7 @@ const LoginPage = (props) => {
         <LoginFormContainer />
         <div className="tw-mt-3">Đăng kí tài khoản, nếu bạn chưa đăng kí!</div>
         <Button
-          className="default-btn tw-mt-3"
+          className="tw-mt-3"
           style={{ width: "400px" }}
           onClick={() => navigate("/signup")}
         >

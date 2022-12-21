@@ -6,15 +6,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteUserProp, getUidByStaffId } from "../../firebase";
 
-const StaffTable = ({ className }) => {
+const StaffTable = ({ className, requestData, setRequestData }) => {
   const navigate = useNavigate();
   const [staffData, setStaffData] = useState([]);
-  const [requestData, setRequestData] = useState(new Date());
   const [isSpinning, setIsSpinning] = useState(true);
   const { user } = useSelector((state) => state.authentication);
 
   useEffect(() => {
     const abortController = new AbortController();
+    setIsSpinning(true);
     const fetchStaff = async () => {
       try {
         const response = await Fetch(
@@ -24,8 +24,8 @@ const StaffTable = ({ className }) => {
             id_clinic: user.id_clinic,
           }
         );
-        setIsSpinning(false);
         setStaffData(response);
+        setIsSpinning(false);
       } catch (e) {
         console.error(e);
       }
@@ -87,11 +87,12 @@ const StaffTable = ({ className }) => {
                   description: `Xóa nhân viên ${record.id_staff} thành công`,
                 });
                 setRequestData(new Date());
-                await deleteUserProp(
-                  getUidByStaffId(record.id_staff),
-                  "id_staff"
-                );
-                return;
+                const { uid } = await getUidByStaffId(record.id_staff);
+                await Promise.all([
+                  deleteUserProp(uid, "id_staff"),
+                  deleteUserProp(uid, "id_clinic"),
+                ]);
+                return true;
               }
             } catch (e) {
               console.error(e);

@@ -76,6 +76,20 @@ const ClinicProfileForm = ({
             }}
             disabled
           />
+          {addrChosen && (
+            <div
+              className="expand-addr-btn tw-text-slate-400 tw-mt-1"
+              onClick={async () => {
+                setMountAnimate(false);
+                setTimeout(() => setAddrChosen(false), 1000);
+              }}
+              style={{
+                animation: `fadeIn 1s`,
+              }}
+            >
+              Nhấp vào đây để thu gọn
+            </div>
+          )}
           {!addrChosen && (
             <div
               className="expand-addr-btn tw-text-slate-400 tw-mt-1"
@@ -90,6 +104,7 @@ const ClinicProfileForm = ({
               Nhấp vào đây để xem chi tiết
             </div>
           )}
+
           <div className="tw-flex tw-flex-row tw-m-4">
             <Button type="primary" danger ghost htmlType="reset">
               Đặt lại
@@ -176,15 +191,6 @@ const ClinicProfileForm = ({
                 }}
                 placeholder="Vĩ độ"
               />
-            </div>
-            <div
-              className="expand-addr-btn tw-text-slate-400 tw-mt-1"
-              onClick={async () => {
-                setMountAnimate(false);
-                setTimeout(() => setAddrChosen(false), 1000);
-              }}
-            >
-              Nhấp vào đây để thu gọn
             </div>
           </div>
         )}

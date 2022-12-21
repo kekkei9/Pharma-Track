@@ -72,7 +72,36 @@ button[type="submit"] {
   }
   margin-top: 0.75rem;
 }
+.ant-form-item {
+  margin: 0;
+}
 
 .ant-dropdown.ant-dropdown-show-arrow.ant-dropdown-placement-bottomRight {
   z-index: 10000 !important;
+}
+
+button.ant-btn.ant-btn-default,
+button.ant-btn.ant-btn-primary {
+  padding: 1.25rem 1rem;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+button.ant-btn.ant-btn-primary {
+  padding: 0.75rem 1rem;
+  &.ant-btn-sm {
+    padding: 1.25rem 1rem;
+    background-color: black;
+  }
+}
+
+button.ant-btn-background-ghost.ant-btn-dangerous {
+  padding: 1.25rem 1rem;
+}
+
+.ant-popover-content .ant-popconfirm-buttons {
+  display: flex;
 }

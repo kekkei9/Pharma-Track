@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button, notification } from "antd";
+import { Button, notification, Modal } from "antd";
 import RoleHeader from "../../components/RoleHeader/RoleHeader";
 import RoleCardList from "../../components/RoleCardList/RoleCardList";
 import CreateClinicFormContainer from "../../containers/CreateClinicForm/CreateClinicForm.container";
@@ -24,6 +24,7 @@ const RolePage = (props) => {
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
   const [warnText, setWarnText] = useState();
+  const [modal, setModal] = useState(false);
   const hostFormRef = useRef(null);
   const staffFormRef = useRef(null);
   let bonusClinic = {};
@@ -81,42 +82,6 @@ const RolePage = (props) => {
     return true;
   };
 
-  const handleSubmitStaff = async () => {
-    if (staffFormRef.current) {
-      staffFormRef.current.handleSubmit();
-      if (
-        !(
-          staffFormRef.current.isValid &&
-          Object.keys(staffFormRef.current.touched).length > 0
-        )
-      ) {
-        return false;
-      }
-      try {
-        const response = await Fetch(
-          "POST",
-          "https://pharma-track.onrender.com/api/v1/staff",
-          {
-            ...staffFormRef.current.values,
-          }
-        );
-
-        if (response.results === "that bai") {
-          notification.error({
-            message: "Tạo tài khoản nhân viên",
-            description: `Không tìm thấy phòng khám với ID ${staffFormRef.current.values.id_clinic}`,
-          });
-          return false;
-        }
-        bonusClinic.id_staff = response.data.id_staff;
-        bonusClinic.id_clinic = response.data.id_clinic;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    return true;
-  };
-
   const handleSubmit = async (tab) => {
     if (tab >= 3 || tab < 0) {
       setWarnText("Bạn chưa chọn loại tài khoản !");
@@ -169,24 +134,58 @@ const RolePage = (props) => {
 
   return (
     <div className="RolePage tw-flex tw-flex-col tw-items-center">
+      <Modal
+        open={modal}
+        title="Thông tin nhân viên"
+        onCancel={() => setModal(false)}
+        footer={[
+          <Button key="back" onClick={() => setModal(false)}>
+            Quay lại
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            onClick={async () => {
+              if (tab === 0) {
+                if (!(await handleSubmitHost())) return false;
+              } else {
+                bonusClinic = await staffFormRef.current.submitForm();
+                if (!bonusClinic) return false;
+              }
+              await handleSubmit(tab);
+              return true;
+            }}
+          >
+            Thêm nhân viên
+          </Button>,
+        ]}
+        width={448}
+        style={{
+          top: 120,
+        }}
+      >
+        {tab === 0 ? (
+          <CreateClinicFormContainer {...state} formRef={hostFormRef} />
+        ) : (
+          <StaffSignUpFormContainer {...state} formRef={staffFormRef} />
+        )}
+      </Modal>
       <div>
         <BackButton />
-        <RoleHeader />
+        <div className="RoleHeader">
+          <div className="header1 ">Vui lòng chọn loại</div>
+          <div className="header2 "> TÀI KHOẢN</div>
+        </div>
         <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
       </div>
       {tab === -1 && warnText && (
-        <div className="warn-container tw-text-red-500 tw-text-base">
+        <div
+          className="warn-container tw-text-red-500 tw-text-base tw-mt-3"
+          style={{ animation: "fadeIn 1s" }}
+        >
           {warnText}
         </div>
       )}
-      <div className="bonus-role-container tw-mt-5">
-        {tab === 0 && (
-          <CreateClinicFormContainer {...state} formRef={hostFormRef} />
-        )}
-        {tab === 1 && (
-          <StaffSignUpFormContainer {...state} formRef={staffFormRef} />
-        )}
-      </div>
       <div className="RoleButton tw-flex tw-flex-row tw-justify-center tw-space-x-40 tw-mt-5">
         <div>
           <Button
@@ -207,12 +206,11 @@ const RolePage = (props) => {
             shape="round"
             style={{ backgroundColor: "blue", width: "150px", height: "40px" }}
             onClick={async () => {
-              if (tab === 0) {
-                if (!(await handleSubmitHost())) return;
-              } else if (tab === 1) {
-                if (!(await handleSubmitStaff())) return;
+              if (tab === 2) {
+                await handleSubmit(tab);
+              } else {
+                setModal(true);
               }
-              handleSubmit(tab);
             }}
           >
             TIẾP TỤC

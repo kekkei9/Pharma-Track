@@ -17,6 +17,7 @@ const ClinicProfile = (props) => {
   useEffect(() => {
     const abortController = new AbortController();
 
+    setIsLoading(true);
     const fetchData = async () => {
       try {
         const response = await Fetch(
@@ -44,13 +45,13 @@ const ClinicProfile = (props) => {
     fetchData();
 
     return () => abortController.abort();
-  }, [navigate, user.id_clinic, clinicFormRef.current]);
+  }, [user, clinicFormRef.current]);
 
   return (
     <div className="ClinicProfile tw-mt-5 tw-flex tw-flex-col tw-items-center">
       <Spin tip="Loading..." spinning={isLoading}>
         <div className="tw-flex tw-flex-row tw-m-8">
-          <div className="profile-container tw-mr-8 tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50">
+          <div className="profile-container tw-mr-8 tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50 tw-justify-around">
             <div className="tw-flex tw-flex-col tw-items-center">
               <img
                 src="/assets/clinic real img.jpg"
@@ -70,10 +71,6 @@ const ClinicProfile = (props) => {
             </div>
             <Divider />
             <div className="tw-text-xl">
-              <Row>
-                <Col span={12}>Tên chủ phòng khám: </Col>
-                <Col span={12}>{clinic.name_doctor}</Col>
-              </Row>
               <Row>
                 <Col span={12}>Tên chủ phòng khám: </Col>
                 <Col span={12}>{clinic.name_doctor}</Col>
@@ -139,7 +136,8 @@ const ClinicProfile = (props) => {
             <div
               className="tw-shadow-slate-400 tw-shadow tw-self-center tw-p-8 tw-bg-slate-50"
               style={{
-                animation: "zoomOut 1s",
+                height: "466px",
+                animation: "zoomOut 1.75s",
               }}
             >
               <ClinicProfileFormContainer
