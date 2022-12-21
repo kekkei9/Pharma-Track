@@ -1,141 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./UserAppointmentTable.scss";
 import { Table } from "antd";
+import Fetch from "../../fetch";
 
 const columns = [
   {
-    title: "ID",
-    dataIndex: "id",
-    key: "id",
-    width: "auto",
-  },
-  {
-    title: "Name",
-    dataIndex: "fullName",
-    key: "fullName",
-    render: (_, record) => <a>{record.firstName + " " + record.lastName}</a>,
-    width: "40%",
-  },
-  {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
-    width: "40%",
-  },
-  {
-    title: "Action",
-    key: "Action",
-    render: (_, record) => (
-      <div className="flex flex-row gap-5">
-        <a style={{ color: "#1890FF" }}>Invite {record.lastName}</a>
-        <a style={{ color: "#1890FF" }}>Delete</a>
-      </div>
-    ),
+    title: "Time",
+    dataIndex: "time",
+    key: "time",
     width: "30%",
   },
-];
-
-const data = [
   {
-    id: 123,
-    firstName: "Le Thi",
-    lastName: "Van",
-    email: "lethivan@gmail.com",
-    phone: "0942347343",
-    role: "CS",
+    title: "Doctor Name",
+    dataIndex: "doctor",
+    key: "doctor",
+    width: "30%",
   },
   {
-    id: 1245,
-    firstName: "Nguyen Van",
-    lastName: "A",
-    email: "nguyenvana@gmail.com",
-    phone: "0942478458",
-    role: "CS",
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+    width: "30%",
   },
   {
-    id: 1245,
-    firstName: "Nguyen Van",
-    lastName: "A",
-    email: "nguyenvana@gmail.com",
-    phone: "0942478458",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    width: "10%",
   },
 ];
 
 const UserAppointmentTable = (props) => {
+  const [userAppointment, setUserAppointment] = useState([]);
+  useEffect(() => {
+    const abortController = new AbortController();
+    const fetchUser = async () => {
+      try {
+        const response = await Fetch(
+          "GET",
+          "https://pharma-track.onrender.com/api/v1/appointment/id_user?id_user=Test2"
+        );
+        setUserAppointment(response);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchUser();
+
+    return () => abortController.abort();
+  }, []);
+
   return (
     <div className="UserAppointmentTable tw-w-2/3 center-screen tw-mt-5">
+      <div className = 'booking tw-flex tw-justify-center tw-mb-5 tw-font-bold tw-text-4xl '>Lịch hẹn của bạn</div>
       <Table
         className="staff-table"
         rowClassName={(record, index) =>
           index % 2 === 0 ? "table-row-light" : "table-row-dark"
         }
         columns={columns}
-        dataSource={data}
+        dataSource={userAppointment}
         pagination={{ pageSize: 6 }}
       />
     </div>
