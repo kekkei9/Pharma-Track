@@ -145,7 +145,7 @@ const ClinicProfileForm = ({
           <div
             className={`tw-flex tw-flex-col tw-items-center ${
               mountAnimate ? "tw-ml-8" : ""
-            }`}
+            } tw-self-start`}
             style={{
               animation: `${mountAnimate ? "floatInRight" : "floatOutLeft"} 1s`,
             }}

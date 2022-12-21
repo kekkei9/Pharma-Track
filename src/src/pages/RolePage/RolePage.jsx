@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, notification, Modal } from "antd";
-import RoleHeader from "../../components/RoleHeader/RoleHeader";
-import RoleCardList from "../../components/RoleCardList/RoleCardList";
 import CreateClinicFormContainer from "../../containers/CreateClinicForm/CreateClinicForm.container";
 import StaffSignUpFormContainer from "../../containers/StaffSignUpForm/StaffSignUpForm.container";
+import RoleCard from "../../components/RoleCard/RoleCard";
 
 import "./RolePage.scss";
 import {
@@ -24,6 +23,7 @@ const RolePage = (props) => {
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
   const [warnText, setWarnText] = useState();
+  const [desText, setDesText] = useState();
   const [modal, setModal] = useState(false);
   const hostFormRef = useRef(null);
   const staffFormRef = useRef(null);
@@ -34,16 +34,19 @@ const RolePage = (props) => {
       name: "host",
       title: "Chủ Phòng Khám",
       imgsrc: "/assets/host.png",
+      description: "Chủ phòng khám",
     },
     {
       name: "staff",
       title: "Nhân Viên",
       imgsrc: "/assets/staff.png",
+      description: "Nhân viên",
     },
     {
       name: "user",
       title: "Người Dùng",
       imgsrc: "/assets/user.png",
+      description: "Người dùng",
     },
   ];
 
@@ -176,7 +179,24 @@ const RolePage = (props) => {
           <div className="header1 ">Vui lòng chọn loại</div>
           <div className="header2 "> TÀI KHOẢN</div>
         </div>
-        <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
+        <div className="RoleCardList tw-flex tw-flex-row">
+          {RoleData.map((role, index) => (
+            <RoleCard
+              {...role}
+              style={
+                tab === index
+                  ? {
+                      borderColor: "rgba(0, 121, 255, 0.5)",
+                    }
+                  : {}
+              }
+              setTab={setTab}
+              setDes={setDesText}
+              index={index}
+            />
+          ))}
+        </div>
+        <div className="tw-text-gray-400 tw-text-center tw-mt-2">{desText}</div>
       </div>
       {tab === -1 && warnText && (
         <div

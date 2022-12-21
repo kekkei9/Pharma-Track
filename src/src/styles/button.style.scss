@@ -83,19 +83,12 @@ button[type="submit"] {
 button.ant-btn.ant-btn-default,
 button.ant-btn.ant-btn-primary {
   padding: 1.25rem 1rem;
+  height: 44px;
   border-radius: 1.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-}
-
-button.ant-btn.ant-btn-primary {
-  padding: 0.75rem 1rem;
-  &.ant-btn-sm {
-    padding: 1.25rem 1rem;
-    background-color: black;
-  }
 }
 
 button.ant-btn-background-ghost.ant-btn-dangerous {
@@ -109,10 +102,7 @@ button.ant-btn-background-ghost.ant-btn-dangerous {
 .ant-modal-content .ant-modal-footer {
   display: flex;
   justify-content: center;
-  button.ant-btn {
-    padding: 1.25rem 1rem !important;
-    &.ant-btn-primary {
-      background: black !important;
-    }
+  button.ant-btn.ant-btn-primary {
+    background-color: black;
   }
 }
