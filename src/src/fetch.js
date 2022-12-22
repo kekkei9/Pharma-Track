@@ -5,6 +5,7 @@ const Fetch = async (
   url = "",
   data = undefined,
   message = 'Hệ thống',
+  message = 'Hệ thống',
   headers = undefined
 ) => {
   let opts = {

@@ -38,8 +38,6 @@ const AppRouter = () => (
     <Route exact path={PATH.BOOK_AP_PATH_STEP2} element={<BookApPage2 />} />
     <Route exact path={PATH.BOOK_AP_PATH_STEP3} element={<BookApPage3 />} />
 
-    <Route exact path={PATH.OPEN_DOCTOR_PATH} element={<OpenDoctorCard />} />
-
     <Route
       exact
       path={PATH.STAFF_TABLE_PATH}

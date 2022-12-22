@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./GoogleMapContain.scss";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import GetAddress from "../GetAddress/GetAddress";
 import DoctorCard from "../DoctorCard/DoctorCard";
 import BackNextButton from "../BackNextButton/BackNextButton";
+import OpenDoctorCard from "../OpenDoctorCard/OpenDoctorCard";
+import { Modal } from "antd";
 
 const libraries = ["places"];
 
@@ -18,53 +20,24 @@ const options = {
   zoomControl: true,
 };
 
-const DoctorData = [
-  {
-    id: "0",
-    img: "/assets/avatardoctor.png",
-    name: "Nguyễn Văn A",
-    address: "123456 Đường Võ Thị Sáu, TP.HCM",
-    field: "nội",
-    lat: 10.682789,
-    lng: 107.751334,
-  },
-  {
-    id: "1",
-    img: "/assets/avatardoctor.png",
-    name: "Nguyễn Văn B",
-    address: "123456 Đường Võ Thị Sáu, TP.HCM",
-    field: "nội",
-    lat: 10.684951,
-    lng: 107.748436,
-  },
-  {
-    id: "2",
-    img: "/assets/avatardoctor.png",
-    name: "Nguyễn Văn C",
-    address: "123456 Đường Võ Thị Sáu, TP.HCM",
-    field: "nội",
-    lat: 10.682873,
-    lng: 107.75085,
-  },
-];
-
-const GoogleMapContain = () => {
-  const [doctorState, setDoctorState] = useState(0);
-
+const GoogleMapContain = ({ DoctorData }) => {
   const navigate = useNavigate();
 
   const location = GetAddress();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const handleDoubleClick = (props) => {
-    navigate("/bookap/doctor/" + props.id);
-  };
-
-  const onClickBack = () => {
-    navigate("/homepage");
-  };
-
-  const onClickNext = () => {
-    navigate("/bookap/doctor/" + doctorState);
+    navigate("/bookap/doctor/" + props.id_clinic);
   };
 
   const { isLoaded, loadError } = useLoadScript({
@@ -101,14 +74,14 @@ const GoogleMapContain = () => {
             onLoad={onMapLoad}
           >
             <MarkerF position={location.coordinates} />
-            {DoctorData.map((doctor) => (
+            {DoctorData.map((doctor, index) => (
               <MarkerF
                 position={{ lat: doctor.lat, lng: doctor.lng }}
                 options={{
                   icon: "/assets/cliniclogo.png",
                 }}
                 onClick={() => {
-                  setDoctorState(doctor.id);
+                  setDoctorState(index);
                   panTo({ lat: doctor.lat, lng: doctor.lng });
                 }}
               />
@@ -118,12 +91,21 @@ const GoogleMapContain = () => {
         <div className="tw-ml-20">
           <DoctorCard
             {...DoctorData[doctorState]}
-            handleDoubleClick={() => handleDoubleClick(DoctorData[doctorState])}
+            handleDoubleClick={showModal}
           />
+          <Modal
+            title="CHI TIẾT BÁC SĨ"
+            open={isModalOpen}
+            okType={"primary"}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            width={1000}
+            footer={null}
+          >
+            <OpenDoctorCard currentDoctor={DoctorData[doctorState]} />
+          </Modal>
         </div>
       </div>
-
-      <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>
   );
 };
