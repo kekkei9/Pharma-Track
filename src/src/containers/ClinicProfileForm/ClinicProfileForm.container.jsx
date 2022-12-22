@@ -2,7 +2,7 @@ import React, { useImperativeHandle } from "react";
 import ClinicProfileForm from "../../components/ClinicProfileForm/ClinicProfileForm";
 import { Formik } from "formik";
 
-const ClinicProfileFormContainer = ({ initialValues, formRef }) => {
+const ClinicProfileFormContainer = ({ initialValues, formRef, setClinic }) => {
   return (
     <div className="ClinicProfileFormContainer">
       <Formik
@@ -10,7 +10,7 @@ const ClinicProfileFormContainer = ({ initialValues, formRef }) => {
         innerRef={formRef}
         enableReinitialize
       >
-        {ClinicProfileForm}
+        {(props) => <ClinicProfileForm {...props} setClinic={setClinic} />}
       </Formik>
     </div>
   );

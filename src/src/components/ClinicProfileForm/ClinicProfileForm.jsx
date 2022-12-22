@@ -16,7 +16,7 @@ const ClinicProfileForm = ({
   initialValues,
   handleSubmit,
   submitCount,
-  resetForm,
+  setClinic,
 }) => {
   const [addrChosen, setAddrChosen] = useState(false);
   const [mountAnimate, setMountAnimate] = useState(false);
@@ -133,7 +133,7 @@ const ClinicProfileForm = ({
                   message: "Sửa thông tin phòng khám",
                   description: "Sửa thông tin thành công",
                 });
-                initialValues = values;
+                setClinic(values);
                 return true;
               }}
             >

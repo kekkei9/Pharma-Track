@@ -45,7 +45,7 @@ const ClinicProfile = (props) => {
     fetchData();
 
     return () => abortController.abort();
-  }, [user, clinicFormRef.current?.initialValues]);
+  }, [user, JSON.stringify(clinic)]);
 
   return (
     <div className="ClinicProfile tw-mt-5 tw-flex tw-flex-col tw-items-center">
@@ -145,6 +145,7 @@ const ClinicProfile = (props) => {
               <ClinicProfileFormContainer
                 initialValues={clinic}
                 formRef={clinicFormRef}
+                setClinic={setClinic}
               />
             </div>
           )}
