@@ -2,6 +2,18 @@
 var express = require('express');
 var router = express.Router();
 
+//var $ = require('jquery');
+
+
+router.get('/create_payment_url', function (req, res, next) {
+    
+    var dateFormat = require('dateformat');
+    var date = new Date();
+
+    var desc = 'Thanh toan don hang thoi gian: ' + dateFormat(date, 'yyyy-mm-dd HH:mm:ss');
+    res.render('order', {title: 'Tạo mới đơn hàng', amount: 10000, description: desc})
+});
+
 router.post('/create_payment_url', function (req, res, next) {
     var ipAddr = req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
@@ -21,22 +33,22 @@ router.post('/create_payment_url', function (req, res, next) {
 
     var createDate = dateFormat(date, 'yyyymmddHHmmss');
     var orderId = dateFormat(date, 'HHmmss');
-    var amount = req.body.amount;
-    var bankCode = req.body.bankCode;
+    // var amount = req.body.amount;
+    var bankCode = 'NCB';
     
-    var orderInfo = req.body.orderDescription;
-    var orderType = req.body.orderType;
-    var locale = req.body.language;
-    if(locale === null || locale === ''){
-        locale = 'vn';
-    }
+    // var orderInfo = req.body.orderDescription;
+    // var orderType = req.body.orderType;
+    // var locale = req.body.language;
+    // if(locale === null || locale === ''){
+    //     locale = 'vn';
+    // }
     var currCode = 'VND';
     var vnp_Params = {};
     vnp_Params['vnp_Version'] = '2.1.0';
     vnp_Params['vnp_Command'] = 'pay';
     vnp_Params['vnp_TmnCode'] = tmnCode;
     // vnp_Params['vnp_Merchant'] = ''
-    vnp_Params['vnp_Locale'] = locale;
+    vnp_Params['vnp_Locale'] = 'vn';
     vnp_Params['vnp_CurrCode'] = currCode;
     vnp_Params['vnp_TxnRef'] = orderId;
     vnp_Params['vnp_OrderInfo'] = 'Thanh toán phí đặt khám';
