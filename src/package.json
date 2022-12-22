@@ -2,6 +2,7 @@
   "name": "src",
   "version": "0.1.0",
   "private": true,
+  "homepage":  "https://kekkei9.github.io/pharma-track",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
@@ -39,7 +40,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -62,6 +65,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "autoprefixer": "^10.4.13",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4"
   }
