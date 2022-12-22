@@ -33,19 +33,19 @@ const RolePage = (props) => {
     {
       name: "host",
       title: "Chủ Phòng Khám",
-      imgsrc: "/assets/host.png",
+      imgsrc: `${process.env.PUBLIC_URL}/assets/host.png`,
       description: "Chủ phòng khám",
     },
     {
       name: "staff",
       title: "Nhân Viên",
-      imgsrc: "/assets/staff.png",
+      imgsrc: `${process.env.PUBLIC_URL}/assets/staff.png`,
       description: "Nhân viên",
     },
     {
       name: "user",
       title: "Người Dùng",
-      imgsrc: "/assets/user.png",
+      imgsrc: `${process.env.PUBLIC_URL}/assets/user.png`,
       description: "Người dùng",
     },
   ];

@@ -10,9 +10,12 @@ import {
 
 const FormItem = AntdForm.Item;
 
-const LoginForm = ({ handleSubmit, values, submitCount }) => {
-  const forgotPasswordHandler = async () => {};
-
+const LoginForm = ({
+  handleSubmit,
+  values,
+  submitCount,
+  setForgotPassword,
+}) => {
   return (
     <div className="LoginForm">
       <Form
@@ -44,7 +47,7 @@ const LoginForm = ({ handleSubmit, values, submitCount }) => {
         />
         <div
           className="tw-text-red-500 tw-mt-3 tw-ml-3 tw-self-start forgot-password"
-          onClick={() => console.log("forgot password!")}
+          onClick={() => setForgotPassword(true)}
         >
           Quên mật khẩu
         </div>

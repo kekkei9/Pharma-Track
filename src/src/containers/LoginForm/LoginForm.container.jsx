@@ -18,7 +18,7 @@ notification.config({
   duration: 1.5,
 });
 
-const LoginFormContainer = () => {
+const LoginFormContainer = ({ setForgotPassword }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -58,7 +58,9 @@ const LoginFormContainer = () => {
   return (
     <div className="LoginFormContainer">
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {LoginForm}
+        {(props) => (
+          <LoginForm {...props} setForgotPassword={setForgotPassword} />
+        )}
       </Formik>
     </div>
   );
