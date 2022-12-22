@@ -21,7 +21,17 @@ const BookingFormContainer = () => {
       };
 // birthday, , date, time 
       const handleSubmit =(formProps) => {
-          console.log(formProps)
+        const userProps = (({   username,birthday,gender,email,address,number, symptom,date,time }) => ({
+          username,
+          birthday,
+          gender,
+          email,
+          address,
+          number, 
+          symptom,
+          date,
+          time
+        }))(formProps);
       }
 
   return (

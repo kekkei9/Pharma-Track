@@ -37,22 +37,22 @@ router.post('/create_payment_url', function (req, res, next) {
     
     var orderInfo = req.body.orderDescription;
     var orderType = req.body.orderType;
-    var locale = req.body.language;
-    if(locale === null || locale === ''){
-        locale = 'vn';
-    }
+    // var locale = req.body.language;
+    // if(locale === null || locale === ''){
+    //     locale = 'vn';
+    // }
     var currCode = 'VND';
     var vnp_Params = {};
     vnp_Params['vnp_Version'] = '2.1.0';
     vnp_Params['vnp_Command'] = 'pay';
     vnp_Params['vnp_TmnCode'] = tmnCode;
     // vnp_Params['vnp_Merchant'] = ''
-    vnp_Params['vnp_Locale'] = locale;
+    vnp_Params['vnp_Locale'] = 'vn';
     vnp_Params['vnp_CurrCode'] = currCode;
     vnp_Params['vnp_TxnRef'] = orderId;
     vnp_Params['vnp_OrderInfo'] = orderInfo;
     vnp_Params['vnp_OrderType'] = orderType;
-    vnp_Params['vnp_Amount'] = amount * 100;
+    vnp_Params['vnp_Amount'] = 20000 * 100;
     vnp_Params['vnp_ReturnUrl'] = returnUrl;
     vnp_Params['vnp_IpAddr'] = ipAddr;
     vnp_Params['vnp_CreateDate'] = createDate;
