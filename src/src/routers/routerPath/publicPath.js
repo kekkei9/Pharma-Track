@@ -7,6 +7,10 @@ const PATH = {
 
   BOOK_AP_PATH: '/bookap',
 
+  PAY_MENT:'/create_payment_url',
+
+
+  
   STAFF_TABLE_PATH: '/host/staffTable',
   STAFF_DYNAMIC_PATH: 'host/staffs/:staffId',
 

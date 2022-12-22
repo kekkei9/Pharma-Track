@@ -30,6 +30,7 @@ const AppRouter = () => (
     <Route exact path={PATH.LOGIN_PATH} element={<LoginPage />} />
     <Route exact path={PATH.BOOK_AP_PATH} element={<BookApPage />} />
 
+    <Route exact path={PATH.PAY_MENT}  />
     <Route
       exact
       path={PATH.STAFF_TABLE_PATH}
