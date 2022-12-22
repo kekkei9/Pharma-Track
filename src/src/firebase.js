@@ -11,7 +11,7 @@ import {
   signOut,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, query, where, getDocs, collection, deleteField, updateDoc, FieldValue, connectFirestoreEmulator } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, query, where, getDocs, collection, deleteField, updateDoc, FieldValue, connectFirestoreEmulator, initializeFirestore } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD6xItNw9KLS2Ve-Khshlql1yRPKfmGvdY",
@@ -24,10 +24,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
-const firestore = getFirestore(app);
-connectFirestoreEmulator(firestore, 'localhost', 3000)
+// const firestore = getFirestore(app);
+const firestore = initializeFirestore(app, {experimentalAutoDetectLongPolling: true})
+// firestore.settings({ experimentalForceLongPolling: true })
+// connectFirestoreEmulator(firestore, 'localhost', 8080)
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 

@@ -45,7 +45,7 @@ const ClinicProfile = (props) => {
     fetchData();
 
     return () => abortController.abort();
-  }, [user, clinicFormRef.current]);
+  }, [user, clinicFormRef.current?.initialValues]);
 
   return (
     <div className="ClinicProfile tw-mt-5 tw-flex tw-flex-col tw-items-center">
@@ -54,7 +54,7 @@ const ClinicProfile = (props) => {
           <div className="profile-container tw-mr-8 tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50 tw-justify-around">
             <div className="tw-flex tw-flex-col tw-items-center">
               <img
-                src="/assets/clinic real img.jpg"
+                src={`${process.env.PUBLIC_URL}/assets/clinic real img.jpg`}
                 alt="clinic real img"
                 width="90px"
                 className="tw-rounded-3xl"
@@ -129,7 +129,7 @@ const ClinicProfile = (props) => {
               </div>
               <img
                 width={"700px"}
-                src="/assets/rec maps.png"
+                src={`${process.env.PUBLIC_URL}/assets/rec maps.png`}
                 alt="maps img"
                 className=" tw-shadow-slate-400 tw-shadow tw-mt-8 tw-mb-8"
               />

@@ -11,7 +11,7 @@ const SignUpPage = (props) => {
         <BackButton />
       </div>
       <img
-        src="/assets/dogtor.png"
+        src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
         alt="dogtor"
         width="140px"
         height="140px"

@@ -34,27 +34,9 @@ const AppRouter = () => (
     <Route exact path={PATH.ROLE_PICK_PATH} element={<RolePage />} />
     <Route exact path={PATH.LOGIN_PATH} element={<LoginPage />} />
 
-    <Route
-      exact
-      path={PATH.BOOK_AP_PATH_STEP1}
-      element={
-        <PrivateRouter component={BookApPage} accessibleRoles={["user"]} />
-      }
-    />
-    <Route
-      exact
-      path={PATH.BOOK_AP_PATH_STEP2}
-      element={
-        <PrivateRouter component={BookApPage2} accessibleRoles={["user"]} />
-      }
-    />
-    <Route
-      exact
-      path={PATH.BOOK_AP_PATH_STEP3}
-      element={
-        <PrivateRouter component={BookApPage3} accessibleRoles={["user"]} />
-      }
-    />
+    <Route exact path={PATH.BOOK_AP_PATH_STEP1} element={<BookApPage />} />
+    <Route exact path={PATH.BOOK_AP_PATH_STEP2} element={<BookApPage2 />} />
+    <Route exact path={PATH.BOOK_AP_PATH_STEP3} element={<BookApPage3 />} />
 
     <Route exact path={PATH.OPEN_DOCTOR_PATH} element={<OpenDoctorCard />} />
 

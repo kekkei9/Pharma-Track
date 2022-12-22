@@ -94,7 +94,7 @@ const Header = (props) => {
         onClick={() => navigate("/home")}
       >
         <img
-          src="/assets/dogtor.png"
+          src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
           alt="dogtor"
           width="60px"
           height="60px"
