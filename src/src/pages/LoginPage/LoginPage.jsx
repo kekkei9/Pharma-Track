@@ -51,7 +51,7 @@ const LoginPage = (props) => {
           className="tw-rounded-full"
         />
         {!forgotPassword ? (
-          <div className="login-action-container">
+          <div className="login-action-container tw-flex tw-flex-col tw-items-center">
             <LoginFormContainer setForgotPassword={setForgotPassword} />
             <div className="tw-mt-3">
               Đăng kí tài khoản, nếu bạn chưa đăng kí!
