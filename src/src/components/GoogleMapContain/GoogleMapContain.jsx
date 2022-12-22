@@ -22,6 +22,7 @@ const options = {
 
 const GoogleMapContain = ({ DoctorData }) => {
   const navigate = useNavigate();
+  const [doctorState, setDoctorState] = useState(0);
 
   const location = GetAddress();
 
