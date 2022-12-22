@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import RoleHeader from './RoleHeader'
+import CreateClinicForm from './CreateClinicForm'
 import '@testing-library/jest-dom'
 
-describe('<RoleHeader />', () => {
+describe('<CreateClinicForm />', () => {
   it('renders a heading', () => {
-    render(<RoleHeader />)
+    render(<CreateClinicForm />)
 
     const heading = screen.getByRole('heading', {
       name: /welcome to next\.js!/i,

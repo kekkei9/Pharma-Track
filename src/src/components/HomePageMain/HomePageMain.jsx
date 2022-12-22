@@ -17,7 +17,7 @@ const HomePageMain = (props) => {
     >
       <div className="tw-flex tw-items-center tw-mx-auto tw-max-w-5xl">
         <img
-          src="/assets/dogtor.png"
+          src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
           alt="dogtor"
           width="370px"
           height="370px"

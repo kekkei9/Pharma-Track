@@ -3,10 +3,7 @@ import { useDispatch } from "react-redux";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { Formik } from "formik";
 import { signInUsingEmailPassword, getUserData } from "../../firebase";
-import {
-  logout,
-  setUser,
-} from "../../redux/authentication/authentication.slice";
+import { setUser } from "../../redux/authentication/authentication.slice";
 import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
 
@@ -21,7 +18,7 @@ notification.config({
   duration: 1.5,
 });
 
-const LoginFormContainer = () => {
+const LoginFormContainer = ({ setForgotPassword }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -61,7 +58,9 @@ const LoginFormContainer = () => {
   return (
     <div className="LoginFormContainer">
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {LoginForm}
+        {(props) => (
+          <LoginForm {...props} setForgotPassword={setForgotPassword} />
+        )}
       </Formik>
     </div>
   );

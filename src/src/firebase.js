@@ -11,7 +11,7 @@ import {
   signOut,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, query, where, getDocs, collection, deleteField, updateDoc, FieldValue, connectFirestoreEmulator, initializeFirestore } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD6xItNw9KLS2Ve-Khshlql1yRPKfmGvdY",
@@ -24,11 +24,28 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
-const firestore = getFirestore(app);
+// const firestore = getFirestore(app);
+const firestore = initializeFirestore(app, {experimentalAutoDetectLongPolling: true})
+// firestore.settings({ experimentalForceLongPolling: true })
+// connectFirestoreEmulator(firestore, 'localhost', 8080)
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
+
+export const getUidByStaffId = async (staffId) => {
+	const usersRef = collection(firestore, 'users')
+	const q = query(usersRef, where("id_staff", "==", staffId));
+	const snapshot = await getDocs(q);
+	const tempData = []
+	snapshot.forEach((doc) => tempData.push(doc.data()))
+	return tempData[0];
+} 
+
+export const updateUserInfo = async(userID, info) =>{
+	const userRef = doc(firestore, `users/${userID}`);
+	const snapshot = await getDoc(userRef);
+	await setDoc(userRef, {...snapshot.data(), ...info});
+}
 
 export const setUserInfo = async (userID, info) => {
 	const userRef = doc(firestore, `users/${userID}`);
@@ -50,8 +67,12 @@ export const getUserRole = async (uid) => {
 export const getUserData = async (uid) => {
 	const userRef = doc(firestore, `users/${uid}`);
 	const snapshot = await getDoc(userRef);
-	const fullData = snapshot.data()
-	return fullData
+	return snapshot.data()
+}
+
+export const deleteUserProp = async (uid, propName) => {
+	const userRef = doc(firestore, `users/${uid}`);
+	await updateDoc(userRef, {[propName]: deleteField()})
 }
 
 export const popUpWithGoogle = async () => {
@@ -68,11 +89,11 @@ export const popUpWithFacebook = async () => {
 	return { user, isExist };
 }
 
-export const createUserUsingEmailPassword = async ({ email, password, role, province, username }) => {
+export const createUserUsingEmailPassword = async ({ email, password, role, ...rest }) => {
 	if (!email || !password || !role) return;
 	const { user } = await createUserWithEmailAndPassword(auth, email, password);
 	const { uid } = user;
-	await setUserInfo(uid, { uid, role, province, username });
+	await setUserInfo(uid, { uid, role, email, ...rest });
 	return user;
 };
 

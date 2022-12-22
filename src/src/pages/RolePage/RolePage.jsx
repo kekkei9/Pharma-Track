@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button, notification } from "antd";
-import RoleHeader from "../../components/RoleHeader/RoleHeader";
-import RoleCardList from "../../components/RoleCardList/RoleCardList";
+import { Button, notification, Modal } from "antd";
+import CreateClinicFormContainer from "../../containers/CreateClinicForm/CreateClinicForm.container";
+import StaffSignUpFormContainer from "../../containers/StaffSignUpForm/StaffSignUpForm.container";
+import RoleCard from "../../components/RoleCard/RoleCard";
+
 import "./RolePage.scss";
 import {
   createUserUsingEmailPassword,
@@ -11,7 +13,6 @@ import {
 } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/authentication/authentication.slice";
-import { Field } from "formik";
 import InputForm from "../../components/InputForm/InputForm";
 import BackButton from "../../components/BackButton/BackButton";
 import Fetch from "../../fetch";
@@ -21,56 +22,81 @@ const RolePage = (props) => {
   const dispatch = useDispatch();
   const { state } = useLocation();
   const [tab, setTab] = useState(-1);
-  const [IDInput, setIDInput] = useState("");
+  const [warnText, setWarnText] = useState();
+  const [desText, setDesText] = useState();
+  const [modal, setModal] = useState(false);
+  const hostFormRef = useRef(null);
+  const staffFormRef = useRef(null);
+  let bonusClinic = {};
 
   const RoleData = [
     {
       name: "host",
       title: "Chủ Phòng Khám",
-      imgsrc: "/assets/host.png",
+      imgsrc: `${process.env.PUBLIC_URL}/assets/host.png`,
+      description: "Chủ phòng khám",
     },
     {
       name: "staff",
       title: "Nhân Viên",
-      imgsrc: "/assets/staff.png",
+      imgsrc: `${process.env.PUBLIC_URL}/assets/staff.png`,
+      description: "Nhân viên",
     },
     {
       name: "user",
       title: "Người Dùng",
-      imgsrc: "/assets/user.png",
+      imgsrc: `${process.env.PUBLIC_URL}/assets/user.png`,
+      description: "Người dùng",
     },
   ];
 
-  const handleSubmitStaff = async () => {
-    const response = await Fetch(
-      "POST",
-      "https://pharma-track.onrender.com/api/v1/clinic/id_clinic",
-      {
-        id_clinic: IDInput,
-      }
-    );
-    if (!Array.isArray(response)) {
-      notification.error({
-        message: "Đăng kí",
-        description: response.reason,
-      });
-      return false;
-    }
-    return true;
-  };
-
   const handleSubmitHost = async () => {
+    if (hostFormRef.current) {
+      hostFormRef.current.handleSubmit();
+      if (
+        !(
+          hostFormRef.current.isValid &&
+          Object.keys(hostFormRef.current.touched).length > 0
+        )
+      ) {
+        return false;
+      }
+      try {
+        const response = await Fetch(
+          "POST",
+          "https://pharma-track.onrender.com/api/v1/clinic",
+          {
+            ...hostFormRef.current.values,
+            status_clinic: true,
+          }
+        );
+        if (response.results === "that bai") {
+          notification.error({
+            message: "Tạo phòng khám",
+            description: `Phòng khám với ID ${hostFormRef.current.values.id_clinic} đã tồn tại`,
+          });
+          return false;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    bonusClinic.id_clinic = hostFormRef.current.values.id_clinic;
     return true;
   };
 
   const handleSubmit = async (tab) => {
     if (tab >= 3 || tab < 0) {
-      alert("Mời bạn chọn role");
+      setWarnText("Bạn chưa chọn loại tài khoản !");
     } else {
       const role = RoleData[tab].name;
       try {
         if (!!state.password) {
-          const user = await createUserUsingEmailPassword({ ...state, role });
+          const user = await createUserUsingEmailPassword({
+            ...state,
+            role,
+            ...bonusClinic,
+          });
           if (!user) {
             notification.error({
               message: "Đăng kí",
@@ -79,12 +105,6 @@ const RolePage = (props) => {
             return;
           }
           const { uid } = user;
-          const stateSlice = (({ email, province, username }) => ({
-            email,
-            province,
-            username,
-          }))(state);
-          await setUserInfo(uid, { ...stateSlice, role, uid });
           notification.success({
             message: "Đăng kí",
             description: "Đăng kí thành công",
@@ -117,21 +137,75 @@ const RolePage = (props) => {
 
   return (
     <div className="RolePage tw-flex tw-flex-col tw-items-center">
+      <Modal
+        open={modal}
+        title={tab === 0 ? "Thông tin phòng khám" : "Thông tin nhân viên"}
+        onCancel={() => setModal(false)}
+        footer={[
+          <Button key="back" onClick={() => setModal(false)}>
+            Quay lại
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            onClick={async () => {
+              if (tab === 0) {
+                if (!(await handleSubmitHost())) return false;
+              } else {
+                bonusClinic = await staffFormRef.current.submitForm();
+                if (!bonusClinic) return false;
+              }
+              await handleSubmit(tab);
+              return true;
+            }}
+          >
+            {tab === 0 ? "Tạo phòng khám" : "Tạo tài khoản"}
+          </Button>,
+        ]}
+        width={448}
+        style={{
+          top: 120,
+        }}
+      >
+        {tab === 0 ? (
+          <CreateClinicFormContainer {...state} formRef={hostFormRef} />
+        ) : (
+          <StaffSignUpFormContainer {...state} formRef={staffFormRef} />
+        )}
+      </Modal>
       <div>
         <BackButton />
-        <RoleHeader />
-        <RoleCardList tab={tab} setTab={setTab} RoleData={RoleData} />
+        <div className="RoleHeader">
+          <div className="header1 ">Vui lòng chọn loại</div>
+          <div className="header2 "> TÀI KHOẢN</div>
+        </div>
+        <div className="RoleCardList tw-flex tw-flex-row">
+          {RoleData.map((role, index) => (
+            <RoleCard
+              {...role}
+              style={
+                tab === index
+                  ? {
+                      borderColor: "rgba(0, 121, 255, 0.5)",
+                    }
+                  : {}
+              }
+              setTab={setTab}
+              setDesText={setDesText}
+              index={index}
+            />
+          ))}
+        </div>
+        <div className="tw-text-gray-400 tw-text-center tw-mt-2">{desText}</div>
       </div>
-      <div className="bonus-role-container tw-mt-5">
-        {tab === 0 && <div>Tạo phòng khám</div>}
-        {tab === 1 && (
-          <InputForm
-            title="Nhập ID phòng khám"
-            placeholder="ID phòng khám"
-            setInput={setIDInput}
-          />
-        )}
-      </div>
+      {tab === -1 && warnText && (
+        <div
+          className="warn-container tw-text-red-500 tw-text-base tw-mt-3"
+          style={{ animation: "fadeIn 1s" }}
+        >
+          {warnText}
+        </div>
+      )}
       <div className="RoleButton tw-flex tw-flex-row tw-justify-center tw-space-x-40 tw-mt-5">
         <div>
           <Button
@@ -152,12 +226,11 @@ const RolePage = (props) => {
             shape="round"
             style={{ backgroundColor: "blue", width: "150px", height: "40px" }}
             onClick={async () => {
-              if (tab === 0) {
-                if (!(await handleSubmitHost())) return;
-              } else if (tab === 1) {
-                if (!(await handleSubmitStaff())) return;
+              if (tab === 2) {
+                await handleSubmit(tab);
+              } else {
+                setModal(true);
               }
-              handleSubmit(tab);
             }}
           >
             TIẾP TỤC

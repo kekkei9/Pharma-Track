@@ -4,6 +4,9 @@
 
 .table-row-dark {
   background-color: #dfdfdf;
+  &:hover > td {
+    background-color: #dfdfdf !important;
+  }
 }
 
 .ant-table-thead .ant-table-cell {

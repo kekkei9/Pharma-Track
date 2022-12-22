@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import RoleCardList from './RoleCardList'
+import AddressPickForm from './AddressPickForm'
 import '@testing-library/jest-dom'
 
-describe('<RoleCardList />', () => {
+describe('<AddressPickForm />', () => {
   it('renders a heading', () => {
-    render(<RoleCardList />)
+    render(<AddressPickForm />)
 
     const heading = screen.getByRole('heading', {
       name: /welcome to next\.js!/i,
