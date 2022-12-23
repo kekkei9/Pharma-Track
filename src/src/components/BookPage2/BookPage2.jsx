@@ -141,11 +141,10 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
 
             <Field
               component={AntDatePicker}
-              name="birthdayDate"
-              type="date"
+              name="birthday"
               label="Ngày sinh"
               defaultValue={values.birthdayDate}
-              format={dateFormat}
+              format="DD/MM/YYYY"
               validate={validateBirthDay}
               submitCount={submitCount}
               hasFeedback
@@ -154,14 +153,14 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
                 height: "38px",
                 borderRadius: "10px",
               }}
-              placeholder="Ngày/Tháng/Năm "
+              placeholder="Ngày/Tháng/Năm"
             />
             <Field
               component={AntInput}
               name="cccd"
               type="textarea"
               label="Số CCCD/CMND"
-              validate={isRequired}
+              validate={isRequired("Số CCCD/CMND")}
               submitCount={submitCount}
               hasFeedback
               style={{
@@ -172,17 +171,25 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
           </div>
           <div className="row tw-flex tw-flex-row">
             <Field
-              component={AntInput}
+              component={AntSelect}
               name="gender"
-              type="gender"
-              label="Giới tính "
-              validate={validateGioiTinh}
+              label="Giới tính"
+              defaultValue={values.type}
+              validate={isRequired("Giới tính")}
               submitCount={submitCount}
+              tokenSeparators={[","]}
+              style={{ width: "300px" }}
               hasFeedback
-              style={{
-                width: "300px",
-              }}
-              placeholder="Nam/Nữ/Giới tính khác "
+              showSearch
+              options={["Nam", "Nữ", "Khác"].map((type) => ({
+                value: type,
+                label: type,
+              }))}
+              filterOption={(input, option) =>
+                (option?.label ?? "")
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
             />
 
             <Field
@@ -338,35 +345,6 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
           <Checkbox onChange={onChange}>
             Tôi đã đọc kĩ và đồng ý với những điều khoản trên
           </Checkbox>
-        </div>
-        <div className="tw-flex tw-flex-row tw-justify-center tw-justify-evenly">
-          <div className="back-container ">
-            <FormItem>
-              <Button
-                danger
-                style={{
-                  width: "100px",
-                  margin: "20px",
-                }}
-              >
-                Quay lại
-              </Button>
-            </FormItem>
-          </div>
-          <div className="submit-container ">
-            <FormItem>
-              <Button
-                type="primary"
-                style={{
-                  width: "100px",
-                  margin: "4px",
-                }}
-                htmlType="submit"
-              >
-                Tiếp tục
-              </Button>
-            </FormItem>
-          </div>
         </div>
       </Form>
     </div>
