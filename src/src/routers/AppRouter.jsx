@@ -17,6 +17,7 @@ import App from "../App";
 import PATH from "./routerPath/publicPath";
 import Header from "../components/Header/Header";
 import PrivateRouter from "./customRouter/PrivateRouter";
+import PayMentPage from "../pages/PayMentPage/PayMentPage";
 
 const AppRouter = () => (
   <Routes>
@@ -30,7 +31,7 @@ const AppRouter = () => (
     <Route exact path={PATH.LOGIN_PATH} element={<LoginPage />} />
     <Route exact path={PATH.BOOK_AP_PATH} element={<BookApPage />} />
 
-    <Route exact path={PATH.PAY_MENT}  />
+    <Route exact path={PATH.PAY_MENT} element={<PayMentPage/>}  />
     <Route
       exact
       path={PATH.STAFF_TABLE_PATH}

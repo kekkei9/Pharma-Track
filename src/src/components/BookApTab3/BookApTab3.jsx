@@ -17,7 +17,7 @@ const BookApTab3 = (props) => {
         <div>Cảm ơn quý khách đã tin tưởng Pharma Track </div>
        
       </div>
-      <Button type="primary" onClick={() => navigate("/create_payment_url")} >Registration</Button>
+      <Button type="primary" href="https://pharma-track.onrender.com/api/v1/payment/create_payment_url1" shape="default"  size='large'  > Thanh toán </Button>
     </div>
   </div>
 }

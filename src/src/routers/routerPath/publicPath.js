@@ -7,7 +7,7 @@ const PATH = {
 
   BOOK_AP_PATH: '/bookap',
 
-  PAY_MENT:'/create_payment_url',
+  PAY_MENT:'/create_payment_url1',
 
 
   
