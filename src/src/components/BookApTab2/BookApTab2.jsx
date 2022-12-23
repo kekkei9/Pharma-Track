@@ -29,8 +29,9 @@ const BookApTab2 = (props) => {
       }
       console.log(bookingFormRef.current.values);
     }
-    window.location =
-      "https://pharma-track.onrender.com/api/v1/payment/create_payment_url1";
+    window.open(
+      "https://pharma-track.onrender.com/api/v1/payment/create_payment_url1"
+    );
 
     // navigate("/bookap3");
     return true;
