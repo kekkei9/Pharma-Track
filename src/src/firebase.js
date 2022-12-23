@@ -14,12 +14,13 @@ import {
 import { getFirestore, doc, setDoc, getDoc, query, where, getDocs, collection, deleteField, updateDoc, FieldValue, connectFirestoreEmulator, initializeFirestore } from 'firebase/firestore';
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyD6xItNw9KLS2Ve-Khshlql1yRPKfmGvdY",
-  authDomain: "pharma-track-91d0d.firebaseapp.com",
-  projectId: "pharma-track-91d0d",
-  storageBucket: "pharma-track-91d0d.appspot.com",
-  messagingSenderId: "967740548920",
-  appId: "1:967740548920:web:9de7f2f28e937dea8d43cd"
+  apiKey: "AIzaSyBSFGGWAyiRJw-Y0epjvqwXVZY7PwXuVyA",
+  authDomain: "pharma-track-5affa.firebaseapp.com",
+  projectId: "pharma-track-5affa",
+  storageBucket: "pharma-track-5affa.appspot.com",
+  messagingSenderId: "526216682993",
+  appId: "1:526216682993:web:89933dc18ecc1d67e87850",
+  measurementId: "G-1J1B3S6C72"
 };
 
 // Initialize Firebase
