@@ -5,6 +5,7 @@ const Fetch = async (
   url = "",
   data = undefined,
   message = 'Hệ thống',
+  message = 'Hệ thống',
   headers = undefined
 ) => {
   let opts = {
@@ -14,6 +15,23 @@ const Fetch = async (
     method
   };
 
+  // if (headers) {
+  //   opts.headers = {
+  //     ...headers,
+  //     "content-Type": "application/json",
+  //   };
+  // }
+
+  if (data) {
+    // opts.headers = {
+    //   // ...opts.headers,
+    //   "content-Type": "application/json",
+    // }
+    if(method === 'GET') {
+      url += '?' + new URLSearchParams(data).toString()
+    } else {
+      opts.body = JSON.stringify(data)
+    }
   // if (headers) {
   //   opts.headers = {
   //     ...headers,

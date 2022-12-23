@@ -21,6 +21,7 @@ import App from "../App";
 import PATH from "./routerPath/publicPath";
 import Header from "../components/Header/Header";
 import PrivateRouter from "./customRouter/PrivateRouter";
+import PayMentPage from "../pages/PayMentPage/PayMentPage";
 import OpenDoctorCard from "../components/OpenDoctorCard/OpenDoctorCard";
 
 const AppRouter = () => (
@@ -38,6 +39,7 @@ const AppRouter = () => (
     <Route exact path={PATH.BOOK_AP_PATH_STEP2} element={<BookApPage2 />} />
     <Route exact path={PATH.BOOK_AP_PATH_STEP3} element={<BookApPage3 />} />
 
+    <Route exact path={PATH.PAY_MENT} element={<PayMentPage />} />
     <Route
       exact
       path={PATH.STAFF_TABLE_PATH}
