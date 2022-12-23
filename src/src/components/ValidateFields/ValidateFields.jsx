@@ -124,3 +124,11 @@ export const validatePhoneNumber = (value) => {
   }
   return errors;
 };
+
+export const validateLat = (value) =>
+  value && isFinite(value) && Math.abs(value) <= 90 ? "" : "Vĩ độ không đúng";
+
+export const validateLng = (value) =>
+  value && isFinite(value) && Math.abs(value) <= 180
+    ? ""
+    : "Kinh độ không đúng";

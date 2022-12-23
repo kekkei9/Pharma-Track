@@ -1,10 +1,7 @@
-import { notification } from "antd";
-
 const Fetch = async (
   method = "GET",
   url = "",
   data = undefined,
-  message = 'Hệ thống',
   message = 'Hệ thống',
   headers = undefined
 ) => {
@@ -32,6 +29,7 @@ const Fetch = async (
     } else {
       opts.body = JSON.stringify(data)
     }
+  }
   // if (headers) {
   //   opts.headers = {
   //     ...headers,
