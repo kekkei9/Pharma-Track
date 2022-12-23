@@ -33,13 +33,11 @@ const columns = [
   },
 ];
 
-
-
 const UserAppointmentTable = (props) => {
   const navigate = useNavigate();
 
-  const { user } = useSelector((state)=> state.authentication)
-  const {uid} = user
+  const { user } = useSelector((state) => state.authentication);
+  const { uid } = user;
 
   const [userAppointment, setUserAppointment] = useState([]);
   useEffect(() => {
@@ -48,7 +46,10 @@ const UserAppointmentTable = (props) => {
       try {
         const response = await Fetch(
           "GET",
-          `https://pharma-track.onrender.com/api/v1/appointment/id_user?id_user=${uid}`,
+          "https://pharma-track.onrender.com/api/v1/appointment/id_user",
+          {
+            id_user: uid,
+          }
         );
         setUserAppointment(response);
       } catch (e) {
@@ -62,7 +63,9 @@ const UserAppointmentTable = (props) => {
 
   return (
     <div className="UserAppointmentTable tw-w-2/3 center-screen tw-mt-5">
-      <div className = 'booking tw-flex tw-justify-center tw-mb-5 tw-font-bold tw-text-4xl '>Lịch hẹn của bạn</div>
+      <div className="booking tw-flex tw-justify-center tw-mb-5 tw-font-bold tw-text-4xl ">
+        Lịch hẹn của bạn
+      </div>
       <Table
         className="staff-table"
         rowClassName={(record, index) =>

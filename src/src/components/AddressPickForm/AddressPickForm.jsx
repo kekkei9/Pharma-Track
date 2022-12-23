@@ -7,11 +7,15 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Fetch from "../../fetch";
 
-const AddressPickForm = (props) => {
+const AddressPickForm = ({ addressValues, setAddressValues }) => {
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
   const [wards, setWards] = useState([]);
   const formikProps = useFormikContext();
+
+  if (!setAddressValues) {
+    setAddressValues = (values) => {};
+  }
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -124,9 +128,10 @@ const AddressPickForm = (props) => {
         filterOption={(input, option) =>
           (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
         }
-        onSelect={() => {
+        onSelect={(value) => {
           formikProps.setFieldValue("city", "");
           formikProps.setFieldValue("ward", "");
+          setAddressValues({ province: value, city: "", ward: "" });
         }}
       />
       <Field
@@ -156,7 +161,10 @@ const AddressPickForm = (props) => {
         filterOption={(input, option) =>
           (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
         }
-        onSelect={() => formikProps.setFieldValue("ward", "")}
+        onSelect={(value) => {
+          formikProps.setFieldValue("ward", "");
+          setAddressValues({ ...addressValues, city: value, ward: "" });
+        }}
       />
       <Field
         component={AntSelect}
@@ -183,6 +191,9 @@ const AddressPickForm = (props) => {
         }
         filterOption={(input, option) =>
           (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+        }
+        onSelect={(value) =>
+          setAddressValues({ ...addressValues, ward: value })
         }
       />
     </div>
