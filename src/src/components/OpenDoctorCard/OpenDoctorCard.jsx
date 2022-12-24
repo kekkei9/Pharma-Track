@@ -4,7 +4,7 @@ import Fetch from "../../fetch";
 import { Button, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const OpenDoctorCard = ({ currentDoctor }) => {
+const OpenDoctorCard = ({ currentDoctor, time, setTime }) => {
   const [DoctorTime, setDoctorTime] = useState([]);
 
   useEffect(() => {
@@ -29,8 +29,6 @@ const OpenDoctorCard = ({ currentDoctor }) => {
   }, []);
 
   const navigate = useNavigate();
-
-  const [changeStyle, setStyle] = useState(-1);
 
   return (
     <div className="OpenDoctorCard">
@@ -80,20 +78,15 @@ const OpenDoctorCard = ({ currentDoctor }) => {
           </div>
         </div>
 
-        <div className="line2 tw-flex tw-max-w-5xl tw-h-2 tw-bg-gray-400 tw-rounded tw-mx-10 tw-mt-2"></div>
+        <div className="line2 "></div>
 
         <div className="Time">
-          <div className="pickTime tw-px-12 tw-mt-2 tw-font-bold tw-text-3xl">
-            {" "}
-            Chọn giờ Khám{" "}
-          </div>
-          <div className="TimeButton tw-flex tw-justify-between tw-px-16 tw-pt-4 tw-pb-8">
-            {DoctorTime.map((item, index) => (
+          <div className="pickTime "> Chọn giờ Khám </div>
+          <div className="TimeButton ">
+            {DoctorTime.map((item) => (
               <Button
-                style={
-                  changeStyle === index ? { backgroundColor: "#46C2CB" } : {}
-                }
-                onClick={() => setStyle(index)}
+                style={time === item ? { backgroundColor: "#46C2CB" } : {}}
+                onClick={() => setTime(item)}
               >
                 {item.shift}
               </Button>

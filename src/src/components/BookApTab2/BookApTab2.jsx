@@ -1,15 +1,16 @@
 import React from "react";
-import CustomDatePicker from "../CustomDatePicker/CustomDatePicker";
-import InputForm from "../InputForm/InputForm";
-import PickerForm from "../PickerForm/PickerForm";
 import "./BookApTab2.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BackNextButton from "../BackNextButton/BackNextButton";
 import BookingFormContainer from "../../containers/BookingForm/BookingForm.container";
 import { useRef } from "react";
 
 const BookApTab2 = (props) => {
   const navigate = useNavigate();
+
+  const { state } = useLocation()
+  console.log(state)
+
   const bookingFormRef = useRef("a");
 
   const onClickBack = () => {

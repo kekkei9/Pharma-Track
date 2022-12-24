@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./BookApTab1.scss";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PickerForm from "../PickerForm/PickerForm";
 import DoctorCardList from "../DoctorCardList/DoctorCardList";
 import GoogleMapContain from "../GoogleMapContain/GoogleMapContain";
 import Fetch from "../../fetch";
-import BackNextButton from "../BackNextButton/BackNextButton";
-import { notification } from "antd";
 import { Form, Formik } from "formik";
 import AddressPickForm from "../AddressPickForm/AddressPickForm";
 
 const BookApTab1 = (props) => {
-  const navigate = useNavigate();
-  const [id_clinic, setID] = useState(-1);
   const [addressValues, setAddressValues] = useState({
     province: "",
     city: "",
@@ -61,23 +56,6 @@ const BookApTab1 = (props) => {
     },
   ];
 
-  const openNotificationWithIcon = () => {
-    notification.error({
-      message: "Lỗi",
-      description: "Bạn vẫn chưa chọn bác sĩ",
-    });
-  };
-
-  const onClickBack = () => {
-    navigate("/homepage");
-  };
-
-  const onClickNext = () => {
-    {
-      id_clinic === -1 ? openNotificationWithIcon() : navigate("/bookap2");
-    }
-  };
-
   return (
     <div className="BookApTab1">
       <Tabs className="Tabs">
@@ -106,8 +84,6 @@ const BookApTab1 = (props) => {
 
           <DoctorCardList
             DoctorData={DoctorData}
-            id_clinic={id_clinic}
-            setID={setID}
           />
         </TabPanel>
         <TabPanel>
@@ -122,7 +98,6 @@ const BookApTab1 = (props) => {
           </div>
         </TabPanel>
       </Tabs>
-      <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>
   );
 };
