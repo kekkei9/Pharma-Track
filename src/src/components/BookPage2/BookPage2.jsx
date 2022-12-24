@@ -28,10 +28,10 @@ export const dateFormat = "MM-DD-YYYY";
 
 
 const BookPage2 = ({ handleSubmit, values, submitCount }) => {
-  const [agree, setAgree]=useState(false);
+
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
-    setAgree(e.target.checked);
+
   };
   return (
     <div className="BookPage2">
