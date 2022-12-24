@@ -14,12 +14,13 @@ const UserProfilePage = (props) => {
   useEffect(() => {
 
     const abortController = new AbortController();
-    // setIsLoading(true);
+    setIsLoading(true);
     const fetchUser = async () => {
+      setIsLoading(false);
       setUserData(await getUserData(params.userId));
     };
     fetchUser();
-
+    
     return () => abortController.abort();
   });
 
@@ -31,7 +32,7 @@ const UserProfilePage = (props) => {
 
   return (
     <div className="UserProfilePage">
-      {/* <Spin tip="Loading..." spinning={isLoading}> */}
+      <Spin tip="Loading..." spinning={isLoading}>
       <div className="shawdow-user  tw-items-center  tw-mt-5 tw-p-8">
       <div >
         <Row>
@@ -60,7 +61,6 @@ const UserProfilePage = (props) => {
         
               <Col span={4} className="tw-flex tw-justify-end "> <Button
                 type="default"
-
                 onClick={() => {
                   // setIsEditing(true);
                 }}
@@ -75,8 +75,9 @@ const UserProfilePage = (props) => {
               </Row>
       </div>            
      
-      {/* </Spin> */}
+
       </div>
+      </Spin>
     </div>
   );
 };
