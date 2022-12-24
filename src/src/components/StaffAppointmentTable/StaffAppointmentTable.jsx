@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./StaffAppointmentTable.scss";
 import { Table } from "antd";
-
+import Fetch from "../../fetch";
 const columns = [
   {
     title: "ID",
@@ -35,98 +35,21 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    id: 123,
-    firstName: "Le Thi",
-    lastName: "Van",
-    email: "lethivan@gmail.com",
-    phone: "0942347343",
-    role: "CS",
-  },
-  {
-    id: 1245,
-    firstName: "Nguyen Van",
-    lastName: "A",
-    email: "nguyenvana@gmail.com",
-    phone: "0942478458",
-    role: "CS",
-  },
-  {
-    id: 1245,
-    firstName: "Nguyen Van",
-    lastName: "A",
-    email: "nguyenvana@gmail.com",
-    phone: "0942478458",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1256,
-    firstName: "Ho Trong",
-    lastName: "Tri",
-    email: "hotrongtri@gmail.com",
-    phone: "0942478444",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-  {
-    id: 1233,
-    firstName: "Ly Van",
-    lastName: "Hoa",
-    email: "lyvanhoa@gmail.com",
-    phone: "0942478334",
-    role: "CS",
-  },
-];
+
+
 
 const StaffAppointmentTable = (props) => {
+  const [data, setData] = useState({});
+useEffect(()=>{
+  
+const fetchData= async() =>{
+const response =await Fetch("GET", "https://pharma-track.onrender.com/api/v1/appointment");
+console.log(response)
+response.json().then(json=>{
+  setData(response)
+})}
+}
+, [])
   return (
     <div className="StaffAppointmentTable tw-w-2/3 center-screen tw-mt-5">
       <Table
@@ -143,3 +66,5 @@ const StaffAppointmentTable = (props) => {
 };
 
 export default StaffAppointmentTable;
+
+
