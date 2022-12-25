@@ -14,7 +14,8 @@ const BookApTab1 = (props) => {
     city: "",
     ward: "",
   });
-  const [DoctorData, setDoctorData] = useState([]);
+
+  const [InitDoctorData, setInitDoctorData] = useState([]);
   useEffect(() => {
     const abortController = new AbortController();
     const fetchDoctor = async () => {
@@ -23,7 +24,7 @@ const BookApTab1 = (props) => {
           "GET",
           "https://pharma-track.onrender.com/api/v1/clinic/"
         );
-        setDoctorData(response);
+        setInitDoctorData(response);
       } catch (e) {
         console.error(e);
       }
@@ -33,8 +34,60 @@ const BookApTab1 = (props) => {
     return () => abortController.abort();
   }, []);
 
+  const [StaffData, setStaffData] = useState([]);
+  useEffect(() => {
+    const abortController = new AbortController();
+    const fetchStaff = async () => {
+      try {
+        const response = await Fetch(
+          "GET",
+          "https://pharma-track.onrender.com/api/v1/staff"
+        );
+        setStaffData(
+          response.filter((item) => {
+            return item.type === "Bác sĩ";
+          })
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchStaff();
+
+    return () => abortController.abort();
+  }, []);
+
+  const [DoctorData, setDoctorData] = useState([]);
+
+  useEffect(() => {
+    InitDoctorData.map((itemDoctor) => {
+      StaffData.map((itemStaff) => {
+        if (itemStaff.id_clinic === itemDoctor.id_clinic) {
+          Object.assign(itemStaff, {
+            province: itemDoctor.province,
+            city: itemDoctor.city,
+            address: itemDoctor.address,
+            lat: itemDoctor.lat,
+            lng: itemDoctor.lng,
+          });
+        }
+      });
+    });
+    setDoctorData(StaffData);
+  }, []);
+
+  console.log(DoctorData);
+
   useEffect(() => {
     console.log(addressValues);
+    // if (addressValues.province) {
+    // setDoctorData(StaffData);
+    // setDoctorData(
+    //   DoctorData.filter((item) => {
+    //     return item.province === addressValues.province;
+    //   })
+    // );
+    // }
     //fetch doctor by province, city, ward
   }, [JSON.stringify(addressValues)]);
 
@@ -82,9 +135,7 @@ const BookApTab1 = (props) => {
             </Formik>
           </div>
 
-          <DoctorCardList
-            DoctorData={DoctorData}
-          />
+          <DoctorCardList DoctorData={DoctorData} />
         </TabPanel>
         <TabPanel>
           <div className="tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-10">
