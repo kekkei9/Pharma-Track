@@ -107,6 +107,7 @@ const ClinicProfile = (props) => {
                 onClick={() => {
                   setIsEditing(true);
                 }}
+                disabled={user?.role !== "host"}
               >
                 Chỉnh sửa
               </Button>

@@ -46,7 +46,7 @@ const StaffTablePage = (props) => {
         </Modal>
         <Button type="default" onClick={() => setRequestData(new Date())}>
           <FontAwesomeIcon icon={faRotateRight} className="tw-self-center" />
-          <div className="tw-ml-2">Tải lai</div>
+          <div className="tw-ml-2">Tải lại</div>
         </Button>
         <Button
           type="default"
