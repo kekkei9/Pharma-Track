@@ -49,11 +49,11 @@ const Header = (props) => {
         label: <Link to={"/staff/clinic"}>Thông tin phòng khám</Link>,
       },
       {
-        key: "1",
+        key: "2",
         label: <Link to={"/staff/appointments"}>Quản lí lịch hẹn</Link>,
       },
       {
-        key: "2",
+        key: "3",
         label: <Link to={"/staff/QRscan"}>Quét mã QR</Link>,
       },
     ],
