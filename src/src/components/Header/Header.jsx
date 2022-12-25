@@ -46,6 +46,10 @@ const Header = (props) => {
     staff: [
       {
         key: "1",
+        label: <Link to={"/staff/clinic"}>Thông tin phòng khám</Link>,
+      },
+      {
+        key: "1",
         label: <Link to={"/staff/appointments"}>Quản lí lịch hẹn</Link>,
       },
       {

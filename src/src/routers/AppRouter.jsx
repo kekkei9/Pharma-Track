@@ -28,17 +28,14 @@ const AppRouter = () => (
   <Routes>
     <Route path="/:page" element={<HomePage />}></Route>
     <Route exact path="/" element={<HomePage />}></Route>
-
     <Route exact path="*" element={<ErrorPage code={404} />} />
     <Route exact path={PATH.HOME_PAGE_PATH} element={<HomePage />} />
     <Route exact path={PATH.SIGN_UP_PATH} element={<SignUpPage />} />
     <Route exact path={PATH.ROLE_PICK_PATH} element={<RolePage />} />
     <Route exact path={PATH.LOGIN_PATH} element={<LoginPage />} />
-
     <Route exact path={PATH.BOOK_AP_PATH_STEP1} element={<BookApPage />} />
     <Route exact path={PATH.BOOK_AP_PATH_STEP2} element={<BookApPage2 />} />
     <Route exact path={PATH.BOOK_AP_PATH_STEP3} element={<BookApPage3 />} />
-
     <Route exact path={PATH.PAY_MENT} element={<PayMentPage />} />
     <Route
       exact
@@ -47,14 +44,25 @@ const AppRouter = () => (
         <PrivateRouter component={StaffTablePage} accessibleRoles={["host"]} />
       }
     />
+    {["host", "staff"].map((route) => (
+      <Route
+        exact
+        path={`/${route}/clinic`}
+        element={
+          <PrivateRouter component={ClinicProfile} accessibleRoles={[route]} />
+        }
+      />
+    ))}
     <Route
       exact
       path={PATH.CLINIC_PROFILE_PATH}
       element={
-        <PrivateRouter component={ClinicProfile} accessibleRoles={["host"]} />
+        <PrivateRouter
+          component={ClinicProfile}
+          accessibleRoles={["host", "staff"]}
+        />
       }
     />
-
     <Route
       exact
       path={PATH.STAFF_APPOINTMENTS_PATH}
@@ -65,7 +73,6 @@ const AppRouter = () => (
         />
       }
     />
-
     <Route
       exact
       path={PATH.STAFF_QRSCAN_PATH}
@@ -73,7 +80,6 @@ const AppRouter = () => (
         <PrivateRouter component={QRScanPage} accessibleRoles={["staff"]} />
       }
     />
-
     <Route
       exact
       path={PATH.USER_APPOINTMENTS_PATH}
@@ -84,7 +90,6 @@ const AppRouter = () => (
         />
       }
     />
-
     <Route
       exact
       path={PATH.USER_DYNAMIC_PATH}
@@ -95,7 +100,6 @@ const AppRouter = () => (
         />
       }
     />
-
     {/* for production deployment */}
     <Route path="/index.html" element={<Navigate to={PATH.HOME_PAGE_PATH} />} />
   </Routes>
