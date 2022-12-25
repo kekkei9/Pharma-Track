@@ -47,16 +47,6 @@ const AppRouter = () => (
         <PrivateRouter component={StaffTablePage} accessibleRoles={["host"]} />
       }
     />
-
-    <Route
-      path={PATH.STAFF_DYNAMIC_PATH}
-      element={
-        <PrivateRouter
-          component={StaffProfilePage}
-          accessibleRoles={["host"]}
-        />
-      }
-    />
     <Route
       exact
       path={PATH.CLINIC_PROFILE_PATH}

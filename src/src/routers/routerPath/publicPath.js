@@ -14,7 +14,6 @@ const PATH = {
 
   
   STAFF_TABLE_PATH: '/host/staffTable',
-  STAFF_DYNAMIC_PATH: 'host/staff/:staffId',
 
   CLINIC_PROFILE_PATH: '/host/clinic',
 

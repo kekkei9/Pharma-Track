@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./StaffTable.scss";
-import { Table, notification, Popconfirm, Spin } from "antd";
+import { Table, notification, Popconfirm, Spin, Modal, Button } from "antd";
 import Fetch from "../../fetch";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteUserProp, getUidByStaffId } from "../../firebase";
+import StaffProfilePage from "../../pages/StaffProfilePage/StaffProfilePage";
 
 const StaffTable = ({ className, requestData, setRequestData }) => {
   const navigate = useNavigate();
   const [staffData, setStaffData] = useState([]);
+  const [currentStaffId, setCurrentStaffId] = useState();
   const [isSpinning, setIsSpinning] = useState(true);
+  const [modal, setModal] = useState(false);
   const { user } = useSelector((state) => state.authentication);
 
   useEffect(() => {
@@ -117,9 +120,22 @@ const StaffTable = ({ className, requestData, setRequestData }) => {
   return (
     <div className={`StaffTable tw-w-2/3 ${className}`}>
       <Spin tip="Loading..." spinning={isSpinning}>
+        <Modal
+          open={modal}
+          title="Thông tin nhân viên"
+          centered
+          onCancel={() => setModal(false)}
+          footer={[]}
+          width={400}
+        >
+          <StaffProfilePage staffId={currentStaffId} />
+        </Modal>
         <Table
           onRow={(record) => ({
-            onDoubleClick: () => navigate("/host/staff/" + record.id_staff),
+            onDoubleClick: () => {
+              setCurrentStaffId(record.id_staff);
+              setModal(true);
+            },
           })}
           className="staff-table"
           rowClassName={(record, index) =>

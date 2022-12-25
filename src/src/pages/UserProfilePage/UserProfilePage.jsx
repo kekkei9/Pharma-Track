@@ -15,13 +15,13 @@ const UserProfilePage = (props) => {
     const abortController = new AbortController();
     setIsLoading(true);
     const fetchUser = async () => {
-      setIsLoading(false);
       setUserData(await getUserData(params.userId));
+      setIsLoading(false);
     };
     fetchUser();
 
     return () => abortController.abort();
-  });
+  }, []);
 
   const RoleName = {
     host: "Chủ phòng khám",
@@ -40,7 +40,7 @@ const UserProfilePage = (props) => {
                 offset={4}
                 className="container-userprofile  tw-p-10 tw-shadow tw-shadow-slate-400  "
               >
-                <Row className="main-row  ">
+                <Row className="main-row">
                   <Col span={6}>
                     <img
                       src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
