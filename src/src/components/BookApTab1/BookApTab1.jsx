@@ -7,8 +7,14 @@ import GoogleMapContain from "../GoogleMapContain/GoogleMapContain";
 import Fetch from "../../fetch";
 import { Form, Formik } from "formik";
 import AddressPickForm from "../AddressPickForm/AddressPickForm";
+import { Modal, notification } from "antd";
+import OpenDoctorCard from "../OpenDoctorCard/OpenDoctorCard";
+import { useNavigate } from "react-router-dom";
+import BackNextButton from "../BackNextButton/BackNextButton";
 
 const BookApTab1 = (props) => {
+  const navigate = useNavigate();
+
   const [addressValues, setAddressValues] = useState({
     province: "",
     city: "",
@@ -77,12 +83,84 @@ const BookApTab1 = (props) => {
       });
     });
     setDoctorData(StaffData);
-    console.log(DoctorData);
   }, []);
 
-  const [myProvince, setMyProvince] = useState([]);
+  const [currentDoctor, setCurrentDoctor] = useState([]);
+
+  const [id_staff, setID] = useState(-1);
+
+  const [time, setTime] = useState(-1);
+
+  const openNotificationTime = () => {
+    notification.error({
+      message: "Lỗi",
+      description: "Bạn vẫn chưa chọn Giờ",
+    });
+  };
+
+  const openNotificationWithIcon = () => {
+    notification.error({
+      message: "Lỗi",
+      description: "Bạn vẫn chưa chọn bác sĩ",
+    });
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDoubleClick = () => {
+    setCurrentDoctor(
+      DoctorData.find((item) => {
+        return item.id_staff === id_staff;
+      })
+    );
+    showModal();
+  };
+
+  const handleDoubleClickMap = () => {
+    showModal();
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    if (time === -1) {
+      openNotificationTime();
+      return false;
+    } else {
+      setIsModalOpen(false);
+      navigate("/bookap2", {
+        state: {
+          currentDoctor: currentDoctor,
+          time: time,
+        },
+      });
+    }
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const onClickBack = () => {
+    navigate("/homepage");
+  };
+
+  const onClickNext = () => {
+    if (id_staff === -1) {
+      openNotificationWithIcon();
+      return false;
+    } else {
+      setCurrentDoctor(
+        DoctorData.find((item) => {
+          return item.id_staff === id_staff;
+        })
+      );
+      showModal();
+    }
+  };
+
   useEffect(() => {
-    console.log(addressValues)
+    console.log(addressValues);
   }, [JSON.stringify(addressValues)]);
 
   const formDatas = [
@@ -129,7 +207,26 @@ const BookApTab1 = (props) => {
             </Formik>
           </div>
 
-          <DoctorCardList DoctorData={DoctorData} />
+          <DoctorCardList
+            DoctorData={DoctorData}
+            handleDoubleClick={handleDoubleClick}
+            id_staff={id_staff}
+            setID={setID}
+          />
+          <Modal
+            title="CHI TIẾT BÁC SĨ"
+            open={isModalOpen}
+            okType={"primary"}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            width={1000}
+          >
+            <OpenDoctorCard
+              currentDoctor={currentDoctor}
+              time={time}
+              setTime={setTime}
+            />
+          </Modal>
         </TabPanel>
         <TabPanel>
           <div className="tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-10">
@@ -139,10 +236,30 @@ const BookApTab1 = (props) => {
             </div>
           </div>
           <div className="tw-mt-10">
-            <GoogleMapContain DoctorData={DoctorData} />
+            <GoogleMapContain
+              DoctorData={DoctorData}
+              handleDoubleClickMap={handleDoubleClickMap}
+              currentDoctor={currentDoctor}
+              setCurrentDoctor={setCurrentDoctor}
+            />
+            <Modal
+              title="CHI TIẾT BÁC SĨ"
+              open={isModalOpen}
+              okType={"primary"}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              width={1000}
+            >
+              <OpenDoctorCard
+                currentDoctor={currentDoctor}
+                time={time}
+                setTime={setTime}
+              />
+            </Modal>
           </div>
         </TabPanel>
       </Tabs>
+      <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>
   );
 };
