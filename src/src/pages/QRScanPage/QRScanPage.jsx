@@ -17,13 +17,18 @@ const QrScanPage = (props) => {
           try {
             const info = data && JSON.parse(data?.text);
             if (info?.id_appointment) {
+              notification.success({
+                message: "Quét QR",
+                description: "Quét QR thành công",
+              });
               navigate(`/${user.role}/appointment/${info.id_appointment}`);
             }
-          } catch (e) {}
-          notification.error({
-            message: "Quét QR",
-            description: "Mã QR sai",
-          });
+          } catch (e) {
+            notification.error({
+              message: "Quét QR",
+              description: "Mã QR sai",
+            });
+          }
         }}
         onError={(e) => console.error(e)}
         className="tw-mt-5"

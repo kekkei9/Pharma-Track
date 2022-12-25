@@ -1,2 +1,10 @@
 .AppointmentProfilePage {
+  .profile-container {
+    height: fit-content;
+    min-height: 470px;
+    max-width: 370px;
+  }
+  .ant-col.ant-col-12 {
+    font-size: 1rem;
+  }
 }

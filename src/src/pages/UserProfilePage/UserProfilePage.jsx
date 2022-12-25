@@ -21,7 +21,7 @@ const UserProfilePage = (props) => {
     fetchUser();
 
     return () => abortController.abort();
-  }, []);
+  }, [params?.userId]);
 
   const RoleName = {
     host: "Chủ phòng khám",

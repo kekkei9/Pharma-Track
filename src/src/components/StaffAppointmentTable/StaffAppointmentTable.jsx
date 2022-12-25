@@ -1,78 +1,101 @@
 import React, { useEffect, useState } from "react";
 import "./StaffAppointmentTable.scss";
-import { Table, Button } from "antd";
+import { Table, Button, Spin } from "antd";
 import Fetch from "../../fetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const columns = [
   {
     title: "ID",
-    dataIndex: "id",
-    key: "id",
-    width: "auto",
+    dataIndex: "id_appointment",
+    key: "id_appointment",
+    width: "20%",
   },
   {
-    title: "Name",
-    dataIndex: "fullName",
-    key: "fullName",
-    render: (_, record) => <a>{record.firstName + " " + record.lastName}</a>,
-    width: "40%",
+    title: "Thời gian",
+    dataIndex: "time",
+    key: "time",
+    width: "10%",
   },
   {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
-    width: "40%",
+    title: "Tên bác sĩ",
+    dataIndex: "doctor",
+    key: "doctor",
+    width: "20%",
   },
   {
-    title: "Action",
-    key: "Action",
-    render: (_, record) => (
-      <div className="flex flex-row gap-5">
-        <a style={{ color: "#1890FF" }}>Invite {record.fullName}</a>
-        <a style={{ color: "#1890FF" }}>Delete</a>
-      </div>
-    ),
+    title: "Địa chỉ",
+    dataIndex: "address",
+    key: "address",
     width: "30%",
+  },
+  {
+    title: "Trạng thái",
+    dataIndex: "status",
+    key: "status",
+    width: "10%",
   },
 ];
 
 const StaffAppointmentTable = (props) => {
-  const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const [requestData, setRequestData] = useState(new Date());
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await Fetch(
-  //       "GET",
-  //       "https://pharma-track.onrender.com/api/v1/appointment"
-  //     );
-  //     console.log(response);
-  //     response.json().then((json) => {
-  //       setData(response);
-  //     });
-  //   };
-  // }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useSelector((state) => state.authentication);
+
+  const [userAppointment, setUserAppointment] = useState([]);
+  useEffect(() => {
+    const abortController = new AbortController();
+    setIsLoading(true);
+    const fetchUser = async () => {
+      try {
+        const response = await Fetch(
+          "GET",
+          "https://pharma-track.onrender.com/api/v1/appointment/id_clinic",
+          {
+            id_clinic: user.id_clinic,
+          }
+        );
+        setUserAppointment(response);
+        setIsLoading(true);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchUser();
+
+    return () => abortController.abort();
+  }, [user, requestData]);
+
   return (
-    <div className="StaffAppointmentTable tw-flex tw-flex-col tw-items-center">
-      <div className="tw-w-2/3 tw-mt-5 tw-flex tw-flex-col">
-        <Button
-          type="default"
-          onClick={() => setRequestData(new Date())}
-          className="tw-w-fit tw-self-end tw-mr-3\"
-        >
-          <FontAwesomeIcon icon={faRotateRight} className="tw-self-center" />
-          <div className="tw-ml-2">Tải lại</div>
-        </Button>
+    <div className="UserAppointmentTable tw-w-2/3 center-screen tw-mt-5 tw-flex tw-flex-col">
+      <Button
+        type="default"
+        onClick={() => setRequestData(new Date())}
+        className="tw-self-end"
+      >
+        <FontAwesomeIcon icon={faRotateRight} className="tw-self-center" />
+        <div className="tw-ml-2">Tải lại</div>
+      </Button>
+      <Spin spinning={isLoading}>
         <Table
           className="staff-table tw-mt-5"
-          rowClassName={(_, index) =>
+          onRow={(record) => ({
+            onDoubleClick: () => {
+              navigate(`/${user.role}/appointment/${record.id_appointment}`);
+            },
+          })}
+          rowClassName={(record, index) =>
             index % 2 === 0 ? "table-row-light" : "table-row-dark"
           }
           columns={columns}
-          dataSource={data}
+          dataSource={userAppointment}
           pagination={{ pageSize: 6 }}
         />
-      </div>
+      </Spin>
     </div>
   );
 };
