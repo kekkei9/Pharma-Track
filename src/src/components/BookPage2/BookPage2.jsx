@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import "./BookPage2.scss";
 import { Form, Field } from "formik";
 import { Checkbox } from "antd";
@@ -26,27 +26,23 @@ const FormItem = AntdForm.Item;
 
 export const dateFormat = "MM-DD-YYYY";
 
-const onChange = (e) => {
-  console.log(`checked = ${e.target.checked}`);
-};
+
 const BookPage2 = ({ handleSubmit, values, submitCount }) => {
+
+  const onChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+
+  };
   return (
     <div className="BookPage2">
       <Form className="form-container" onSubmit={handleSubmit}>
         <div className="header tw-text-xl tw-font-bold tw-pb-5 ">
           1.Thông tin phòng khám đăng kí khám
         </div>
-        <div className="tw-flex tw-flex-row tw-items-stretch">
-          <div className="imageDoctor tw-self-center">
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/avatardoctor.png`}
-              alt="doctor"
-              width="200px"
-              height="300px"
-              className="tw-rounded-md"
-            />
-          </div>
+        
           <div className="doctorProfile">
+          <div className="col tw-flex tw-flex-col tw-items-center">
+          <div className="row tw-flex tw-flex-row">
             <Field
               component={AntInput}
               name="fullname"
@@ -75,6 +71,7 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
               defaultValue="Da liễu"
               disabled={true}
             />
+            
             <Field
               component={AntInput}
               name="yearEx"
@@ -89,20 +86,9 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
               defaultValue="4 năm"
               disabled={true}
             />
-            <Field
-              component={AntInput}
-              name="addressRoom"
-              type="textarea"
-              label="Địa chỉ phòng khám"
-              //validate={validateFullName}
-              submitCount={submitCount}
-              hasFeedback
-              style={{
-                width: "400px",
-              }}
-              defaultValue="70 Lê Thánh Tôn, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh"
-              disabled={true}
-            />
+            
+            </div>
+            <div className="row tw-flex tw-flex-row">
 
             <Field
               component={AntInput}
@@ -118,6 +104,24 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
               defaultValue="0935123456"
               disabled={true}
             />
+            <Field
+              component={AntInput}
+              name="addressRoom"
+              type="textarea"
+              label="Địa chỉ phòng khám"
+              //validate={validateFullName}
+              submitCount={submitCount}
+              hasFeedback
+              style={{
+                width: "640px",
+              }}
+              defaultValue="70 Lê Thánh Tôn, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh"
+              disabled={true}
+            />
+
+          
+            </div>
+            
           </div>
         </div>
         <div className="header tw-text-xl tw-font-bold tw-pb-5 ">
