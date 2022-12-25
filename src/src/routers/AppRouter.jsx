@@ -11,6 +11,7 @@ import BookApPage3 from "../pages/BookApPage3/BookApPage3";
 
 import UserProfilePage from "../pages/UserProfilePage/UserProfilePage";
 import StaffProfilePage from "../pages/StaffProfilePage/StaffProfilePage";
+import AppointmentProfilePage from "../pages/AppointmentProfilePage/AppointmentProfilePage";
 import QRScanPage from "../pages/QRScanPage/QRScanPage";
 
 import StaffTablePage from "../pages/StaffTablePage/StaffTablePage";
@@ -50,6 +51,19 @@ const AppRouter = () => (
         path={`/${route}/clinic`}
         element={
           <PrivateRouter component={ClinicProfile} accessibleRoles={[route]} />
+        }
+      />
+    ))}
+
+    {["user", "staff"].map((route) => (
+      <Route
+        exact
+        path={`/${route}/appointment/:appointmentId`}
+        element={
+          <PrivateRouter
+            component={AppointmentProfilePage}
+            accessibleRoles={[route]}
+          />
         }
       />
     ))}

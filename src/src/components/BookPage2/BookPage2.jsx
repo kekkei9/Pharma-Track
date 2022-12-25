@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./BookPage2.scss";
 import { Form, Field } from "formik";
 import { Checkbox } from "antd";
@@ -26,12 +26,10 @@ const FormItem = AntdForm.Item;
 
 export const dateFormat = "MM-DD-YYYY";
 
-
 const BookPage2 = ({ handleSubmit, values, submitCount }) => {
-
+  const [isChecked, setIsChecked] = useState(false);
   const onChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
-
+    setIsChecked(e.target.checked);
   };
   return (
     <div className="BookPage2">
@@ -39,89 +37,77 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
         <div className="header tw-text-xl tw-font-bold tw-pb-5 ">
           1.Thông tin phòng khám đăng kí khám
         </div>
-        
-          <div className="doctorProfile">
+
+        <div className="doctorProfile">
           <div className="col tw-flex tw-flex-col tw-items-center">
-          <div className="row tw-flex tw-flex-row">
-            <Field
-              component={AntInput}
-              name="fullname"
-              type="textarea"
-              label="Họ và tên bác sĩ"
-              // validate={validateFullName}
-              submitCount={submitCount}
-              hasFeedback
-              style={{
-                width: "300px",
-              }}
-              defaultValue="Nguyễn Văn A"
-              disabled={true}
-            />
-            <Field
-              component={AntInput}
-              name="chuyenkhoa"
-              type="textarea"
-              label="Chuyên khoa"
-              //validate={validateFullName}
-              submitCount={submitCount}
-              hasFeedback
-              style={{
-                width: "300px",
-              }}
-              defaultValue="Da liễu"
-              disabled={true}
-            />
-            
-            <Field
-              component={AntInput}
-              name="yearEx"
-              type="textarea"
-              label="Số năm kinh nghiệm"
-              //validate={validateFullName}
-              submitCount={submitCount}
-              hasFeedback
-              style={{
-                width: "300px",
-              }}
-              defaultValue="4 năm"
-              disabled={true}
-            />
-            
+            <div className="row tw-flex tw-flex-row">
+              <Field
+                component={AntInput}
+                name="nameDoctor"
+                type="textarea"
+                label="Họ và tên bác sĩ"
+                submitCount={submitCount}
+                hasFeedback
+                style={{
+                  width: "300px",
+                }}
+                disabled={true}
+              />
+              <Field
+                component={AntInput}
+                name="department"
+                type="textarea"
+                label="Chuyên khoa"
+                submitCount={submitCount}
+                hasFeedback
+                style={{
+                  width: "300px",
+                }}
+                disabled={true}
+              />
+
+              <Field
+                component={AntInput}
+                name="yearEx"
+                type="textarea"
+                label="Số năm kinh nghiệm"
+                submitCount={submitCount}
+                hasFeedback
+                style={{
+                  width: "300px",
+                }}
+                disabled={true}
+              />
             </div>
             <div className="row tw-flex tw-flex-row">
-
-            <Field
-              component={AntInput}
-              name="numberRoom"
-              type="textarea"
-              label="Số điện thoại phòng khám"
-              //validate={validateFullName}
-              submitCount={submitCount}
-              hasFeedback
-              style={{
-                width: "300px",
-              }}
-              defaultValue="0935123456"
-              disabled={true}
-            />
-            <Field
-              component={AntInput}
-              name="addressRoom"
-              type="textarea"
-              label="Địa chỉ phòng khám"
-              //validate={validateFullName}
-              submitCount={submitCount}
-              hasFeedback
-              style={{
-                width: "640px",
-              }}
-              defaultValue="70 Lê Thánh Tôn, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh"
-              disabled={true}
-            />
-
-          
+              <Field
+                component={AntInput}
+                name="numberDoctor"
+                type="textarea"
+                label="Số điện thoại phòng khám"
+                submitCount={submitCount}
+                hasFeedback
+                style={{
+                  width: "300px",
+                }}
+                defaultValue="0935123456"
+                disabled={true}
+              />
+              <Field
+                component={AntInput}
+                value={`${values.address}, ${values.ward}, ${values.city}, ${values.province}`}
+                type="textarea"
+                label="Địa chỉ phòng khám"
+                //validate={validateFullName}
+                submitCount={submitCount}
+                hasFeedback
+                style={{
+                  width: "640px",
+                }}
+                defaultValue="70 Lê Thánh Tôn, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh"
+                disabled={true}
+              />
             </div>
-            
           </div>
         </div>
         <div className="header tw-text-xl tw-font-bold tw-pb-5 ">
@@ -275,40 +261,35 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
         </div>
         <div className="col tw-flex tw-flex-col tw-items-center">
           <div className="row tw-flex tw-flex-row ">
-            {/* <Field
-          component={AntDatePicker}
-          name="date"
-          type="date"
-          label="Ngày hẹn khám "
-          defaultValue={values.date}
-          format={dateFormat}
-          validate={validateDate}
-          submitCount={submitCount}
-          hasFeedback
-          style={{
-            width: "300px",
-            height:"38px",
-            borderRadius:"10px"
-          }}
-          placeholder="Ngày/Tháng/Năm "
-        /> */}
+            <Field
+              component={AntInput}
+              label="Ngày hẹn khám "
+              value={new Date().toISOString().split("T")[0]}
+              format={dateFormat}
+              submitCount={submitCount}
+              hasFeedback
+              style={{
+                width: "300px",
+                height: "38px",
+                borderRadius: "10px",
+              }}
+              disabled={true}
+            />
 
-            {/* <Field
-          component={AntTimePicker}
-          name="time"
-          type="time"
-          label="Thời gian hẹn mong muốn "
-          validate={validateTime}
-          submitCount={submitCount}
-          defaultValue={values.time}
-          hasFeedback
-          style={{
-            width: "300px",
-            height:"38px",
-            borderRadius:"10px"
-          }}
-          placeholder="Thời gian hẹn khám "
-        /> */}
+            <Field
+              component={AntInput}
+              name="timeDoctor"
+              type="textarea"
+              label="Thời gian hẹn"
+              submitCount={submitCount}
+              hasFeedback
+              style={{
+                width: "300px",
+                height: "38px",
+                borderRadius: "10px",
+              }}
+              disabled={true}
+            />
           </div>
         </div>
         <div className="Note tw-text-red-600 tw-pl-4 tw-list-disc tw-items-center tw-w-3/5">
@@ -349,6 +330,11 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
           <Checkbox onChange={onChange}>
             Tôi đã đọc kĩ và đồng ý với những điều khoản trên
           </Checkbox>
+          {!isChecked && (
+            <div className="tw-text-red-500 tw-ml-24">
+              Vui lòng chọn ô trên !
+            </div>
+          )}
         </div>
       </Form>
     </div>

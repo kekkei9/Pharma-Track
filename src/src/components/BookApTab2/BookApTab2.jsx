@@ -8,14 +8,18 @@ import { useRef } from "react";
 const BookApTab2 = (props) => {
   const navigate = useNavigate();
 
-  const { state } = useLocation()
-  console.log(state)
+  const { state } = useLocation();
+  console.log(state);
 
   const bookingFormRef = useRef("a");
 
   const onClickBack = () => {
     navigate("/bookap");
   };
+
+  if (!!localStorage.getItem("bookingState")) {
+    navigate("/bookap3");
+  }
 
   const onClickNext = () => {
     if (bookingFormRef.current) {
@@ -28,19 +32,24 @@ const BookApTab2 = (props) => {
       ) {
         return false;
       }
-      console.log(bookingFormRef.current.values);
     }
-    window.open(
-      "https://pharma-track.onrender.com/api/v1/payment/create_payment_url1"
-    );
 
-    // navigate("/bookap3");
+    if (bookingFormRef.current.submitCount === 0) {
+      window.open(
+        "https://pharma-track.onrender.com/api/v1/payment/create_payment_url1"
+      );
+    } else {
+      navigate("/bookap3", {
+        state: { ...state, userFormValues: bookingFormRef.current.values },
+      });
+    }
+
     return true;
   };
 
   return (
     <div className="BookApTab2">
-      <BookingFormContainer formRef={bookingFormRef} />
+      <BookingFormContainer formRef={bookingFormRef} {...state} />
       <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>
   );

@@ -8,25 +8,31 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const columns = [
   {
-    title: "Time",
+    title: "ID",
+    dataIndex: "id_appointment",
+    key: "id_appointment",
+    width: "20%",
+  },
+  {
+    title: "Thời gian",
     dataIndex: "time",
     key: "time",
-    width: "30%",
+    width: "10%",
   },
   {
-    title: "Doctor Name",
+    title: "Tên bác sĩ",
     dataIndex: "doctor",
     key: "doctor",
-    width: "30%",
+    width: "20%",
   },
   {
-    title: "Address",
+    title: "Địa chỉ",
     dataIndex: "address",
     key: "address",
     width: "30%",
   },
   {
-    title: "Status",
+    title: "Trạng thái",
     dataIndex: "status",
     key: "status",
     width: "10%",
@@ -59,7 +65,7 @@ const UserAppointmentTable = (props) => {
     fetchUser();
 
     return () => abortController.abort();
-  }, []);
+  }, [uid]);
 
   return (
     <div className="UserAppointmentTable tw-w-2/3 center-screen tw-mt-5">
@@ -68,6 +74,11 @@ const UserAppointmentTable = (props) => {
       </div>
       <Table
         className="staff-table"
+        onRow={(record) => ({
+          onDoubleClick: () => {
+            navigate(`/${user.role}/appointment/${record.id_appointment}`);
+          },
+        })}
         rowClassName={(record, index) =>
           index % 2 === 0 ? "table-row-light" : "table-row-dark"
         }

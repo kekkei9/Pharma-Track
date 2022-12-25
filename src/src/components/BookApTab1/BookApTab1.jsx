@@ -7,13 +7,21 @@ import GoogleMapContain from "../GoogleMapContain/GoogleMapContain";
 import Fetch from "../../fetch";
 import { Form, Formik } from "formik";
 import AddressPickForm from "../AddressPickForm/AddressPickForm";
-import { Modal, notification } from "antd";
+import { Modal, notification, Spin } from "antd";
 import OpenDoctorCard from "../OpenDoctorCard/OpenDoctorCard";
 import { useNavigate } from "react-router-dom";
 import BackNextButton from "../BackNextButton/BackNextButton";
+import { doc } from "firebase/firestore";
 
 const BookApTab1 = (props) => {
   const navigate = useNavigate();
+  const [InitDoctorData, setInitDoctorData] = useState([]);
+  const [DoctorData, setDoctorData] = useState([]);
+  const [currentDoctor, setCurrentDoctor] = useState([]);
+  const [id_staff, setID] = useState(-1);
+  const [time, setTime] = useState(-1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [addressValues, setAddressValues] = useState({
     province: "",
@@ -21,16 +29,30 @@ const BookApTab1 = (props) => {
     ward: "",
   });
 
-  const [InitDoctorData, setInitDoctorData] = useState([]);
   useEffect(() => {
     const abortController = new AbortController();
+
+    if (!!localStorage.getItem("bookingState")) {
+      navigate("/bookap3");
+    }
+
+    setIsLoading(true);
     const fetchDoctor = async () => {
       try {
-        const response = await Fetch(
-          "GET",
-          "https://pharma-track.onrender.com/api/v1/clinic/"
+        const [responseClinic, responseStaff] = await Promise.all([
+          Fetch("GET", "https://pharma-track.onrender.com/api/v1/clinic/"),
+          Fetch("GET", "https://pharma-track.onrender.com/api/v1/staff"),
+        ]);
+        const filteredDoctorList = responseStaff.filter((item) => {
+          return item.type === "Bác sĩ";
+        });
+        setInitDoctorData(
+          filteredDoctorList.map((doctor) => ({
+            ...doctor,
+            ...responseClinic.find((x) => x.id_clinic === doctor.id_clinic),
+          }))
         );
-        setInitDoctorData(response);
+        setIsLoading(false);
       } catch (e) {
         console.error(e);
       }
@@ -38,58 +60,11 @@ const BookApTab1 = (props) => {
     fetchDoctor();
 
     return () => abortController.abort();
-  }, []);
-
-  const [StaffData, setStaffData] = useState([]);
-  useEffect(() => {
-    const abortController = new AbortController();
-    const fetchStaff = async () => {
-      try {
-        const response = await Fetch(
-          "GET",
-          "https://pharma-track.onrender.com/api/v1/staff"
-        );
-        setStaffData(
-          response.filter((item) => {
-            return item.type === "Bác sĩ";
-          })
-        );
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchStaff();
-
-    return () => abortController.abort();
-  }, []);
-
-  const [DoctorData, setDoctorData] = useState([]);
+  }, [navigate]);
 
   useEffect(() => {
-    InitDoctorData.map((itemDoctor) => {
-      StaffData.map((itemStaff) => {
-        if (itemStaff.id_clinic === itemDoctor.id_clinic) {
-          Object.assign(itemStaff, {
-            province: itemDoctor.province,
-            city: itemDoctor.city,
-            ward: itemDoctor.ward,
-            address: itemDoctor.address,
-            lat: itemDoctor.lat,
-            lng: itemDoctor.lng,
-            name_clinic: itemDoctor.name_clinic,
-            status_clinic: itemDoctor.status_clinic,
-          });
-        }
-      });
-    });
-    setDoctorData(StaffData);
+    setDoctorData(InitDoctorData);
   }, [InitDoctorData]);
-
-  const [currentDoctor, setCurrentDoctor] = useState([]);
-
-  const [id_staff, setID] = useState(-1);
-
-  const [time, setTime] = useState(-1);
 
   const openNotificationTime = () => {
     notification.error({
@@ -104,8 +79,6 @@ const BookApTab1 = (props) => {
       description: "Bạn vẫn chưa chọn bác sĩ",
     });
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDoubleClick = () => {
     setCurrentDoctor(
@@ -128,11 +101,12 @@ const BookApTab1 = (props) => {
       openNotificationTime();
       return false;
     } else {
+      setDoctorData(InitDoctorData);
       setIsModalOpen(false);
       navigate("/bookap2", {
         state: {
-          currentDoctor: currentDoctor,
-          time: time,
+          currentDoctor,
+          time,
         },
       });
     }
@@ -160,7 +134,19 @@ const BookApTab1 = (props) => {
   };
 
   useEffect(() => {
-    console.log(addressValues);
+    if (addressValues?.ward) {
+      setDoctorData(
+        InitDoctorData.filter((x) => x.ward === addressValues.ward)
+      );
+    } else if (addressValues?.city) {
+      setDoctorData(
+        InitDoctorData.filter((x) => x.city === addressValues.city)
+      );
+    } else if (addressValues?.province) {
+      setDoctorData(
+        InitDoctorData.filter((x) => x.province === addressValues.province)
+      );
+    }
   }, [JSON.stringify(addressValues)]);
 
   const formDatas = [
@@ -192,55 +178,27 @@ const BookApTab1 = (props) => {
             Chọn phòng khám theo vị trí
           </Tab>
         </TabList>
-        <TabPanel>
-          <div className="tw-flex tw-flex-col tw-items-center">
-            <Formik initialValues={addressValues}>
-              {(props) => (
-                <Form>
-                  <AddressPickForm
-                    addressValues={addressValues}
-                    setAddressValues={setAddressValues}
-                    {...props}
-                  />
-                </Form>
-              )}
-            </Formik>
-          </div>
-
-          <DoctorCardList
-            DoctorData={DoctorData}
-            handleDoubleClick={handleDoubleClick}
-            id_staff={id_staff}
-            setID={setID}
-          />
-          <Modal
-            title="CHI TIẾT BÁC SĨ"
-            open={isModalOpen}
-            okType={"primary"}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            width={1000}
-          >
-            <OpenDoctorCard
-              currentDoctor={currentDoctor}
-              time={time}
-              setTime={setTime}
-            />
-          </Modal>
-        </TabPanel>
-        <TabPanel>
-          <div className="tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-10">
-            <div className="tw-flex tw-items-center tw-justify-between ">
-              <div className="tw-text-lg"> Chọn Loại Bệnh </div>
-              <PickerForm {...formDatas[2]} style={{ width: "300px" }} />
+        <Spin spinning={isLoading} tip={"Loading..."}>
+          <TabPanel>
+            <div className="tw-flex tw-flex-col tw-items-center tw-mt-5">
+              <Formik initialValues={addressValues}>
+                {(props) => (
+                  <Form>
+                    <AddressPickForm
+                      addressValues={addressValues}
+                      setAddressValues={setAddressValues}
+                      {...props}
+                    />
+                  </Form>
+                )}
+              </Formik>
             </div>
-          </div>
-          <div className="tw-mt-10">
-            <GoogleMapContain
+
+            <DoctorCardList
               DoctorData={DoctorData}
-              handleDoubleClickMap={handleDoubleClickMap}
-              currentDoctor={currentDoctor}
-              setCurrentDoctor={setCurrentDoctor}
+              handleDoubleClick={handleDoubleClick}
+              id_staff={id_staff}
+              setID={setID}
             />
             <Modal
               title="CHI TIẾT BÁC SĨ"
@@ -256,8 +214,38 @@ const BookApTab1 = (props) => {
                 setTime={setTime}
               />
             </Modal>
-          </div>
-        </TabPanel>
+          </TabPanel>
+          <TabPanel>
+            <div className="tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-10">
+              <div className="tw-flex tw-items-center tw-justify-between ">
+                <div className="tw-text-lg"> Chọn Loại Bệnh </div>
+                <PickerForm {...formDatas[2]} style={{ width: "300px" }} />
+              </div>
+            </div>
+            <div className="tw-mt-10">
+              <GoogleMapContain
+                DoctorData={DoctorData}
+                handleDoubleClickMap={handleDoubleClickMap}
+                currentDoctor={currentDoctor}
+                setCurrentDoctor={setCurrentDoctor}
+              />
+              <Modal
+                title="CHI TIẾT BÁC SĨ"
+                open={isModalOpen}
+                okType={"primary"}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                width={1000}
+              >
+                <OpenDoctorCard
+                  currentDoctor={currentDoctor}
+                  time={time}
+                  setTime={setTime}
+                />
+              </Modal>
+            </div>
+          </TabPanel>
+        </Spin>
       </Tabs>
       <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>

@@ -37,18 +37,6 @@ const Fetch = async (
   //   };
   // }
 
-  if (data) {
-    // opts.headers = {
-    //   // ...opts.headers,
-    //   "content-Type": "application/json",
-    // }
-    if(method === 'GET') {
-      url += '?' + new URLSearchParams(data).toString()
-    } else {
-      opts.body = JSON.stringify(data)
-    }
-  }
-
   //  for no-cors 
   // const response = await fetch(url, opts);
   // const string = await response.text();
