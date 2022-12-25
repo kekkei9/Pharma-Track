@@ -7,63 +7,17 @@ import OpenDoctorCard from "../OpenDoctorCard/OpenDoctorCard";
 import { useNavigate } from "react-router-dom";
 import BackNextButton from "../BackNextButton/BackNextButton";
 
-const DoctorCardList = ({ DoctorData }) => {
-  const [id_clinic, setID] = useState(-1);
+const DoctorCardList = ({
+  DoctorData,
+  handleDoubleClick,
+  id_staff,
+  setID,
+}) => {
+
 
   const navigate = useNavigate();
 
-  const openNotificationWithIcon = () => {
-    notification.error({
-      message: "Lỗi",
-      description: "Bạn vẫn chưa chọn bác sĩ",
-    });
-  };
-
-  const openNotificationTime = () => {
-    notification.error({
-      message: "Lỗi",
-      description: "Bạn vẫn chưa chọn Giờ",
-    });
-  };
-
-  const currentDoctor = DoctorData.find((item) => {
-    return item.id_clinic === id_clinic;
-  });
-
   const [changeStyle, setStyle] = useState(-1);
-
-  const [time, setTime] = useState(-1);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    if (time === -1) {
-      openNotificationTime();
-      return false;
-    } else {
-      setIsModalOpen(false);
-      navigate("/bookap2", { state: {
-        currentDoctor : currentDoctor,
-        time : time,
-      } });
-    }
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-
-  const onClickBack = () => {
-    navigate("/homepage");
-  };
-
-  const onClickNext = () => {
-    {
-      id_clinic === -1 ? openNotificationWithIcon() : showModal();
-    }
-  };
 
   return (
     <div className="DoctorCardList">
@@ -81,34 +35,19 @@ const DoctorCardList = ({ DoctorData }) => {
               <DoctorCard
                 {...item}
                 style={
-                  changeStyle === item.id_clinic
+                  changeStyle === item.id_staff
                     ? { "border-color": "rgba(0, 121, 255, 0.5)" }
                     : {}
                 }
                 changeStyle={changeStyle}
                 setID={setID}
                 setStyle={setStyle}
-                handleDoubleClick={showModal}
+                handleDoubleClick={handleDoubleClick}
               />
-              <Modal
-                title="CHI TIẾT BÁC SĨ"
-                open={isModalOpen}
-                okType={"primary"}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                width={1000}
-              >
-                <OpenDoctorCard
-                  currentDoctor={currentDoctor}
-                  time={time}
-                  setTime={setTime}
-                />
-              </Modal>
             </List.Item>
           )}
         />
       </div>
-      <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>
   );
 };

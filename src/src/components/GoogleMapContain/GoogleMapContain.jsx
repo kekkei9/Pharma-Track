@@ -20,7 +20,12 @@ const options = {
   zoomControl: true,
 };
 
-const GoogleMapContain = ({ DoctorData }) => {
+const GoogleMapContain = ({
+  DoctorData,
+  handleDoubleClickMap,
+  currentDoctor,
+  setCurrentDoctor,
+}) => {
   //declare variable
   const navigate = useNavigate();
 
@@ -28,52 +33,7 @@ const GoogleMapContain = ({ DoctorData }) => {
 
   const location = GetAddress();
 
-  const [time, setTime] = useState(-1);
-
-  // SetModal
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    if (time === -1) {
-      openNotificationTime();
-      return false;
-    } else {
-      setIsModalOpen(false);
-      navigate("/bookap2", { state: {
-        currentDoctor : DoctorData[doctorState],
-        time : time,
-      } });    }
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const openNotificationWithIcon = () => {
-    notification.error({
-      message: "Lỗi",
-      description: "Bạn vẫn chưa chọn bác sĩ",
-    });
-  };
-
-  const openNotificationTime = () => {
-    notification.error({
-      message: "Lỗi",
-      description: "Bạn vẫn chưa chọn Giờ",
-    });
-  };
-
-  const onClickBack = () => {
-    navigate("/homepage");
-  };
-
-  const onClickNext = () => {
-    {
-      doctorState === -1 ? openNotificationWithIcon() : showModal();
-    }
-  };
+  // const [time, setTime] = useState(-1);
 
   //Google Map Handle
   const { isLoaded, loadError } = useLoadScript({
@@ -117,7 +77,11 @@ const GoogleMapContain = ({ DoctorData }) => {
                   icon: `${process.env.PUBLIC_URL}/assets/cliniclogo.png`,
                 }}
                 onClick={() => {
-                  setDoctorState(index);
+                  setCurrentDoctor(
+                    DoctorData.find((item) => {
+                      return item.id_staff === doctor.id_staff;
+                    })
+                  );
                   panTo({ lat: doctor.lat, lng: doctor.lng });
                 }}
               />
@@ -126,22 +90,11 @@ const GoogleMapContain = ({ DoctorData }) => {
         </div>
         <div className="tw-ml-20">
           <DoctorCard
-            {...DoctorData[doctorState]}
-            handleDoubleClick={showModal}
+            {...currentDoctor}
+            handleDoubleClick={handleDoubleClickMap}
           />
-          <Modal
-            title="CHI TIẾT BÁC SĨ"
-            open={isModalOpen}
-            okType={"primary"}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            width={1000}
-          >
-            <OpenDoctorCard currentDoctor={DoctorData[doctorState]} time = {time} setTime = {setTime} />
-          </Modal>
         </div>
       </div>
-      <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>
   );
 };
