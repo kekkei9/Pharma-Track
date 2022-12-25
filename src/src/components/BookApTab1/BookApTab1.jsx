@@ -83,7 +83,7 @@ const BookApTab1 = (props) => {
       });
     });
     setDoctorData(StaffData);
-  }, []);
+  }, [InitDoctorData]);
 
   const [currentDoctor, setCurrentDoctor] = useState([]);
 
