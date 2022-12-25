@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import BackNextButton from "../BackNextButton/BackNextButton";
 
 const DoctorCardList = ({ DoctorData }) => {
-  const [id_clinic, setID] = useState(-1);
+  const [id_staff, setID] = useState(-1);
 
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const DoctorCardList = ({ DoctorData }) => {
   };
 
   const currentDoctor = DoctorData.find((item) => {
-    return item.id_clinic === id_clinic;
+    return item.id_staff === id_staff;
   });
 
   const [changeStyle, setStyle] = useState(-1);
@@ -61,7 +61,7 @@ const DoctorCardList = ({ DoctorData }) => {
 
   const onClickNext = () => {
     {
-      id_clinic === -1 ? openNotificationWithIcon() : showModal();
+      id_staff === -1 ? openNotificationWithIcon() : showModal();
     }
   };
 
@@ -81,7 +81,7 @@ const DoctorCardList = ({ DoctorData }) => {
               <DoctorCard
                 {...item}
                 style={
-                  changeStyle === item.id_clinic
+                  changeStyle === item.id_staff
                     ? { "border-color": "rgba(0, 121, 255, 0.5)" }
                     : {}
                 }

@@ -45,7 +45,7 @@ const OpenDoctorCard = ({ currentDoctor, time, setTime }) => {
             </div>
           </div>
           <div className="introduction ">
-            <div className="Name ">{currentDoctor.name_doctor}</div>
+            <div className="Name ">{currentDoctor.name}</div>
             <div className="line"></div>
             <div className="information ">
               Phòng khám thân thiện, dịch vụ toàn diện, chi phí tiết kiệm. Có
@@ -65,13 +65,15 @@ const OpenDoctorCard = ({ currentDoctor, time, setTime }) => {
           </div>
           <div className="address  ">
             <strong>Địa chỉ phòng khám: </strong>
-            {currentDoctor.address}
+            {currentDoctor.address}, {currentDoctor.ward}, {currentDoctor.city}, {currentDoctor.province}
           </div>
           <div className="field ">
             <strong>Khoa: </strong>
+            {currentDoctor.department}
           </div>
           <div className="experiences ">
-            <strong>Kinh nghiệm: </strong>
+            <strong>Tình trạng phòng khám: </strong>
+            {currentDoctor.status_clinic}
           </div>
           <div className="degree ">
             <strong>Bằng cấp: </strong>

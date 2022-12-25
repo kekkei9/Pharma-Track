@@ -66,29 +66,23 @@ const BookApTab1 = (props) => {
           Object.assign(itemStaff, {
             province: itemDoctor.province,
             city: itemDoctor.city,
+            ward: itemDoctor.ward,
             address: itemDoctor.address,
             lat: itemDoctor.lat,
             lng: itemDoctor.lng,
+            name_clinic: itemDoctor.name_clinic,
+            status_clinic: itemDoctor.status_clinic,
           });
         }
       });
     });
     setDoctorData(StaffData);
+    console.log(DoctorData);
   }, []);
 
-  console.log(DoctorData);
-
+  const [myProvince, setMyProvince] = useState([]);
   useEffect(() => {
-    console.log(addressValues);
-    // if (addressValues.province) {
-    // setDoctorData(StaffData);
-    // setDoctorData(
-    //   DoctorData.filter((item) => {
-    //     return item.province === addressValues.province;
-    //   })
-    // );
-    // }
-    //fetch doctor by province, city, ward
+    console.log(addressValues)
   }, [JSON.stringify(addressValues)]);
 
   const formDatas = [
