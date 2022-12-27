@@ -60,7 +60,7 @@ const StaffAppointmentTable = (props) => {
           }
         );
         setUserAppointment(response);
-        setIsLoading(true);
+        setIsLoading(false);
       } catch (e) {
         console.error(e);
       }

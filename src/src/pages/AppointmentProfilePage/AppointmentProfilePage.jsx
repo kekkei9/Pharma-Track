@@ -15,46 +15,35 @@ const AppointmentProfilePage = (props) => {
   const { user } = useSelector((state) => state.authentication);
   const params = useParams();
   const [QRData, setQRData] = useState("");
-  const [appointmentData, setAppointmentData] = useState({
-    id_appointment: "aeefdb75-d3f2-4dee-9a9e-28aabe666713",
-    time: "13:00 - 14:00",
-    doctor: "staff4@gmail.com",
-    test: "Test1",
-    number: "a",
-    address: "123456 đường Tô Vĩnh Diện, Liên Hồng, Hải Châu, Đà Nẵng",
-    status: "queued",
-    id_clinic: "alphaid1",
-    id_user: "mYLZckxrGZYao05JjFCY386tIQx2",
-    id_staff: "bcd9334f-01cb-4ad2-829a-57525fdd696a",
-  });
+  const [appointmentData, setAppointmentData] = useState({});
   const [userData, setUserData] = useState({});
   const [doctorData, setDoctorData] = useState({});
   const [clinicData, setClinicData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   const abortController = new AbortController();
+  useEffect(() => {
+    const abortController = new AbortController();
 
-  //   setQRData(JSON.stringify({ id_appointment: params.appointmentId }));
-  //   setIsLoading(true)
-  //   const fetchAppointment = async () => {
-  //     try {
-  //       const response = await Fetch(
-  //         "GET",
-  //         "https://pharma-track.onrender.com//api/v1/appointment/id_appointment",
-  //         {
-  //           id_appointment: params.appointmentId,
-  //         }
-  //       );
-  //       setAppointmentData(response);
-  //       setIsLoading(false)
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   };
-  //   fetchAppointment();
-  //   return () => abortController.abort();
-  // }, [params.appointmentId]);
+    setQRData(JSON.stringify({ id_appointment: params.appointmentId }));
+    setIsLoading(true);
+    const fetchAppointment = async () => {
+      try {
+        const response = await Fetch(
+          "GET",
+          "https://pharma-track.onrender.com/api/v1/appointment/id_appointment",
+          {
+            id_appointment: params.appointmentId,
+          }
+        );
+        setAppointmentData(response[0]);
+        setIsLoading(false);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchAppointment();
+    return () => abortController.abort();
+  }, [params.appointmentId]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -124,24 +113,24 @@ const AppointmentProfilePage = (props) => {
                   width="90px"
                   className="tw-rounded-3xl"
                 />
-                <div className="tw-text-3xl">{clinicData.name_clinic}</div>
+                <div className="tw-text-3xl">{clinicData?.name_clinic}</div>
               </div>
               <Divider />
               <div className="tw-text-xl">
                 <Row>
                   <Col span={12}>Tên chủ phòng khám: </Col>
-                  <Col span={12}>{clinicData.name_doctor}</Col>
+                  <Col span={12}>{clinicData?.name_doctor}</Col>
                 </Row>
                 <Row>
                   <Col span={12}>Địa chỉ phòng khám: </Col>
                   <Col
                     span={12}
-                  >{`${clinicData.address}, ${clinicData.ward}, ${clinicData.city}, ${clinicData.province}`}</Col>
+                  >{`${clinicData?.address}, ${clinicData?.ward}, ${clinicData?.city}, ${clinicData?.province}`}</Col>
                 </Row>
                 <Row>
                   <Col span={12}>Trạng thái: </Col>
                   <Col span={12}>
-                    {clinicData.status_clinic
+                    {clinicData?.status_clinic
                       ? "Đang hoạt động"
                       : "Đang chờ xét duyệt"}
                   </Col>
@@ -164,25 +153,28 @@ const AppointmentProfilePage = (props) => {
                 }}
               />
               <Typography.Title level={2} style={{ margin: 0 }}>
-                {userData.username}
+                {userData?.username}
               </Typography.Title>
 
               <Divider />
 
               <Typography.Title level={5} style={{ margin: 0 }}>
-                Số điện thoại: {userData.phonenumber}
+                Số điện thoại: {userData?.phonenumber}
               </Typography.Title>
               <Typography.Title level={5} style={{ margin: "8px 0 0 0" }}>
-                Giới tính: {userData.gender}
+                Giới tính: {userData?.gender}
+              </Typography.Title>
+              <Typography.Title
+                level={5}
+                style={{ margin: "8px 0 0 0", textAlign: "center" }}
+              >
+                Địa chỉ: {userData?.address}
               </Typography.Title>
               <Typography.Title level={5} style={{ margin: "8px 0 0 0" }}>
-                Địa chỉ: {userData.address}
+                Căn cước công dân: {userData?.cccd}
               </Typography.Title>
               <Typography.Title level={5} style={{ margin: "8px 0 0 0" }}>
-                Căn cước công dân: {userData.cccd}
-              </Typography.Title>
-              <Typography.Title level={5} style={{ margin: "8px 0 0 0" }}>
-                Ngày sinh: {userData.birthday}
+                Ngày sinh: {userData?.birthday}
               </Typography.Title>
             </div>
           )}
@@ -200,14 +192,14 @@ const AppointmentProfilePage = (props) => {
               }}
             />
             <Typography.Title level={2} style={{ margin: 0 }}>
-              {doctorData.name}
+              {doctorData?.name}
             </Typography.Title>
             <Typography.Title
               level={5}
               italic
               style={{ margin: 0, marginTop: "8px", color: "rgb(6 182 212)" }}
             >
-              {doctorData.type}
+              {doctorData?.type}
             </Typography.Title>
 
             {user.role === "staff" && (
@@ -230,10 +222,10 @@ const AppointmentProfilePage = (props) => {
             <Divider />
 
             <Typography.Title level={5} style={{ margin: 0 }}>
-              Số điện thoại: {doctorData.number}
+              Số điện thoại: {doctorData?.number}
             </Typography.Title>
             <Typography.Title level={5} style={{ margin: "8px 0" }}>
-              Khoa: {doctorData.department}
+              Khoa: {doctorData?.department}
             </Typography.Title>
           </div>
           {user.role === "user" && (

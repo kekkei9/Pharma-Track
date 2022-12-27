@@ -11,7 +11,7 @@ const columns = [
     title: "ID",
     dataIndex: "id_appointment",
     key: "id_appointment",
-    width: "20%",
+    width: "15%",
   },
   {
     title: "Thời gian",
@@ -23,7 +23,7 @@ const columns = [
     title: "Tên bác sĩ",
     dataIndex: "doctor",
     key: "doctor",
-    width: "20%",
+    width: "15%",
   },
   {
     title: "Địa chỉ",
