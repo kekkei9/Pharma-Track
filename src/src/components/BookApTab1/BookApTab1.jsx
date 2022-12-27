@@ -187,6 +187,7 @@ const BookApTab1 = (props) => {
                     <AddressPickForm
                       addressValues={addressValues}
                       setAddressValues={setAddressValues}
+                      requiredFields={false}
                       {...props}
                     />
                   </Form>

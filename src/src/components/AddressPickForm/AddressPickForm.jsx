@@ -7,7 +7,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Fetch from "../../fetch";
 
-const AddressPickForm = ({ addressValues, setAddressValues }) => {
+const AddressPickForm = ({
+  addressValues,
+  setAddressValues,
+  requiredFields = true,
+}) => {
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
   const [wards, setWards] = useState([]);
@@ -106,7 +110,9 @@ const AddressPickForm = ({ addressValues, setAddressValues }) => {
         name="province"
         label="Chọn tỉnh/thành phố"
         defaultValue={formikProps.values.province}
-        validate={isRequired("Tỉnh/thành phố")}
+        validate={
+          requiredFields ? isRequired("Tỉnh/thành phố") : (value) => false
+        }
         submitCount={formikProps.submitCount}
         tokenSeparators={[","]}
         style={{ width: "400px" }}
@@ -139,7 +145,9 @@ const AddressPickForm = ({ addressValues, setAddressValues }) => {
         name="city"
         label="Chọn thành phố/quận/huyện"
         defaultValue={formikProps.values.city}
-        validate={isRequired("Thành phố/quận/huyện")}
+        validate={
+          requiredFields ? isRequired("Thành phố/quận/huyện") : (value) => false
+        }
         submitCount={formikProps.submitCount}
         tokenSeparators={[","]}
         style={{ width: "400px" }}
