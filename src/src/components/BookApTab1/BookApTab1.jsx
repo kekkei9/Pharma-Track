@@ -12,6 +12,7 @@ import OpenDoctorCard from "../OpenDoctorCard/OpenDoctorCard";
 import { useNavigate } from "react-router-dom";
 import BackNextButton from "../BackNextButton/BackNextButton";
 import { doc } from "firebase/firestore";
+import DepartmentPick from "../DepartmentPick/DepartmentPick";
 
 const BookApTab1 = (props) => {
   const navigate = useNavigate();
@@ -27,6 +28,10 @@ const BookApTab1 = (props) => {
     province: "",
     city: "",
     ward: "",
+  });
+
+  const [DepartmentValues, setDepartmentValues] = useState({
+    department: "",
   });
 
   useEffect(() => {
@@ -147,7 +152,14 @@ const BookApTab1 = (props) => {
         InitDoctorData.filter((x) => x.province === addressValues.province)
       );
     }
-  }, [JSON.stringify(addressValues)]);
+    if (DepartmentValues?.department) {
+      setDoctorData(
+        InitDoctorData.filter(
+          (x) => x.department === DepartmentValues.department
+        )
+      );
+    }
+  }, [JSON.stringify(DepartmentValues), JSON.stringify(addressValues)]);
 
   const formDatas = [
     {
@@ -180,20 +192,41 @@ const BookApTab1 = (props) => {
         </TabList>
         <Spin spinning={isLoading} tip={"Loading..."}>
           <TabPanel>
-            <div className="tw-flex tw-flex-col tw-items-center tw-mt-5">
-              <Formik initialValues={addressValues}>
-                {(props) => (
-                  <Form>
-                    <AddressPickForm
-                      addressValues={addressValues}
-                      setAddressValues={setAddressValues}
-                      requiredFields={false}
-                      {...props}
-                    />
-                  </Form>
-                )}
-              </Formik>
+            <div className = 'wrap-picker '>
+              <div className="picker ">
+                <Formik initialValues={addressValues}>
+                  {(props) => (
+                    <Form>
+                      <AddressPickForm
+                        addressValues={addressValues}
+                        setAddressValues={setAddressValues}
+                        requiredFields={false}
+                        style = {{
+                          width: '200px'
+                        }}
+                        {...props}
+                      />
+                    </Form>
+                  )}
+                </Formik>
+                <Formik initialValues={DepartmentValues}>
+                  {(props) => (
+                    <Form>
+                      <DepartmentPick
+                        DepartmentValues={DepartmentValues}
+                        setDepartmentValues={setDepartmentValues}
+                        requiredFields={false}
+                        style = {{
+                          width: '200px'
+                        }}
+                        {...props}
+                      />
+                    </Form>
+                  )}
+                </Formik>
+              </div>
             </div>
+
 
             <DoctorCardList
               DoctorData={DoctorData}
@@ -208,6 +241,23 @@ const BookApTab1 = (props) => {
               onOk={handleOk}
               onCancel={handleCancel}
               width={1000}
+              okButtonProps={{
+                style: {
+                  backgroundColor: "#4B56D2",
+                  width: "120px",
+                  height: "50px",
+                  "margin-left": "24px",
+                },
+              }}
+              cancelButtonProps={{
+                style: {
+                  width: "120px",
+                  height: "50px",
+                  "margin-right": "24px",
+                },
+              }}
+              okText="Tiếp tục"
+              cancelText="Quay lại"
             >
               <OpenDoctorCard
                 currentDoctor={currentDoctor}
@@ -217,11 +267,19 @@ const BookApTab1 = (props) => {
             </Modal>
           </TabPanel>
           <TabPanel>
-            <div className="tw-max-w-4xl tw-mx-auto tw-px-40 tw-mt-10">
-              <div className="tw-flex tw-items-center tw-justify-between ">
-                <div className="tw-text-lg"> Chọn Loại Bệnh </div>
-                <PickerForm {...formDatas[2]} style={{ width: "300px" }} />
-              </div>
+            <div className = 'tw-flex tw-justify-center tw-mt-6'>
+              <Formik initialValues={DepartmentValues}>
+                {(props) => (
+                  <Form>
+                    <DepartmentPick
+                      DepartmentValues={DepartmentValues}
+                      setDepartmentValues={setDepartmentValues}
+                      requiredFields={false}
+                      {...props}
+                    />
+                  </Form>
+                )}
+              </Formik>
             </div>
             <div className="tw-mt-10">
               <GoogleMapContain
@@ -237,6 +295,23 @@ const BookApTab1 = (props) => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 width={1000}
+                okButtonProps={{
+                  style: {
+                    backgroundColor: "#4B56D2",
+                    width: "120px",
+                    height: "50px",
+                    "margin-left": "24px",
+                  },
+                }}
+                cancelButtonProps={{
+                  style: {
+                    width: "120px",
+                    height: "50px",
+                    "margin-right": "24px",
+                  },
+                }}
+                okText="Tiếp tục"
+                cancelText="Quay lại"
               >
                 <OpenDoctorCard
                   currentDoctor={currentDoctor}

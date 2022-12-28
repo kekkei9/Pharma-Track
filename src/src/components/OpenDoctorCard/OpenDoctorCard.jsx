@@ -67,16 +67,16 @@ const OpenDoctorCard = ({ currentDoctor, time, setTime }) => {
             <strong>Địa chỉ phòng khám: </strong>
             {currentDoctor.address}, {currentDoctor.ward}, {currentDoctor.city}, {currentDoctor.province}
           </div>
-          <div className="field ">
+          <div className="department ">
             <strong>Khoa: </strong>
             {currentDoctor.department}
           </div>
-          <div className="experiences ">
+          <div className="status ">
             <strong>Tình trạng phòng khám: </strong>
-            {currentDoctor.status_clinic}
+            {currentDoctor.status_clinic ? 'Đang mở cửa' : 'Đóng cửa'}
           </div>
-          <div className="degree ">
-            <strong>Bằng cấp: </strong>
+          <div className="years ">
+            <strong>Số năm kinh nghiệm: </strong>
           </div>
         </div>
 

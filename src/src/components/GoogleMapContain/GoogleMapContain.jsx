@@ -33,6 +33,8 @@ const GoogleMapContain = ({
 
   const location = GetAddress();
 
+  console.log(currentDoctor);
+
   // const [time, setTime] = useState(-1);
 
   //Google Map Handle
@@ -89,10 +91,17 @@ const GoogleMapContain = ({
           </GoogleMap>
         </div>
         <div className="tw-ml-20">
-          <DoctorCard
-            {...currentDoctor}
-            handleDoubleClick={handleDoubleClickMap}
-          />
+          {Object.keys(currentDoctor).length === 0 ? (
+            <DoctorCard
+              {...DoctorData[0]}
+              handleDoubleClick={handleDoubleClickMap}
+            />
+          ) : (
+            <DoctorCard
+              {...currentDoctor}
+              handleDoubleClick={handleDoubleClickMap}
+            />
+          )}
         </div>
       </div>
     </div>
