@@ -154,27 +154,26 @@ const BookApTab1 = (props) => {
   };
 
   useEffect(() => {
-    if (addressValues?.ward) {
-      setDoctorData(
-        InitDoctorData.filter((x) => x.ward === addressValues.ward)
-      );
-    }
-    if (addressValues?.city) {
-      setDoctorData(
-        InitDoctorData.filter((x) => x.city === addressValues.city)
-      );
-    }
-    if (addressValues?.province) {
+    if (!!addressValues?.province)
       setDoctorData(
         InitDoctorData.filter((x) => x.province === addressValues.province)
       );
-    }
-    if (addressValues?.department) {
-      setDoctorData(
-        DoctorData.filter((x) => x.department === addressValues.department)
+    else setDoctorData(InitDoctorData);
+
+    if (!!addressValues?.city)
+      setDoctorData((prev) =>
+        prev.filter((x) => x.city === addressValues.city)
       );
-    }
-    console.log(addressValues);
+
+    if (!!addressValues?.ward)
+      setDoctorData((prev) =>
+        prev.filter((x) => x.ward === addressValues.ward)
+      );
+
+    if (!!addressValues?.department)
+      setDoctorData((prev) =>
+        prev.filter((x) => x.department === addressValues.department)
+      );
   }, [JSON.stringify(addressValues)]);
 
   const formDatas = [
