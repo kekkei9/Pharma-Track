@@ -11,6 +11,7 @@ const AddressPickForm = ({
   addressValues,
   setAddressValues,
   requiredFields = true,
+  style,
 }) => {
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
@@ -115,7 +116,7 @@ const AddressPickForm = ({
         }
         submitCount={formikProps.submitCount}
         tokenSeparators={[","]}
-        style={{ width: "400px" }}
+        style={Object.assign({ width: "400px" }, style)}
         hasFeedback
         showSearch
         filterSort={(optionA, optionB) =>
@@ -150,7 +151,7 @@ const AddressPickForm = ({
         }
         submitCount={formikProps.submitCount}
         tokenSeparators={[","]}
-        style={{ width: "400px" }}
+        style={Object.assign({ width: "400px" }, style)}
         hasFeedback
         showSearch
         filterSort={(optionA, optionB) =>
@@ -181,7 +182,7 @@ const AddressPickForm = ({
         defaultValue={formikProps.values.ward}
         submitCount={formikProps.submitCount}
         tokenSeparators={[","]}
-        style={{ width: "400px" }}
+        style={Object.assign({ width: "400px" }, style)}
         hasFeedback
         showSearch
         filterSort={(optionA, optionB) =>
