@@ -138,7 +138,12 @@ const AddressPickForm = ({
         onSelect={(value) => {
           formikProps.setFieldValue("city", "");
           formikProps.setFieldValue("ward", "");
-          setAddressValues({ province: value, city: "", ward: "" });
+          setAddressValues({
+            ...addressValues,
+            province: value,
+            city: "",
+            ward: "",
+          });
         }}
       />
       <Field

@@ -5,14 +5,14 @@ import PickerForm from "../PickerForm/PickerForm";
 import DoctorCardList from "../DoctorCardList/DoctorCardList";
 import GoogleMapContain from "../GoogleMapContain/GoogleMapContain";
 import Fetch from "../../fetch";
-import { Form, Formik } from "formik";
+import { Form, Formik, Field } from "formik";
 import AddressPickForm from "../AddressPickForm/AddressPickForm";
 import { Modal, notification, Spin } from "antd";
 import OpenDoctorCard from "../OpenDoctorCard/OpenDoctorCard";
 import { useNavigate } from "react-router-dom";
 import BackNextButton from "../BackNextButton/BackNextButton";
-import { doc } from "firebase/firestore";
 import DepartmentPick from "../DepartmentPick/DepartmentPick";
+import { AntSelect } from "../CreateAntField/CreateAntField";
 
 const BookApTab1 = (props) => {
   const navigate = useNavigate();
@@ -28,11 +28,26 @@ const BookApTab1 = (props) => {
     province: "",
     city: "",
     ward: "",
-  });
-
-  const [DepartmentValues, setDepartmentValues] = useState({
     department: "",
   });
+
+  const DepartmentData = [
+    {
+      name: "A",
+    },
+    {
+      name: "B",
+    },
+    {
+      name: "C",
+    },
+    {
+      name: "D",
+    },
+    {
+      name: "E",
+    },
+  ];
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -143,23 +158,24 @@ const BookApTab1 = (props) => {
       setDoctorData(
         InitDoctorData.filter((x) => x.ward === addressValues.ward)
       );
-    } else if (addressValues?.city) {
+    }
+    if (addressValues?.city) {
       setDoctorData(
         InitDoctorData.filter((x) => x.city === addressValues.city)
       );
-    } else if (addressValues?.province) {
+    }
+    if (addressValues?.province) {
       setDoctorData(
         InitDoctorData.filter((x) => x.province === addressValues.province)
       );
     }
-    if (DepartmentValues?.department) {
+    if (addressValues?.department) {
       setDoctorData(
-        InitDoctorData.filter(
-          (x) => x.department === DepartmentValues.department
-        )
+        DoctorData.filter((x) => x.department === addressValues.department)
       );
     }
-  }, [JSON.stringify(DepartmentValues), JSON.stringify(addressValues)]);
+    console.log(addressValues);
+  }, [JSON.stringify(addressValues)]);
 
   const formDatas = [
     {
@@ -192,7 +208,7 @@ const BookApTab1 = (props) => {
         </TabList>
         <Spin spinning={isLoading} tip={"Loading..."}>
           <TabPanel>
-            <div className = 'wrap-picker '>
+            <div className="wrap-picker ">
               <div className="picker ">
                 <Formik initialValues={addressValues}>
                   {(props) => (
@@ -201,32 +217,50 @@ const BookApTab1 = (props) => {
                         addressValues={addressValues}
                         setAddressValues={setAddressValues}
                         requiredFields={false}
-                        style = {{
-                          width: '200px'
+                        style={{
+                          width: "200px",
                         }}
                         {...props}
                       />
-                    </Form>
-                  )}
-                </Formik>
-                <Formik initialValues={DepartmentValues}>
-                  {(props) => (
-                    <Form>
-                      <DepartmentPick
-                        DepartmentValues={DepartmentValues}
-                        setDepartmentValues={setDepartmentValues}
-                        requiredFields={false}
-                        style = {{
-                          width: '200px'
-                        }}
-                        {...props}
+                      <Field
+                        component={AntSelect}
+                        name="department"
+                        label="Chọn Khoa"
+                        validate={() => false}
+                        tokenSeparators={[","]}
+                        hasFeedback
+                        showSearch
+                        submitCount={props.submitCount}
+                        filterSort={(optionA, optionB) =>
+                          (optionA?.label ?? "")
+                            .toLowerCase()
+                            .localeCompare((optionB?.label ?? "").toLowerCase())
+                        }
+                        options={
+                          DepartmentData
+                            ? DepartmentData.map((department) => ({
+                                value: department.name,
+                                label: department.name,
+                              }))
+                            : []
+                        }
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        onSelect={(value) =>
+                          setAddressValues({
+                            ...addressValues,
+                            department: value,
+                          })
+                        }
                       />
                     </Form>
                   )}
                 </Formik>
               </div>
             </div>
-
 
             <DoctorCardList
               DoctorData={DoctorData}
@@ -267,15 +301,36 @@ const BookApTab1 = (props) => {
             </Modal>
           </TabPanel>
           <TabPanel>
-            <div className = 'tw-flex tw-justify-center tw-mt-6'>
-              <Formik initialValues={DepartmentValues}>
+            <div className="tw-flex tw-justify-center tw-mt-6">
+              <Formik initialValues={addressValues}>
                 {(props) => (
                   <Form>
-                    <DepartmentPick
-                      DepartmentValues={DepartmentValues}
-                      setDepartmentValues={setDepartmentValues}
-                      requiredFields={false}
-                      {...props}
+                    <Field
+                      component={AntSelect}
+                      name="department"
+                      label="Chọn Khoa"
+                      validate={(value) => false}
+                      tokenSeparators={[","]}
+                      hasFeedback
+                      showSearch
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? "")
+                          .toLowerCase()
+                          .localeCompare((optionB?.label ?? "").toLowerCase())
+                      }
+                      options={
+                        DepartmentData
+                          ? DepartmentData.map((department) => ({
+                              value: department.name,
+                              label: department.name,
+                            }))
+                          : []
+                      }
+                      filterOption={(input, option) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
                     />
                   </Form>
                 )}
