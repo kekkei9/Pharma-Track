@@ -8,6 +8,8 @@ import { Button, Row, Col, Divider, Typography, Spin } from "antd";
 import { useState } from "react";
 import Fetch from "../../fetch";
 import { getUserData } from "../../firebase";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StaffProfilePage from "../StaffProfilePage/StaffProfilePage";
 
 const AppointmentProfilePage = (props) => {
@@ -98,12 +100,12 @@ const AppointmentProfilePage = (props) => {
 
   return (
     <div className="AppointmentProfilePage tw-flex tw-flex-col tw-items-center tw-mb-8">
-      <BackButton />
+      <BackButton className="tw-m-8 tw-ml-20" />
       <Spin spinning={isLoading}>
         <div className="tw-flex tw-flex-row">
           {user.role === "user" ? (
             <div className="profile-container tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50 tw-justify-around">
-              <div className="tw-text-2xl tw-font-bold">
+              <div className="tw-text-2xl tw-font-bold tw-mb-4">
                 Thông tin phòng khám
               </div>
               <div className="tw-flex tw-flex-col tw-items-center">
@@ -111,12 +113,12 @@ const AppointmentProfilePage = (props) => {
                   src={`${process.env.PUBLIC_URL}/assets/clinic real img.jpg`}
                   alt="clinic real img"
                   width="90px"
-                  className="tw-rounded-3xl"
+                  className="tw-mb-4"
                 />
                 <div className="tw-text-3xl">{clinicData?.name_clinic}</div>
               </div>
               <Divider />
-              <div className="tw-text-xl">
+              <div className="tw-text-xl tw-w-fit">
                 <Row>
                   <Col span={12}>Tên chủ phòng khám: </Col>
                   <Col span={12}>{clinicData?.name_doctor}</Col>
@@ -138,48 +140,68 @@ const AppointmentProfilePage = (props) => {
               </div>
             </div>
           ) : (
-            <div className="profile-container tw-ml-8 tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50 tw-justify-around">
-              <div className="tw-text-2xl tw-font-bold">
-                Thông tin bệnh nhân
+            <div className="tw-ml-8 tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-row  tw-bg-slate-50 tw-items-center">
+              <div className="tw-flex tw-flex-col tw-items-center tw-justify-around">
+                <div className="tw-text-2xl tw-font-bold tw-mb-4">
+                  Thông tin bệnh nhân
+                </div>
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
+                  alt="dogtor"
+                  style={{
+                    borderRadius: "9999px",
+                    border: "solid 4px #e1e1e1",
+                    width: "170px",
+                    marginBottom: "16px",
+                  }}
+                />
+                <Typography.Title level={2} style={{ margin: 0 }}>
+                  {userData?.username}
+                </Typography.Title>
+                <Typography.Title level={5} style={{ margin: "8px 0" }}>
+                  Mã đặt chỗ:{" "}
+                  {params?.appointmentId?.substring(0, 8).concat("...")}
+                </Typography.Title>
+                <Button
+                  type="default"
+                  onClick={() =>
+                    navigator.clipboard.writeText(params.appointmentId)
+                  }
+                >
+                  Sao chép mã đặt chỗ
+                </Button>
               </div>
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
-                alt="dogtor"
-                style={{
-                  borderRadius: "9999px",
-                  border: "solid 4px #e1e1e1",
-                  width: "170px",
-                  marginBottom: "16px",
-                }}
-              />
-              <Typography.Title level={2} style={{ margin: 0 }}>
-                {userData?.username}
-              </Typography.Title>
 
-              <Divider />
+              {/* <Divider type="vertical" /> */}
 
-              <Typography.Title level={5} style={{ margin: 0 }}>
-                Số điện thoại: {userData?.phonenumber}
-              </Typography.Title>
-              <Typography.Title level={5} style={{ margin: "8px 0 0 0" }}>
-                Giới tính: {userData?.gender}
-              </Typography.Title>
-              <Typography.Title
-                level={5}
-                style={{ margin: "8px 0 0 0", textAlign: "center" }}
-              >
-                Địa chỉ: {userData?.address}
-              </Typography.Title>
-              <Typography.Title level={5} style={{ margin: "8px 0 0 0" }}>
-                Căn cước công dân: {userData?.cccd}
-              </Typography.Title>
-              <Typography.Title level={5} style={{ margin: "8px 0 0 0" }}>
-                Ngày sinh: {userData?.birthday}
-              </Typography.Title>
+              <div className="tw-flex tw-flex-col tw-ml-8">
+                <Row>
+                  <Col span={12}>Số điện thoại:</Col>
+                  <Col span={12}>{userData?.phonenumber}</Col>
+                </Row>
+                <Row>
+                  <Col span={12}>Giới tính:</Col>
+                  <Col span={12}>{userData?.gender}</Col>
+                </Row>
+                <Row>
+                  <Col span={12}>Địa chỉ:</Col>
+                  <Col span={12}>{userData?.address}</Col>
+                </Row>
+                <Row>
+                  <Col span={12}>Căn cước công dân:</Col>
+                  <Col span={12}>{userData?.cccd}</Col>
+                </Row>
+                <Row>
+                  <Col span={12}>Ngày sinh:</Col>
+                  <Col span={12}>{userData?.birthday}</Col>
+                </Row>
+              </div>
             </div>
           )}
           <div className="profile-container tw-ml-8 tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50 tw-justify-around">
-            <div className="tw-text-2xl tw-font-bold">Thông tin bác sĩ</div>
+            <div className="tw-text-2xl tw-font-bold tw-mb-4">
+              Thông tin bác sĩ
+            </div>
 
             <img
               src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
@@ -194,17 +216,13 @@ const AppointmentProfilePage = (props) => {
             <Typography.Title level={2} style={{ margin: 0 }}>
               {doctorData?.name}
             </Typography.Title>
-            <Typography.Title
-              level={5}
-              italic
-              style={{ margin: 0, marginTop: "8px", color: "rgb(6 182 212)" }}
-            >
+            <Typography.Title level={5} style={{ margin: 0, marginTop: "8px" }}>
               {doctorData?.type}
             </Typography.Title>
 
-            {user.role === "staff" && (
+            {user.role === "staff" ? (
               <div className="tw-flex tw-flex-col tw-items-center">
-                <Typography.Title level={5} italic style={{ margin: "8px 0" }}>
+                <Typography.Title level={5} style={{ margin: "8px 0" }}>
                   Mã nhân viên:{" "}
                   {doctorData?.id_staff?.substring(0, 8).concat("...")}
                 </Typography.Title>
@@ -217,34 +235,37 @@ const AppointmentProfilePage = (props) => {
                   Sao chép ID
                 </Button>
               </div>
+            ) : (
+              <div className="tw-flex tw-flex-col tw-items-center tw-w-full">
+                <Divider />
+
+                <div className="tw-text-base">
+                  Số điện thoại: {doctorData?.number}
+                </div>
+                <div className="tw-text-base">
+                  Khoa: {doctorData?.department}
+                </div>
+              </div>
             )}
-
-            <Divider />
-
-            <Typography.Title level={5} style={{ margin: 0 }}>
-              Số điện thoại: {doctorData?.number}
-            </Typography.Title>
-            <Typography.Title level={5} style={{ margin: "8px 0" }}>
-              Khoa: {doctorData?.department}
-            </Typography.Title>
           </div>
           {user.role === "user" && (
             <div className="profile-container tw-ml-8 tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50 tw-justify-around">
-              <div className="tw-text-2xl tw-font-bold">Mã QR</div>
+              <div className="tw-text-2xl tw-font-bold tw-mb-4">Mã QR</div>
 
               <QRCode
                 id="qr-gen"
                 value={QRData}
-                size={290}
+                size={250}
                 level={"H"}
                 includeMargin={true}
               />
               <Button
-                type="default"
+                type="primary"
                 onClick={downloadQRCode}
                 className="tw-mt-5"
               >
-                Tải về
+                <FontAwesomeIcon icon={faDownload} />
+                <div className="tw-ml-2">Tải về</div>
               </Button>
             </div>
           )}

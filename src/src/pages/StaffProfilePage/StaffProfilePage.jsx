@@ -2,7 +2,15 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { notification, Spin, Button, Divider, Typography } from "antd";
+import {
+  notification,
+  Spin,
+  Button,
+  Divider,
+  Typography,
+  Col,
+  Row,
+} from "antd";
 import {
   checkUserInfoExist,
   getUidByStaffId,
@@ -14,7 +22,6 @@ import Fetch from "../../fetch";
 
 const StaffProfilePage = ({ staffId }) => {
   const navigate = useNavigate();
-  const params = useParams();
   const [staffInfo, setStaffInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,11 +67,7 @@ const StaffProfilePage = ({ staffId }) => {
           <Typography.Title level={2} style={{ margin: 0 }}>
             {staffInfo.name}
           </Typography.Title>
-          <Typography.Title
-            level={5}
-            italic
-            style={{ margin: 0, marginTop: "8px", color: "rgb(6 182 212)" }}
-          >
+          <Typography.Title level={5} style={{ margin: 0, marginTop: "8px" }}>
             {staffInfo.type}
           </Typography.Title>
           <Typography.Title level={5} italic style={{ margin: "8px 0" }}>
@@ -80,15 +83,20 @@ const StaffProfilePage = ({ staffId }) => {
 
           <Divider />
 
-          <Typography.Title level={5} style={{ margin: 0 }}>
-            Số điện thoại: {staffInfo.number}
-          </Typography.Title>
-          <Typography.Title level={5} style={{ margin: "8px 0" }}>
-            Khoa: {staffInfo.department}
-          </Typography.Title>
-          <Typography.Title level={5} style={{ margin: 0 }}>
-            Tỉnh/thành phố: {staffInfo.province}
-          </Typography.Title>
+          <div style={{ width: "67%" }}>
+            <Row>
+              <Col span={12}>Số điện thoại:</Col>
+              <Col span={12}>{staffInfo?.number}</Col>
+            </Row>
+            <Row>
+              <Col span={12}>Tỉnh/thành phố:</Col>
+              <Col span={12}>{staffInfo?.province}</Col>
+            </Row>
+            <Row>
+              <Col span={12}>Khoa:</Col>
+              <Col span={12}>{staffInfo?.department}</Col>
+            </Row>
+          </div>
         </div>
       </Spin>
     </div>

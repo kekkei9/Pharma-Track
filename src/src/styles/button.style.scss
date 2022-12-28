@@ -91,6 +91,10 @@ button.ant-btn.ant-btn-primary {
   justify-content: center;
 }
 
+button.ant-btn.ant-btn-primary {
+  background-color: "rgb(1, 122, 255)" !important;
+}
+
 button.ant-btn-background-ghost.ant-btn-dangerous {
   padding: 1.25rem 1rem;
 }
@@ -98,7 +102,7 @@ button.ant-btn-background-ghost.ant-btn-dangerous {
 .ant-popover-content .ant-popconfirm-buttons {
   display: flex;
   button.ant-btn.ant-btn-primary {
-    background-color: black;
+    background-color: black !important;
   }
 }
 
@@ -106,6 +110,6 @@ button.ant-btn-background-ghost.ant-btn-dangerous {
   display: flex;
   justify-content: center;
   button.ant-btn.ant-btn-primary {
-    background-color: black;
+    background-color: black !important;
   }
 }

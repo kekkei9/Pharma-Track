@@ -127,6 +127,8 @@ const StaffTable = ({ className, requestData, setRequestData }) => {
           onCancel={() => setModal(false)}
           footer={[]}
           width={400}
+          top={120}
+          zIndex={10002}
         >
           <StaffProfilePage staffId={currentStaffId} />
         </Modal>
