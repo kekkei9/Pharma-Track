@@ -70,7 +70,7 @@ const BookApTab3 = (props) => {
       } catch (e) {
         console.error(e);
       }
-      notification({
+      notification.error({
         message: "Đặt lịch hẹn",
         description: "Lỗi hệ thống, đang chờ xử lí",
       });
