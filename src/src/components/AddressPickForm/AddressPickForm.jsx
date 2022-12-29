@@ -126,10 +126,12 @@ const AddressPickForm = ({
         }
         options={
           provinces
-            ? provinces.map((province) => ({
-                value: province.name,
-                label: province.name,
-              }))
+            ? provinces
+                .map((province) => ({
+                  value: province.name,
+                  label: province.name,
+                }))
+                .concat({ value: "", label: "Không" })
             : []
         }
         filterOption={(input, option) =>
@@ -166,10 +168,12 @@ const AddressPickForm = ({
         }
         options={
           cities
-            ? cities.map((province) => ({
-                value: province.name,
-                label: province.name,
-              }))
+            ? cities
+                .map((province) => ({
+                  value: province.name,
+                  label: province.name,
+                }))
+                .concat({ value: "", label: "Không" })
             : []
         }
         filterOption={(input, option) =>
@@ -197,10 +201,12 @@ const AddressPickForm = ({
         }
         options={
           wards
-            ? wards.map((province) => ({
-                value: province.name,
-                label: province.name,
-              }))
+            ? wards
+                .map((province) => ({
+                  value: province.name,
+                  label: province.name,
+                }))
+                .concat({ value: "", label: "Không" })
             : []
         }
         filterOption={(input, option) =>

@@ -240,7 +240,7 @@ const BookApTab1 = (props) => {
                             ? DepartmentData.map((department) => ({
                                 value: department.name,
                                 label: department.name,
-                              }))
+                              })).concat({ value: "", label: "Không" })
                             : []
                         }
                         filterOption={(input, option) =>
@@ -322,7 +322,7 @@ const BookApTab1 = (props) => {
                           ? DepartmentData.map((department) => ({
                               value: department.name,
                               label: department.name,
-                            }))
+                            })).concat({ value: "", label: "Không" })
                           : []
                       }
                       filterOption={(input, option) =>
