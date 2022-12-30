@@ -21,7 +21,7 @@ export const validatePassword = (values) => {
   if (!values) {
     error = "Mật khẩu không được bỏ trống";
   } else if (values.length < 8) {
-    error = "Mặt khẩu phải dài ít nhất 8 kí tự";
+    error = "Mật khẩu phải dài ít nhất 8 kí tự";
   } else if (!passwordRegex.test(values)) {
     error = "Mật khẩu phải bao gồm ít nhất 1 chữ số (1-9)";
   }
