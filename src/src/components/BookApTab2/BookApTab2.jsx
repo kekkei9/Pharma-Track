@@ -9,7 +9,6 @@ const BookApTab2 = (props) => {
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  console.log(state);
 
   const bookingFormRef = useRef("a");
 

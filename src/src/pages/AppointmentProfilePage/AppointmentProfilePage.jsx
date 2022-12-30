@@ -72,6 +72,9 @@ const AppointmentProfilePage = (props) => {
             ),
           ]
         );
+        var t = new Date(1970, 0, 1); // Epoch
+        t.setSeconds(responseUser?.birthday?.seconds);
+        responseUser.birthday = t.toLocaleDateString("en-GB");
 
         setUserData(responseUser);
         setDoctorData(responeDoctor[0]);

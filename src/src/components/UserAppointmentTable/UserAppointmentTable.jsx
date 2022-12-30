@@ -71,26 +71,28 @@ const UserAppointmentTable = (props) => {
   }, [uid]);
 
   return (
-    <div className="UserAppointmentTable tw-w-2/3 center-screen tw-mt-5">
-      <div className="booking tw-flex tw-justify-center tw-mb-5 tw-font-bold tw-text-4xl ">
-        Lịch hẹn của bạn
+    <div className="UserAppointmentTable tw-flex tw-flex-col tw-items-center">
+      <div className="tw-w-2/3 tw-mt-5">
+        <div className="booking tw-flex tw-justify-center tw-mb-5 tw-font-bold tw-text-4xl ">
+          Lịch hẹn của bạn
+        </div>
+        <Spin spinning={isLoading}>
+          <Table
+            className="staff-table"
+            onRow={(record) => ({
+              onDoubleClick: () => {
+                navigate(`/${user.role}/appointment/${record.id_appointment}`);
+              },
+            })}
+            rowClassName={(record, index) =>
+              index % 2 === 0 ? "table-row-light" : "table-row-dark"
+            }
+            columns={columns}
+            dataSource={userAppointment}
+            pagination={{ pageSize: 6 }}
+          />
+        </Spin>
       </div>
-      <Spin spinning={isLoading}>
-        <Table
-          className="staff-table"
-          onRow={(record) => ({
-            onDoubleClick: () => {
-              navigate(`/${user.role}/appointment/${record.id_appointment}`);
-            },
-          })}
-          rowClassName={(record, index) =>
-            index % 2 === 0 ? "table-row-light" : "table-row-dark"
-          }
-          columns={columns}
-          dataSource={userAppointment}
-          pagination={{ pageSize: 6 }}
-        />
-      </Spin>
     </div>
   );
 };

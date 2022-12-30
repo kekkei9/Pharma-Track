@@ -33,8 +33,6 @@ const GoogleMapContain = ({
 
   const location = GetAddress();
 
-  console.log(currentDoctor);
-
   // const [time, setTime] = useState(-1);
 
   //Google Map Handle

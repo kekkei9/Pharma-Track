@@ -31,7 +31,7 @@ const BookApTab3 = (props) => {
         postData.test = "Test1";
         postData.number = currentDoctor.number;
         postData.address = `${currentDoctor.address}, ${currentDoctor.ward}, ${currentDoctor.city}, ${currentDoctor.province}`;
-        postData.status = "queued";
+        postData.status = "Chờ khám";
         postData.id_clinic = currentDoctor.id_clinic;
         postData.id_user = user.uid;
         postData.id_staff = currentDoctor.id_staff;
@@ -41,13 +41,28 @@ const BookApTab3 = (props) => {
           "https://pharma-track.onrender.com/api/v1/appointment",
           postData
         );
-        console.log(response);
 
         if (response.results === "thanh cong") {
           notification.success({
             message: "Đăng kí lịch hẹn",
-            description: "Đăng kí lịch hẹn thành công",
+            description: "Đăng kí thông tin thành công",
           });
+
+          const response = await Fetch(
+            "PUT",
+            "https://pharma-track.onrender.com/api/v1/doctortime/updateDoctorShift",
+            {
+              id_doctortime: "7b8f78f4-b9b8-4c99-8a8d-108035733333",
+              shift: time.shift,
+              action: "booked",
+            }
+          );
+          if (response.results === "thanh cong") {
+            notification.success({
+              message: "Đăng kí lịch hẹn",
+              description: "Đăng kí lịch hẹn thành công",
+            });
+          }
 
           const userData = (({ address, cccd, gender, phonenumber }) => ({
             address,
@@ -56,7 +71,7 @@ const BookApTab3 = (props) => {
             phonenumber,
           }))(userFormValues);
 
-          userData.birthday = userFormValues.birthday.$d.substring(0, 10);
+          userData.birthday = userFormValues.birthday.$d;
 
           await updateUserInfo(user.uid, userData);
           notification.success({
@@ -66,6 +81,7 @@ const BookApTab3 = (props) => {
           localStorage.removeItem("bookingState");
 
           navigate("/home");
+          return;
         }
       } catch (e) {
         console.error(e);
