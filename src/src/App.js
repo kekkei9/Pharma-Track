@@ -3,7 +3,7 @@ import './styles/table.style.scss'
 import './styles/img.style.scss'
 
 import React, { Suspense } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import './App.scss'
 import store from './redux/store'
@@ -13,7 +13,7 @@ import Footer from './components/Footer/Footer'
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <Suspense fallback="loading">
           <Header />
@@ -21,7 +21,7 @@ function App() {
           <Footer/>
         </Suspense>
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

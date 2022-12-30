@@ -10,8 +10,6 @@ const PATH = {
   BOOK_AP_PATH_STEP3: '/bookap3',
 
   PAY_MENT:'/create_payment_url1',
-
-
   
   STAFF_TABLE_PATH: '/host/staffTable',
 
