@@ -149,7 +149,7 @@ const AppointmentProfilePage = (props) => {
                   Thông tin bệnh nhân
                 </div>
                 <img
-                  src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
+                  src={`${process.env.PUBLIC_URL}/assets/userProfile.jpg`}
                   alt="dogtor"
                   style={{
                     borderRadius: "9999px",
