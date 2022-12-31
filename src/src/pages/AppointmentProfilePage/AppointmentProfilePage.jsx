@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import BackButton from "../../components/BackButton/BackButton";
 import "./AppointmentProfilePage.scss";
 import QRCode from "qrcode.react";
@@ -14,6 +14,8 @@ import StaffProfilePage from "../StaffProfilePage/StaffProfilePage";
 
 const AppointmentProfilePage = (props) => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { disabled } = state;
   const { user } = useSelector((state) => state.authentication);
   const params = useParams();
   const [QRData, setQRData] = useState("");
@@ -103,9 +105,9 @@ const AppointmentProfilePage = (props) => {
 
   return (
     <div className="AppointmentProfilePage tw-flex tw-flex-col tw-items-center tw-mb-8">
-      <BackButton className="tw-m-8 tw-ml-20" />
+      {!disabled && <BackButton className="tw-ml-20" />}
       <Spin spinning={isLoading}>
-        <div className="tw-flex tw-flex-row">
+        <div className="tw-flex tw-flex-row tw-m-8">
           {user.role === "user" ? (
             <div className="profile-container tw-shadow tw-shadow-slate-400 tw-p-8 tw-flex tw-flex-col tw-items-center tw-bg-slate-50 tw-justify-around">
               <div className="tw-text-2xl tw-font-bold tw-mb-4">

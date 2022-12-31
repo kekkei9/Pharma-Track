@@ -36,13 +36,13 @@ const BookApTab3 = (props) => {
         postData.id_user = user.uid;
         postData.id_staff = currentDoctor.id_staff;
 
-        const response = await Fetch(
+        const responseAppointment = await Fetch(
           "POST",
           "https://pharma-track.onrender.com/api/v1/appointment",
           postData
         );
 
-        if (response.results === "thanh cong") {
+        if (responseAppointment.results === "thanh cong") {
           notification.success({
             message: "Đăng kí lịch hẹn",
             description: "Đăng kí thông tin thành công",
@@ -80,7 +80,10 @@ const BookApTab3 = (props) => {
           });
           localStorage.removeItem("bookingState");
 
-          navigate("/home");
+          navigate(
+            `/user/appointment/${responseAppointment.data.id_appointment}`,
+            { state: { disabled: true } }
+          );
           return;
         }
       } catch (e) {
@@ -117,10 +120,11 @@ const BookApTab3 = (props) => {
             </Row>
             <Row className="header1 ">XÁC NHẬN THANH TOÁN THÀNH CÔNG</Row>
             <Row className="header2">
-              Lịch hẹn giữ chỗ của bạn đã được cập nhật, vui lòng xem thông tin
-              chi tiết
+              Thanh toán thành công, bấm 'Tiếp tục' để hoàn tất đặt lịch
             </Row>
-            <Row className="header2">tại Tổng quan {">"} Lịch hẹn của tôi</Row>
+            <Row className="header2">
+              Thông tin xem tại Tổng quan {">"} Lịch hẹn của tôi
+            </Row>
           </Col>
         </Row>
       </div>
