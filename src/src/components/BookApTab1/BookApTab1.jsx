@@ -341,6 +341,8 @@ const BookApTab1 = (props) => {
                 handleDoubleClickMap={handleDoubleClickMap}
                 currentDoctor={currentDoctor}
                 setCurrentDoctor={setCurrentDoctor}
+                id_staff = {id_staff}
+                setID = {setID}
               />
               <Modal
                 title="CHI TIẾT BÁC SĨ"

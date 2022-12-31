@@ -25,6 +25,8 @@ const GoogleMapContain = ({
   handleDoubleClickMap,
   currentDoctor,
   setCurrentDoctor,
+  id_staff,
+  setID,
 }) => {
   //declare variable
   const navigate = useNavigate();
@@ -77,6 +79,7 @@ const GoogleMapContain = ({
                   icon: `${process.env.PUBLIC_URL}/assets/cliniclogo.png`,
                 }}
                 onClick={() => {
+                  setID(doctor.id_staff);
                   setCurrentDoctor(
                     DoctorData.find((item) => {
                       return item.id_staff === doctor.id_staff;
