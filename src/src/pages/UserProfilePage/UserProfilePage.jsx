@@ -43,10 +43,10 @@ const UserProfilePage = (props) => {
                 <Row className="main-row">
                   <Col span={6}>
                     <img
-                      src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
+                      src={`${process.env.PUBLIC_URL}/assets/userProfile.jpg`}
                       alt="user"
-                      width="100px"
-                      className="tw-rounded-full"
+                      width="150px"
+                      className="tw-rounded-full tw-border-4 tw-border-gray-300"
                     />
                   </Col>
 
@@ -60,7 +60,7 @@ const UserProfilePage = (props) => {
                     </Row>
                     <Row>
                       {" "}
-                      <div className="tw-text-base tw-text-[#06b6d4]">
+                      <div className="tw-text-xl tw-text-[#06b6d4]">
                         {RoleName[userData.role]}
                       </div>{" "}
                     </Row>
@@ -70,42 +70,42 @@ const UserProfilePage = (props) => {
                       <Col className="col-infor" span={12}>
                         ID{" "}
                       </Col>
-                      <Col span={12}>{userData.userId}123</Col>
+                      <Col span={12} className="col-infor-2">{userData.userId}123</Col>
                     </Row>
                     <Row>
                       {" "}
                       <Col className="col-infor" span={12}>
                         Họ tên{" "}
                       </Col>
-                      <Col span={12}>{userData.username}</Col>
+                      <Col span={12} className="col-infor-2">{userData.username}</Col>
                     </Row>
                     <Row>
                       {" "}
                       <Col className="col-infor" span={12}>
                         Email{" "}
                       </Col>
-                      <Col span={12}>{userData.email}</Col>
+                      <Col span={12} className="col-infor-2">{userData.email}</Col>
                     </Row>
                     <Row>
                       {" "}
                       <Col className="col-infor" span={12}>
                         Số điện thoại{" "}
                       </Col>
-                      <Col span={12}>0932341123</Col>
+                      <Col span={12} className="col-infor-2">0932341123</Col>
                     </Row>
                     <Row>
                       {" "}
                       <Col className="col-infor" span={12}>
                         Chức vụ{" "}
                       </Col>
-                      <Col span={12}>{RoleName[userData.role]}</Col>
+                      <Col span={12} className="col-infor-2">{RoleName[userData.role]}</Col>
                     </Row>
                     <Row>
                       {" "}
                       <Col className="col-infor" span={12}>
                         Tỉnh thành{" "}
                       </Col>
-                      <Col span={12}>{userData?.province}</Col>
+                      <Col span={12} className="col-infor-2">{userData?.province}</Col>
                     </Row>
                   </Col>
                 </Row>

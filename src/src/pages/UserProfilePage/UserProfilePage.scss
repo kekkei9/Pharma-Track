@@ -7,17 +7,16 @@
         padding: 10px 0px 10px 0px;
          background-color:white;
         // justify-items:center ;
-         .ant-row{
-            
-         }
+       
     }
-    .main-row{
-        //width: 600px;
-    }
+   
     .col-infor{
         font-weight:  600 ;
+        font-size: 16px;
     }
-
+    .col-infor-2{
+      font-size: 16px;
+    }
     .ant-row + .ant-row {
         margin-top: 0.5rem;
       }

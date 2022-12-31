@@ -1,6 +1,6 @@
 import React from "react";
 import "./BookApTab3.scss";
-import { Button, notification } from "antd";
+import { Button, notification, Divider, Row, Col  } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackNextButton from "../BackNextButton/BackNextButton";
 import { useSelector } from "react-redux";
@@ -100,16 +100,30 @@ const BookApTab3 = (props) => {
 
   return (
     <div className="BookApTab3">
-      <div className="tw-flex tw-mt-10 tw-max-w-4xl tw-mx-auto tw-justify-between">
-        <div className="tw-border-2 tw-px-20 tw-py-20 tw-mr-5">
-          Chọn hình thức thanh toán
-        </div>
-        <div className="tw-border-2 tw-px-20 tw-py-40">
-          <div>Thanh toán thành công</div>
-          <div>Cảm ơn quý khách đã tin tưởng Pharma Track </div>
-          <div>Để nhận mã QR, nhấn tiếp tục</div>
-        </div>
-      </div>
+       <div className="shawdow-user  tw-mt-5 tw-p-8">
+        <Row >
+             
+          <Col span={12}  offset={6}  className="container-payment tw-shadow tw-shadow-slate-400" >
+            <Row className="image_finish">
+          <img
+                      src={`${process.env.PUBLIC_URL}/assets/tick.png`}
+                      alt="tick"
+                      width="150px"
+                      className="tw-rounded-full tw-mb-5"
+                    />
+          </Row>
+          <Row className="header1 ">
+            XÁC NHẬN THANH TOÁN THÀNH CÔNG
+          </Row>
+          <Row className="header2">
+            Lịch hẹn giữ chỗ của bạn đã được cập nhật, vui lòng xem thông tin chi tiết 
+          </Row>
+          <Row className="header2">
+          tại Tổng quan > Lịch hẹn của tôi
+          </Row>
+          </Col>
+        </Row>
+       </div>
 
       <BackNextButton onClickBack={onClickBack} onClickNext={onClickNext} />
     </div>
