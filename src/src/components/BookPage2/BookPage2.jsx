@@ -292,7 +292,7 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
             />
           </div>
         </div>
-        <div className="Note tw-text-red-600 tw-pl-4 tw-list-disc tw-items-center tw-w-3/5">
+        <div className="Note tw-text-red-600 tw-pl-4 tw-list-disc tw-items-center tw-w-2/3">
           <div className=" tw-font-bold tw-text-xl">Lưu ý và điều khoản:</div>
           <ul className="tw-list-disc tw-pl-5 tw-text-[16px] tw-align-center">
             <li>
