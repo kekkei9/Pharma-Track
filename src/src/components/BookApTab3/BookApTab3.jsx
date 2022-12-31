@@ -46,7 +46,7 @@ const BookApTab3 = (props) => {
         if (response.results === "thanh cong") {
           notification.success({
             message: "Đăng kí lịch hẹn",
-            description: "Đăng kí lịch hẹn thành công",
+            description: "Thanh toán thành công",
           });
 
           const userData = (({ address, cccd, gender, phonenumber }) => ({
@@ -103,7 +103,7 @@ const BookApTab3 = (props) => {
             Lịch hẹn giữ chỗ của bạn đã được cập nhật, vui lòng xem thông tin chi tiết 
           </Row>
           <Row className="header2">
-          tại Tổng quan > Lịch hẹn của tôi
+          tại Tổng quan {">"} Lịch hẹn của tôi
           </Row>
           </Col>
         </Row>

@@ -166,6 +166,7 @@ const BookPage2 = ({ handleSubmit, values, submitCount }) => {
               label="Giới tính"
               defaultValue={values.type}
               validate={isRequired("Giới tính")}
+             
               submitCount={submitCount}
               tokenSeparators={[","]}
               style={{ width: "300px" }}
