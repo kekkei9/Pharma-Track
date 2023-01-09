@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Pharma-Track/static/css/main.13c69512.css",
-    "main.js": "/Pharma-Track/static/js/main.3f812dea.js",
+    "main.js": "/Pharma-Track/static/js/main.c76e8e52.js",
     "static/js/787.0bfccc2a.chunk.js": "/Pharma-Track/static/js/787.0bfccc2a.chunk.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/Pharma-Track/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/fa-solid-900.ttf": "/Pharma-Track/static/media/fa-solid-900.b1a653db79258eeccc5d.ttf",
@@ -22,11 +22,11 @@
     "static/media/fa-v4compatibility.woff2": "/Pharma-Track/static/media/fa-v4compatibility.4ee7f902d88f819e251c.woff2",
     "index.html": "/Pharma-Track/index.html",
     "main.13c69512.css.map": "/Pharma-Track/static/css/main.13c69512.css.map",
-    "main.3f812dea.js.map": "/Pharma-Track/static/js/main.3f812dea.js.map",
+    "main.c76e8e52.js.map": "/Pharma-Track/static/js/main.c76e8e52.js.map",
     "787.0bfccc2a.chunk.js.map": "/Pharma-Track/static/js/787.0bfccc2a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.13c69512.css",
-    "static/js/main.3f812dea.js"
+    "static/js/main.c76e8e52.js"
   ]
 }
