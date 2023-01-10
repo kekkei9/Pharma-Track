@@ -28,7 +28,7 @@ const BookApNav = ({ current }) => {
             style={
               current === index
                 ? {
-                    background: "#20A0D8",
+                    background: "linear-gradient(133deg, #383f75, #f1795c)",
                     color: "white",
                   }
                 : {}

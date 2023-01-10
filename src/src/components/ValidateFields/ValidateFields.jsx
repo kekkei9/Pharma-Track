@@ -30,7 +30,7 @@ export const validatePassword = (values) => {
 
 export const validateConfirmPassword = (pass, value) => {
   let error = "";
-  if (pass && value) {
+  if (pass) {
     if (pass !== value) {
       error = "Mật khẩu nhập lại không đúng";
     }

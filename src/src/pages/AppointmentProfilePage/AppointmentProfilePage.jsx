@@ -15,7 +15,7 @@ import StaffProfilePage from "../StaffProfilePage/StaffProfilePage";
 const AppointmentProfilePage = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { disabled } = state;
+  const disabled = state?.disabled || false;
   const { user } = useSelector((state) => state.authentication);
   const params = useParams();
   const [QRData, setQRData] = useState("");
