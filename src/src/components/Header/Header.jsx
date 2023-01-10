@@ -7,6 +7,7 @@ import { signOutUser } from "../../firebase";
 import { Dropdown, notification } from "antd";
 import { useState } from "react";
 import NavHeader from "../NavHeader/NavHeader";
+import { useEffect } from "react";
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -14,6 +15,12 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const [nav, setNav] = useState("Trang chủ");
   const { user, isAuthUser } = useSelector((state) => state.authentication);
+
+  useEffect(() => {
+    if (location.pathname === "/bookap") {
+      setNav("Đăng kí khám bệnh");
+    }
+  }, [location]);
 
   const logOutHandler = async () => {
     await signOutUser();
@@ -28,6 +35,7 @@ const Header = (props) => {
         p.indexOf(location.pathname)
       )
     ) {
+      setNav("Trang chủ");
       navigate("/home");
     }
   };
@@ -95,7 +103,10 @@ const Header = (props) => {
     <div className="Header tw-px-24 tw-flex tw-flex-row tw-p-5 tw-fixed tw-top-0 tw-justify-between tw-items-center">
       <div
         className="Dogtor tw-flex tw-flex-row tw-items-center"
-        onClick={() => navigate("/home")}
+        onClick={() => {
+          setNav("Trang chủ");
+          navigate("/home");
+        }}
       >
         <img
           src={`${process.env.PUBLIC_URL}/assets/dogtor.png`}
@@ -155,7 +166,10 @@ const Header = (props) => {
         {!isAuthUser && (
           <div
             className="header_primary-btn"
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              setNav("Đăng nhập");
+              navigate("/login");
+            }}
           >
             Đăng nhập
           </div>
