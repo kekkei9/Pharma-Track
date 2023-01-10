@@ -19,6 +19,16 @@ const Header = (props) => {
   useEffect(() => {
     if (location.pathname === "/bookap") {
       setNav("Đăng kí khám bệnh");
+    } else if (location.pathname === "/login") {
+      setNav("Đăng nhập");
+    } else if (location.pathname.includes("/signup")) {
+      setNav("Đăng kí");
+    } else if (
+      ["/host", "/staff", "/user"].some((p) => location.pathname.includes(p))
+    ) {
+      setNav("Tổng quan");
+    } else {
+      setNav("Trang chủ");
     }
   }, [location]);
 
@@ -32,10 +42,10 @@ const Header = (props) => {
     });
     if (
       ["/host", "/staff", "/user", "/bookap"].some((p) =>
-        p.indexOf(location.pathname)
+        location.pathname.includes(p)
       )
     ) {
-      setNav("Trang chủ");
+      // setNav("Trang chủ");
       navigate("/home");
     }
   };
@@ -104,7 +114,7 @@ const Header = (props) => {
       <div
         className="Dogtor tw-flex tw-flex-row tw-items-center"
         onClick={() => {
-          setNav("Trang chủ");
+          // setNav("Trang chủ");
           navigate("/home");
         }}
       >
@@ -167,7 +177,7 @@ const Header = (props) => {
           <div
             className="header_primary-btn"
             onClick={() => {
-              setNav("Đăng nhập");
+              // setNav("Đăng nhập");
               navigate("/login");
             }}
           >
