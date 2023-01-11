@@ -267,7 +267,7 @@ const AppointmentProfilePage = (props) => {
               <Button
                 type="primary"
                 onClick={downloadQRCode}
-                className="tw-mt-5"
+                className="tw-mt-5  QR-btn"
               >
                 <FontAwesomeIcon icon={faDownload} />
                 <div className="tw-ml-2">Tải về</div>

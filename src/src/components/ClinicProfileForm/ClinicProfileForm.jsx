@@ -106,7 +106,13 @@ const ClinicProfileForm = ({
           )}
 
           <div className="tw-flex tw-flex-row tw-m-4">
-            <Button type="primary" danger ghost htmlType="reset">
+            <Button
+              type="primary"
+              danger
+              ghost
+              htmlType="reset"
+              className="isTrans"
+            >
               Đặt lại
             </Button>
             <Popconfirm
